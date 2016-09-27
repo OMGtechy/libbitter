@@ -5,11 +5,13 @@ PROJECT(test_bitter)
 ADD_EXECUTABLE(
     test_bitter
     source/test_bitter_main.cpp
+    source/test_bitter_readwrite.cpp
 )
 
 INCLUDE_DIRECTORIES(
     test_bitter
     dependencies/Catch/single_include
+    ../include
 )
 
 TARGET_COMPILE_FEATURES(
