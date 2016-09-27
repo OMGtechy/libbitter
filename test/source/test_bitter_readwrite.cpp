@@ -46,6 +46,27 @@ namespace bitter {
                     }
                 }
             }
+
+            GIVEN("a single byte with a complex bit pattern") {
+                const char byte = 0b01100011;
+
+                WHEN("a bit reader is created to read it") {
+                    BitReader bitReader(&byte, sizeof(byte));
+
+                    WHEN("bits 0 through 7 (inclusive) are read") {
+                        THEN("the correct values should be returned") {
+                            REQUIRE(bitReader.getBitNumber(0) == Bit::One);
+                            REQUIRE(bitReader.getBitNumber(1) == Bit::One);
+                            REQUIRE(bitReader.getBitNumber(2) == Bit::Zero);
+                            REQUIRE(bitReader.getBitNumber(3) == Bit::Zero);
+                            REQUIRE(bitReader.getBitNumber(4) == Bit::Zero);
+                            REQUIRE(bitReader.getBitNumber(5) == Bit::One);
+                            REQUIRE(bitReader.getBitNumber(6) == Bit::One);
+                            REQUIRE(bitReader.getBitNumber(7) == Bit::Zero);
+                        }
+                    }
+                }
+            }
         } 
     }
 }
