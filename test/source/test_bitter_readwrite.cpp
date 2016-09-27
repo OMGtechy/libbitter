@@ -8,10 +8,10 @@ namespace bitter {
     namespace test {
         SCENARIO("bits can be read from a target") {
             GIVEN("a single byte with all zeros") {
-                const uint8_t byte = 0b00000000;
+                constexpr uint8_t byte = 0b00000000;
 
                 WHEN("when a bit reader is created to read it") {
-                    BitReader bitReader(&byte, sizeof(byte));
+                    const BitReader bitReader(&byte, sizeof(byte));
 
                     WHEN("bits 0 through 7 (inclusive) are read") {
                         THEN("it should always return Bit::Zero") {
@@ -29,10 +29,10 @@ namespace bitter {
             }
 
             GIVEN("a single byte with all ones") {
-                const uint8_t byte = 0b11111111;
+                constexpr uint8_t byte = 0b11111111;
 
                 WHEN("when a bit reader is created to read it") {
-                    BitReader bitReader(&byte, sizeof(byte));
+                    const BitReader bitReader(&byte, sizeof(byte));
 
                     WHEN("bits 0 through 7 (inclusive) are read") {
                         THEN("it should always return Bit::One") {
@@ -50,10 +50,10 @@ namespace bitter {
             }
 
             GIVEN("a single byte with a complex bit pattern") {
-                const uint8_t byte = 0b01100011;
+                constexpr uint8_t byte = 0b01100011;
 
                 WHEN("a bit reader is created to read it") {
-                    BitReader bitReader(&byte, sizeof(byte));
+                    const BitReader bitReader(&byte, sizeof(byte));
 
                     WHEN("bits 0 through 7 (inclusive) are read") {
                         THEN("the correct values should be returned") {
@@ -71,10 +71,10 @@ namespace bitter {
             }
 
             GIVEN("multiple bytes") {
-                const uint8_t bytes[] = { 0b01010101, 0b10101010, 0b11110000, 0b00001111 };
+                constexpr uint8_t bytes[] = { 0b01010101, 0b10101010, 0b11110000, 0b00001111 };
 
                 WHEN("a bit reader is created to read them") {
-                    BitReader bitReader(&bytes, sizeof(bytes));
+                    const BitReader bitReader(&bytes, sizeof(bytes));
 
                     WHEN("each bit is read") {
                         THEN("the correct values should be returned") {
