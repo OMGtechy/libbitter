@@ -13,14 +13,14 @@ namespace bitter {
 
                     WHEN("bits 0 through 7 (inclusive) are read") {
                         THEN("it should always return Bit::Zero") {
-                            REQUIRE(bitReader.getBitNumber(0) == Bit::Zero);
-                            REQUIRE(bitReader.getBitNumber(1) == Bit::Zero);
-                            REQUIRE(bitReader.getBitNumber(2) == Bit::Zero);
-                            REQUIRE(bitReader.getBitNumber(3) == Bit::Zero);
-                            REQUIRE(bitReader.getBitNumber(4) == Bit::Zero);
-                            REQUIRE(bitReader.getBitNumber(5) == Bit::Zero);
-                            REQUIRE(bitReader.getBitNumber(6) == Bit::Zero);
-                            REQUIRE(bitReader.getBitNumber(7) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(0) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(1) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(2) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(3) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(4) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(5) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(6) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(7) == Bit::Zero);
                         } 
                     }
                 }
@@ -34,14 +34,14 @@ namespace bitter {
 
                     WHEN("bits 0 through 7 (inclusive) are read") {
                         THEN("it should always return Bit::One") {
-                            REQUIRE(bitReader.getBitNumber(0) == Bit::One);
-                            REQUIRE(bitReader.getBitNumber(1) == Bit::One);
-                            REQUIRE(bitReader.getBitNumber(2) == Bit::One);
-                            REQUIRE(bitReader.getBitNumber(3) == Bit::One);
-                            REQUIRE(bitReader.getBitNumber(4) == Bit::One);
-                            REQUIRE(bitReader.getBitNumber(5) == Bit::One);
-                            REQUIRE(bitReader.getBitNumber(6) == Bit::One);
-                            REQUIRE(bitReader.getBitNumber(7) == Bit::One);
+                            REQUIRE(bitReader.getBit(0) == Bit::One);
+                            REQUIRE(bitReader.getBit(1) == Bit::One);
+                            REQUIRE(bitReader.getBit(2) == Bit::One);
+                            REQUIRE(bitReader.getBit(3) == Bit::One);
+                            REQUIRE(bitReader.getBit(4) == Bit::One);
+                            REQUIRE(bitReader.getBit(5) == Bit::One);
+                            REQUIRE(bitReader.getBit(6) == Bit::One);
+                            REQUIRE(bitReader.getBit(7) == Bit::One);
                         }
                     }
                 }
@@ -55,14 +55,14 @@ namespace bitter {
 
                     WHEN("bits 0 through 7 (inclusive) are read") {
                         THEN("the correct values should be returned") {
-                            REQUIRE(bitReader.getBitNumber(0) == Bit::One);
-                            REQUIRE(bitReader.getBitNumber(1) == Bit::One);
-                            REQUIRE(bitReader.getBitNumber(2) == Bit::Zero);
-                            REQUIRE(bitReader.getBitNumber(3) == Bit::Zero);
-                            REQUIRE(bitReader.getBitNumber(4) == Bit::Zero);
-                            REQUIRE(bitReader.getBitNumber(5) == Bit::One);
-                            REQUIRE(bitReader.getBitNumber(6) == Bit::One);
-                            REQUIRE(bitReader.getBitNumber(7) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(0) == Bit::One);
+                            REQUIRE(bitReader.getBit(1) == Bit::One);
+                            REQUIRE(bitReader.getBit(2) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(3) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(4) == Bit::Zero);
+                            REQUIRE(bitReader.getBit(5) == Bit::One);
+                            REQUIRE(bitReader.getBit(6) == Bit::One);
+                            REQUIRE(bitReader.getBit(7) == Bit::Zero);
                         }
                     }
                 }

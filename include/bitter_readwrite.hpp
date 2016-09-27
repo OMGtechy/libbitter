@@ -15,7 +15,7 @@ namespace bitter {
         }
 
 
-        Bit getBitNumber(const size_t bitNumber) const {
+        Bit getBit(const size_t bitNumber) const {
             return (*m_source & (1 << bitNumber)) ? Bit::One : Bit::Zero;
         }
 
