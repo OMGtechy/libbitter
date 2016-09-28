@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include <bitter_readwrite.hpp>
+#include <bitter_read.hpp>
 
 namespace bitter {
     namespace test {
@@ -10,7 +10,7 @@ namespace bitter {
             GIVEN("a single byte with all zeros") {
                 constexpr uint8_t byte = 0b00000000;
 
-                WHEN("when a bit reader is created to read it") {
+                WHEN("a bit reader is created to read it") {
                     const BitReader bitReader(&byte, sizeof(byte));
 
                     WHEN("bits 0 through 7 (inclusive) are read") {

@@ -1,11 +1,8 @@
 #pragma once
 
-namespace bitter {
-    enum class Bit {
-        Zero = 0,
-        One = 1
-    };
+#include <bitter_bit.hpp>
 
+namespace bitter {
     class BitReader {
     public:
         template <typename T>
@@ -27,5 +24,6 @@ namespace bitter {
         const char* const m_source;
         const size_t m_sourceBytes;
     };
+
 }
 

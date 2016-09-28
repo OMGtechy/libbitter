@@ -5,7 +5,8 @@ PROJECT(test_bitter)
 ADD_EXECUTABLE(
     test_bitter
     source/test_bitter_main.cpp
-    source/test_bitter_readwrite.cpp
+    source/test_bitter_read.cpp
+    source/test_bitter_write.cpp
 )
 
 INCLUDE_DIRECTORIES(
