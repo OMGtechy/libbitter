@@ -12,6 +12,7 @@ addons:
             - george-edison55-precise-backports
         packages:
             - cmake
+            - cmake-data
             - g++-5
             - gcc-5
             - clang-3.8
