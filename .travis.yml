@@ -9,13 +9,12 @@ addons:
         sources:
             - llvm-toolchain-precise
             - ubuntu-toolchain-r-test
-            - kalakris-cmake
+            - george-edison55-precise-backports
         packages:
             - cmake
             - g++-5
             - gcc-5
             - clang-3.8
-            - git
 
 before_script:
     - if [ "$CXX" = "g++" ];     then export CXX="g++-5"       CC="gcc-5";     fi
