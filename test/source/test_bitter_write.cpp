@@ -81,8 +81,80 @@ namespace bitter {
                 }
             }
 
-            // TODO:
-            // multi byte test
+            GIVEN("multiple bytes") {
+                uint8_t bytes[] = { 0b11000011, 0b11001100, 0b00110011 };
+                REQUIRE(bytes[0] == 195);
+                REQUIRE(bytes[1] == 204);
+                REQUIRE(bytes[2] == 51);
+
+                WHEN(" a bit writer is created to write to them") {
+                    BitWriter bitWriter(&bytes, sizeof(bytes));
+
+                    WHEN("the bits are written to") {
+                        THEN("the byte values change accordingly") {
+                            bitWriter.setBit(0, Bit::Zero);
+                            REQUIRE(bytes[0] == 194);
+                            REQUIRE(bytes[1] == 204);
+                            REQUIRE(bytes[2] == 51);
+
+                            bitWriter.setBit(1, Bit::One);
+                            REQUIRE(bytes[0] == 194);
+                            REQUIRE(bytes[1] == 204);
+                            REQUIRE(bytes[2] == 51);
+
+                            bitWriter.setBit(6, Bit::Zero);
+                            REQUIRE(bytes[0] == 130);
+                            REQUIRE(bytes[1] == 204);
+                            REQUIRE(bytes[2] == 51);
+
+                            bitWriter.setBit(7, Bit::One);
+                            REQUIRE(bytes[0] == 130);
+                            REQUIRE(bytes[1] == 204);
+                            REQUIRE(bytes[2] == 51);
+
+                            bitWriter.setBit(8, Bit::One);
+                            REQUIRE(bytes[0] == 130);
+                            REQUIRE(bytes[1] == 205);
+                            REQUIRE(bytes[2] == 51);
+
+                            bitWriter.setBit(10, Bit::Zero);
+                            REQUIRE(bytes[0] == 130);
+                            REQUIRE(bytes[1] == 201);
+                            REQUIRE(bytes[2] == 51);
+
+                            bitWriter.setBit(11, Bit::Zero);
+                            REQUIRE(bytes[0] == 130);
+                            REQUIRE(bytes[1] == 193);
+                            REQUIRE(bytes[2] == 51);
+
+                            bitWriter.setBit(15, Bit::Zero);
+                            REQUIRE(bytes[0] == 130);
+                            REQUIRE(bytes[1] == 65);
+                            REQUIRE(bytes[2] == 51);
+
+                            bitWriter.setBit(16, Bit::Zero);
+                            REQUIRE(bytes[0] == 130);
+                            REQUIRE(bytes[1] == 65);
+                            REQUIRE(bytes[2] == 50);
+
+                            bitWriter.setBit(18, Bit::One);
+                            REQUIRE(bytes[0] == 130);
+                            REQUIRE(bytes[1] == 65);
+                            REQUIRE(bytes[2] == 54);
+
+                            bitWriter.setBit(22, Bit::One);
+                            REQUIRE(bytes[0] == 130);
+                            REQUIRE(bytes[1] == 65);
+                            REQUIRE(bytes[2] == 118);
+
+                            bitWriter.setBit(23, Bit::Zero);
+                            REQUIRE(bytes[0] == 130);
+                            REQUIRE(bytes[1] == 65);
+                            REQUIRE(bytes[2] == 118);
+                        }
+                    }
+                }
+            }
         }
     }
 }
