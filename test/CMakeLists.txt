@@ -21,3 +21,9 @@ TARGET_COMPILE_FEATURES(
     cxx_relaxed_constexpr
 )
 
+SET_PROPERTY(
+    TARGET test_bitter 
+    APPEND_STRING PROPERTY COMPILE_FLAGS
+    "-Wall -Werror"
+)
+
