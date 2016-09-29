@@ -1,0 +1,30 @@
+language: cpp
+
+compiler:
+    - clang
+    - gcc
+
+addons:
+    apt:
+        sources:
+            - llvm-toolchain-precise
+            - ubuntu-toolchain-r-test
+            - kalakris-cmake
+        packages:
+            - cmake
+            - g++-5
+            - gcc-5
+            - clang-3.8
+            - git
+
+before_script:
+    - if [ "$CXX" = "g++" ];     then export CXX="g++-5"       CC="gcc-5";     fi
+    - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.8" CC="clang-3.8"; fi
+    - cd ./test
+    - mkdir ./build
+    - cd ./build
+    - cmake ../
+    - make
+
+script: ./test_bitter
+
