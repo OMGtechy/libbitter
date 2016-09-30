@@ -6,9 +6,8 @@ namespace bitter {
     class BitWriter {
     public:
         template <typename T>
-        constexpr BitWriter(T * const target, const size_t targetBytes)
-        : m_target(reinterpret_cast<char* const>(target)),
-          m_targetBytes(targetBytes) {
+        constexpr BitWriter(T * const target)
+        : m_target(reinterpret_cast<char* const>(target)) {
 
         }
 
@@ -20,12 +19,11 @@ namespace bitter {
             
             // if you want to set bit 3 of byte 00111000 for example:
             // 00111000 = (00111000 & 11111011) | (00000100)
-            *targetByte = (*targetByte &~(1 << bitNumber)) | (static_cast<int>(bitValue) << bitNumber);
+            *targetByte = (*targetByte & ~(1 << bitNumber)) | (static_cast<int>(bitValue) << bitNumber);
         }
 
     private:
         char* const m_target;
-        const size_t m_targetBytes;
     };
 }
 

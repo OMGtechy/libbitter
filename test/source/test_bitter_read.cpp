@@ -11,7 +11,7 @@ namespace bitter {
                 constexpr uint8_t byte = 0b00000000;
 
                 WHEN("a bit reader is created to read it") {
-                    const BitReader bitReader(&byte, sizeof(byte));
+                    const BitReader bitReader(&byte);
 
                     WHEN("bits 0 through 7 (inclusive) are read") {
                         THEN("it should always return Bit::Zero") {
@@ -32,7 +32,7 @@ namespace bitter {
                 constexpr uint8_t byte = 0b11111111;
 
                 WHEN("when a bit reader is created to read it") {
-                    const BitReader bitReader(&byte, sizeof(byte));
+                    const BitReader bitReader(&byte);
 
                     WHEN("bits 0 through 7 (inclusive) are read") {
                         THEN("it should always return Bit::One") {
@@ -53,7 +53,7 @@ namespace bitter {
                 constexpr uint8_t byte = 0b01100011;
 
                 WHEN("a bit reader is created to read it") {
-                    const BitReader bitReader(&byte, sizeof(byte));
+                    const BitReader bitReader(&byte);
 
                     WHEN("bits 0 through 7 (inclusive) are read") {
                         THEN("the correct values should be returned") {
@@ -74,7 +74,7 @@ namespace bitter {
                 constexpr uint8_t bytes[] = { 0b01010101, 0b10101010, 0b11110000, 0b00001111 };
 
                 WHEN("a bit reader is created to read them") {
-                    const BitReader bitReader(&bytes, sizeof(bytes));
+                    const BitReader bitReader(&bytes);
 
                     WHEN("each bit is read") {
                         THEN("the correct values should be returned") {

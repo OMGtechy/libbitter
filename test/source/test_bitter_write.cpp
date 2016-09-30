@@ -11,7 +11,7 @@ namespace bitter {
                 uint8_t byte = 0b00000000;
 
                 WHEN("a bit writer is created to write to it") {
-                    BitWriter bitWriter(&byte, sizeof(byte));
+                    BitWriter bitWriter(&byte);
 
                     WHEN("bit 0 is set to 1 and the others are set to 0") {
                         bitWriter.setBit(0, Bit::One);
@@ -34,7 +34,7 @@ namespace bitter {
                 uint8_t byte = 0b11111111;
 
                 WHEN("a bit writer is created to write to it") {
-                    BitWriter bitWriter(&byte, sizeof(byte));
+                    BitWriter bitWriter(&byte);
 
                     WHEN("bit 7 is set to 0 and the others are set to 1") {
                         bitWriter.setBit(0, Bit::One);
@@ -58,7 +58,7 @@ namespace bitter {
                 REQUIRE(byte == 105);
 
                 WHEN("a bit writer is created to write to it") {
-                    BitWriter bitWriter(&byte, sizeof(byte));
+                    BitWriter bitWriter(&byte);
 
                     WHEN("some of the bits are set") {
                         THEN("the byte (when interpreted as a uint8_t) changes accordingly") {
@@ -88,7 +88,7 @@ namespace bitter {
                 REQUIRE(bytes[2] == 51);
 
                 WHEN(" a bit writer is created to write to them") {
-                    BitWriter bitWriter(&bytes, sizeof(bytes));
+                    BitWriter bitWriter(&bytes);
 
                     WHEN("the bits are written to") {
                         THEN("the byte values change accordingly") {

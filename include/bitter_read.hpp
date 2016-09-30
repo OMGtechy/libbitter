@@ -6,9 +6,8 @@ namespace bitter {
     class BitReader {
     public:
         template <typename T>
-        constexpr BitReader(const T* const source, const size_t sourceBytes)
-        : m_source(reinterpret_cast<const char* const>(source)),
-          m_sourceBytes(sourceBytes) {
+        constexpr BitReader(const T* const source)
+        : m_source(reinterpret_cast<const char* const>(source)) {
 
         }
 
@@ -22,7 +21,6 @@ namespace bitter {
 
     private:
         const char* const m_source;
-        const size_t m_sourceBytes;
     };
 
 }
