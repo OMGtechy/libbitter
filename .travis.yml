@@ -26,6 +26,6 @@ script: ./test_bitter
 
 after_success:
     - cd CMakeFiles/test_bitter.dir/source
-    - gcov ./*
-    - bash <(curl -s https://codecov.io/bash) -X gcov
+    - ls /usr/bin
+    - bash <(curl -s https://codecov.io/bash)
 
