@@ -24,3 +24,6 @@ before_script:
 
 script: ./test_bitter
 
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
+
