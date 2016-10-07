@@ -15,6 +15,11 @@ INCLUDE_DIRECTORIES(
     ../include
 )
 
+TARGET_LINK_LIBRARIES(
+    test_bitter
+    gcov
+)
+
 TARGET_COMPILE_FEATURES(
     test_bitter
     PRIVATE
@@ -24,6 +29,6 @@ TARGET_COMPILE_FEATURES(
 SET_PROPERTY(
     TARGET test_bitter 
     APPEND_STRING PROPERTY COMPILE_FLAGS
-    "-Wall -Werror"
+    "-Wall -Werror --coverage"
 )
 

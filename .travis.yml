@@ -25,5 +25,9 @@ before_script:
 script: ./test_bitter
 
 after_success:
+    - mkdir coverage
+    - cd coverage
+    - gcov ../CMakeFiles/test_bitter.dir/source/test_bitter_*
+    - lcov --capture --directory ../CMakeFiles/test_bitter.dir/source/ --directory ../../../include/ --no-external --output-file codecov
     - bash <(curl -s https://codecov.io/bash)
 
