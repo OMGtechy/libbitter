@@ -11,7 +11,6 @@ namespace bitter {
 
         }
 
-
         constexpr Bit getBit(size_t bitNumber) const {
             const size_t byteNumber = bitNumber / 8;
             bitNumber %= 8;
