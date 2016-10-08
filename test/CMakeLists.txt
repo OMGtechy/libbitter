@@ -7,6 +7,7 @@ ADD_EXECUTABLE(
     source/test_bitter_main.cpp
     source/test_bitter_read.cpp
     source/test_bitter_write.cpp
+    source/test_bitter_variable_unsigned_integer.cpp
 )
 
 INCLUDE_DIRECTORIES(
