@@ -9,37 +9,76 @@ namespace bitter {
                 VariableUnsignedInteger instance(1);
 
                 WHEN("valid values are assigned to it") {
-                    THEN("it should be equal to the value assigned "
-                         "and not equal to others") {
+                    THEN("logical operators should yield correct results") {
                         instance = 42;
+
                         REQUIRE(instance == 42);
                         REQUIRE(! (instance != 42));
                         REQUIRE(42 == instance);
                         REQUIRE(! (42 != instance));
+
                         REQUIRE(instance != 180);
                         REQUIRE(! (instance == 180));
                         REQUIRE(180 != instance);
                         REQUIRE(! (180 == instance));
 
+                        REQUIRE(instance < 43);
+                        REQUIRE(! (instance < 42));
+                        REQUIRE(43 > instance);
+                        REQUIRE(! (42 > instance));
+
+                        REQUIRE(instance <= 42);
+                        REQUIRE(instance <= 100);
+                        REQUIRE(! (instance <= 10));
+                        REQUIRE(42 >= instance);
+                        REQUIRE(100 >= instance);
+                        REQUIRE(! (10 >= instance));
+
                         instance = 0;
+
                         REQUIRE(instance == 0);
                         REQUIRE(! (instance != 0));
                         REQUIRE(0 == instance);
                         REQUIRE(! (0 != instance));
+
                         REQUIRE(instance != 42);
                         REQUIRE(! (instance == 42));
                         REQUIRE(42 != instance);
                         REQUIRE(! (42 == instance));
 
+                        REQUIRE(instance < 10);
+                        REQUIRE(! (instance < 0));
+                        REQUIRE(10 > instance);
+                        REQUIRE(! (0 > instance));
+
+                        REQUIRE(instance <= 0);
+                        REQUIRE(instance <= 123);
+                        REQUIRE(0 >= instance);
+                        REQUIRE(123 >= instance);
+
                         instance = 255;
+
                         REQUIRE(instance == 255);
                         REQUIRE(! (instance != 255));
                         REQUIRE(255 == instance);
                         REQUIRE(! (255 != instance));
+
                         REQUIRE(instance != 0);
                         REQUIRE(! (instance == 0));
                         REQUIRE(0 != instance);
                         REQUIRE(! (0 == instance));
+
+                        REQUIRE(instance < 256);
+                        REQUIRE(! (instance < 255));
+                        REQUIRE(256 > instance);
+                        REQUIRE(! (255 > instance));
+
+                        REQUIRE(instance <= 255);
+                        REQUIRE(instance <= 260);
+                        REQUIRE(! (instance <= 254));
+                        REQUIRE(255 >= instance);
+                        REQUIRE(260 >= instance);
+                        REQUIRE(! (254 >= instance));
                     }
                 }
             }
@@ -51,34 +90,76 @@ namespace bitter {
                     THEN("it should be equal to the value assigned "
                          "and not equal to others") {
                         instance = 500;
+
                         REQUIRE(instance == 500);
                         REQUIRE(! (instance != 500));
                         REQUIRE(500 == instance);
                         REQUIRE(! (500 != instance));
+
                         REQUIRE(instance != 42);
                         REQUIRE(! (instance == 42));
                         REQUIRE(42 != instance);
                         REQUIRE(! (42 == instance));
 
+                        REQUIRE(instance < 510);
+                        REQUIRE(! (instance < 500));
+                        REQUIRE(510 > instance);
+                        REQUIRE(! (500 > instance));
+
+                        REQUIRE(instance <= 500);
+                        REQUIRE(instance <= 510);
+                        REQUIRE(! (instance <= 123));
+                        REQUIRE(500 >= instance);
+                        REQUIRE(510 >= instance);
+                        REQUIRE(! (123 >= instance));
+
                         instance = 16777215;
+
                         REQUIRE(instance == 16777215);
                         REQUIRE(! (instance != 16777215));
                         REQUIRE(16777215 == instance);
                         REQUIRE(! (16777215 != instance));
+
                         REQUIRE(instance != 500);
                         REQUIRE(! (instance == 500));
                         REQUIRE(500 != instance);
                         REQUIRE(! (500 == instance));
 
+                        REQUIRE(instance < 16777217);
+                        REQUIRE(! (instance < 167));
+                        REQUIRE(16777217 > instance);
+                        REQUIRE(! (167 > instance));
+
+                        REQUIRE(instance <= 16777215);
+                        REQUIRE(instance <= 16777217);
+                        REQUIRE(! (instance <= 4));
+                        REQUIRE(16777215 >= instance);
+                        REQUIRE(16777517 >= instance);
+                        REQUIRE(! (4 >= instance));
+
                         instance = 65536;
+
                         REQUIRE(instance == 65536);
                         REQUIRE(! (instance != 65536));
                         REQUIRE(65536 == instance);
                         REQUIRE(! (65536 != instance));
+
                         REQUIRE(instance != 16777215);
                         REQUIRE(! (instance == 16777215));
                         REQUIRE(16777215 != instance);
                         REQUIRE(! (16777215 == instance));
+
+                        REQUIRE(instance < 70000);
+                        REQUIRE(! (instance < 60000));
+                        REQUIRE(70000 > instance);
+                        REQUIRE(! (60000 > instance));
+
+                        REQUIRE(instance <= 65536);
+                        REQUIRE(instance <= 123123);
+                        REQUIRE(! (instance <= 321));
+                        REQUIRE(65536 >= instance);
+                        REQUIRE(123123 >= instance);
+                        REQUIRE(! (321 >= instance));
                     }
                 }
             }

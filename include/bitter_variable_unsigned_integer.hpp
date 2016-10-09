@@ -2,6 +2,7 @@
 
 #include <type_traits>
 #include <algorithm>
+#include <cstdint>
 
 namespace bitter {
     class VariableUnsignedInteger {
@@ -28,8 +29,8 @@ namespace bitter {
                   typename = std::enable_if<std::is_unsigned<T>::value>>
         VariableUnsignedInteger& operator=(T rhs) {
             for(size_t i = 0; i < sizeof(rhs); ++i) {
-                m_data[i] = rhs & 0xFF;
-                rhs <<= 8;
+                m_data[i] = rhs & static_cast<uint8_t>(0xFF);
+                rhs >>= 8;
             }
 
             return *this;
@@ -73,6 +74,7 @@ namespace bitter {
 
         friend bool operator==(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
         friend bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+        friend bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     private:
         using byte = uint8_t;
@@ -179,19 +181,113 @@ namespace bitter {
     }
 
     bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+        const size_t lowestNumberOfBytes = std::min(lhs.m_data.size(), rhs.m_data.size());
+        const size_t highestNumberOfBytes = std::max(lhs.m_data.size(), rhs.m_data.size());
+
+        for(size_t i = highestNumberOfBytes; i > 0; --i) {
+            const size_t byteIndex = i - 1;
+
+            const bool lhsNonZero = lhs.m_data.size() > byteIndex && lhs.m_data[byteIndex] != 0;
+            const bool rhsNonZero = rhs.m_data.size() > byteIndex && rhs.m_data[byteIndex] != 0;
+
+            if(lhsNonZero && rhsNonZero) {
+                const auto lhsByte = lhs.m_data[byteIndex];
+                const auto rhsByte = rhs.m_data[byteIndex];
+
+                if(lhsByte != rhsByte) {
+                    return lhsByte < rhsByte;
+                }
+            } else if(lhsNonZero || rhsNonZero) {
+                return ! lhsNonZero;
+            }
+        }
+
+        for(size_t i = lowestNumberOfBytes; i > 0; --i) {
+            const auto lhsByte = lhs.m_data[i];
+            const auto rhsByte = rhs.m_data[i];
+
+            if(lhsByte != rhsByte) {
+                return lhsByte < rhsByte;
+            }
+        }
+
         return false;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator<(const VariableUnsignedInteger& lhs, const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs < variableRhs;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator<(const T& lhs, const VariableUnsignedInteger& rhs) {
+        VariableUnsignedInteger variableLhs(sizeof(lhs));
+        variableLhs = lhs;
+        return variableLhs < rhs;
     }
 
     bool operator>(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        return false;
+        return (lhs != rhs) && (! (lhs < rhs));
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator>(const VariableUnsignedInteger& lhs, const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs > variableRhs;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator>(const T& lhs, const VariableUnsignedInteger& rhs) {
+        VariableUnsignedInteger variableLhs(sizeof(lhs));
+        variableLhs = lhs;
+        return variableLhs > rhs;
     }
 
     bool operator<=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        return false;
+        return ! (lhs > rhs);
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator<=(const VariableUnsignedInteger& lhs, const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs <= variableRhs;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator<=(const T& lhs, const VariableUnsignedInteger& rhs) {
+        VariableUnsignedInteger variableLhs(sizeof(lhs));
+        variableLhs = lhs;
+        return variableLhs <= rhs;
     }
 
     bool operator>=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        return false;
+        return ! (lhs < rhs);
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator>=(const VariableUnsignedInteger& lhs, const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs >= variableRhs;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator>=(const T& lhs, const VariableUnsignedInteger& rhs) {
+        VariableUnsignedInteger variableLhs(sizeof(lhs));
+        variableLhs = lhs;
+        return variableLhs >= rhs;
     }
 
     ///////////////////////
