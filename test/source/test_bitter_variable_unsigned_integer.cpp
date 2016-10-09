@@ -5,11 +5,11 @@
 namespace bitter {
     namespace test {
         SCENARIO("VariableUnsignedInteger can be used like an intrinsic unsigned int") {
-            GIVEN("A 1 byte VariableUnsignedInteger instance") {
+            GIVEN("a 1 byte VariableUnsignedInteger instance") {
                 VariableUnsignedInteger instance(1);
 
-                WHEN("Valid values are assigned to it") {
-                    THEN("It should be equal to the value assigned "
+                WHEN("valid values are assigned to it") {
+                    THEN("it should be equal to the value assigned "
                          "and not equal to others") {
                         instance = 42;
                         REQUIRE(instance == 42);
