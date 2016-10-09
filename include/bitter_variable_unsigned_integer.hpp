@@ -21,6 +21,9 @@ namespace bitter {
         //////////////////////////
 
         VariableUnsignedInteger& operator=(const VariableUnsignedInteger& rhs) {
+            // TODO:
+            // This potentially changes the size of the integer.
+            // What's the desired behaviour given different sizes?
             m_data = rhs.m_data;
             return *this;
         }

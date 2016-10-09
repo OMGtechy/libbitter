@@ -224,6 +224,67 @@ namespace bitter {
                     }
                 }
             }
+
+            GIVEN("2 initialised instances of the different size") {
+                VariableUnsignedInteger instanceA(4);
+                instanceA = 7;
+
+                VariableUnsignedInteger instanceB(2);
+                instanceB = 100;
+
+                WHEN("one is assigned to the other") {
+                    instanceA = instanceB;
+
+                    THEN("they are both considered equal") {
+                        REQUIRE(instanceA == instanceB);
+                        REQUIRE(! (instanceA != instanceB));
+                        REQUIRE(instanceB == instanceA);
+                        REQUIRE(! (instanceB != instanceA));
+
+                        REQUIRE(instanceA >= instanceB);
+                        REQUIRE(instanceB >= instanceA);
+                        REQUIRE(instanceA <= instanceB);
+                        REQUIRE(instanceB <= instanceA);
+
+                        REQUIRE(! (instanceA > instanceB));
+                        REQUIRE(! (instanceB > instanceA));
+                        REQUIRE(! (instanceA < instanceB));
+                        REQUIRE(! (instanceB < instanceA));
+                    }
+
+                    THEN("they should both equal the same number") {
+                        REQUIRE(instanceA == 100);
+                        REQUIRE(! (instanceA != 100));
+                        REQUIRE(100 == instanceA);
+                        REQUIRE(! (100 != instanceA));
+
+                        REQUIRE(instanceA >= 100);
+                        REQUIRE(100 >= instanceA);
+                        REQUIRE(instanceA <= 100);
+                        REQUIRE(100 <= instanceA);
+
+                        REQUIRE(! (instanceA > 100));
+                        REQUIRE(! (100 > instanceA));
+                        REQUIRE(! (instanceA < 100));
+                        REQUIRE(! (100 < instanceA));
+
+                        REQUIRE(instanceB == 100);
+                        REQUIRE(! (instanceB != 100));
+                        REQUIRE(100 == instanceB);
+                        REQUIRE(! (100 != instanceB));
+
+                        REQUIRE(instanceB >= 100);
+                        REQUIRE(100 >= instanceB);
+                        REQUIRE(instanceB <= 100);
+                        REQUIRE(100 <= instanceB);
+
+                        REQUIRE(! (instanceB > 100));
+                        REQUIRE(! (100 > instanceB));
+                        REQUIRE(! (instanceB < 100));
+                        REQUIRE(! (100 < instanceB));
+                    }
+                }
+            }
         }
     }
 }
