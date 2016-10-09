@@ -1,5 +1,7 @@
 #pragma once
 
+#include <type_traits>
+
 namespace bitter {
     class VariableUnsignedInteger {
     public:
@@ -101,7 +103,31 @@ namespace bitter {
         return false;
     }
 
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator==(const VariableUnsignedInteger& lhs, const T& rhs) {
+        return false;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator==(const T& lhs, const VariableUnsignedInteger& rhs) {
+        return false;
+    }
+
     bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+        return false;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator!=(const VariableUnsignedInteger& lhs, const T& rhs) {
+        return false;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator!=(const T& lhs, const VariableUnsignedInteger& rhs) {
         return false;
     }
 
