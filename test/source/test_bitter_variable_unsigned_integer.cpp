@@ -43,6 +43,45 @@ namespace bitter {
                     }
                 }
             }
+
+            GIVEN("a 3 byte VariableUnsignedInteger instance") {
+                VariableUnsignedInteger instance(3);
+
+                WHEN("valid values are assigned to it") {
+                    THEN("it should be equal to the value assigned "
+                         "and not equal to others") {
+                        instance = 500;
+                        REQUIRE(instance == 500);
+                        REQUIRE(! (instance != 500));
+                        REQUIRE(500 == instance);
+                        REQUIRE(! (500 != instance));
+                        REQUIRE(instance != 42);
+                        REQUIRE(! (instance == 42));
+                        REQUIRE(42 != instance);
+                        REQUIRE(! (42 == instance));
+
+                        instance = 16777215;
+                        REQUIRE(instance == 16777215);
+                        REQUIRE(! (instance != 16777215));
+                        REQUIRE(16777215 == instance);
+                        REQUIRE(! (16777215 != instance));
+                        REQUIRE(instance != 500);
+                        REQUIRE(! (instance == 500));
+                        REQUIRE(500 != instance);
+                        REQUIRE(! (500 == instance));
+
+                        instance = 65536;
+                        REQUIRE(instance == 65536);
+                        REQUIRE(! (instance != 65536));
+                        REQUIRE(65536 == instance);
+                        REQUIRE(! (65536 != instance));
+                        REQUIRE(instance != 16777215);
+                        REQUIRE(! (instance == 16777215));
+                        REQUIRE(16777215 != instance);
+                        REQUIRE(! (16777215 == instance));
+                    }
+                }
+            }
         }
     }
 }
