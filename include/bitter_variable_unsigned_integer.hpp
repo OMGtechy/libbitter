@@ -1,11 +1,16 @@
 #pragma once
 
 #include <type_traits>
+#include <algorithm>
 
 namespace bitter {
     class VariableUnsignedInteger {
     public:
-        VariableUnsignedInteger(const size_t numberOfBytes)
+        //////////////////
+        // constructors //
+        //////////////////
+
+        explicit VariableUnsignedInteger(const size_t numberOfBytes)
         : m_data(numberOfBytes) {
 
         }
@@ -15,6 +20,18 @@ namespace bitter {
         //////////////////////////
 
         VariableUnsignedInteger& operator=(const VariableUnsignedInteger& rhs) {
+            m_data = rhs.m_data;
+            return *this;
+        }
+
+        template <typename T,
+                  typename = std::enable_if<std::is_unsigned<T>::value>>
+        VariableUnsignedInteger& operator=(T rhs) {
+            for(size_t i = 0; i < sizeof(rhs); ++i) {
+                m_data[i] = rhs & 0xFF;
+                rhs <<= 8;
+            }
+
             return *this;
         }
 
@@ -42,13 +59,20 @@ namespace bitter {
         // boolean operators //
         ///////////////////////
 
-        operator bool() const {
+        explicit operator bool() const {
             return false;
         }
 
         bool operator!() const {
             return false;
         }
+
+        //////////////////////////////
+        // logical operator friends //
+        //////////////////////////////
+
+        friend bool operator==(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+        friend bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     private:
         using byte = uint8_t;
@@ -100,35 +124,58 @@ namespace bitter {
     ///////////////////////
 
     bool operator==(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        return false;
+        const size_t lowestNumberOfBytes = std::min(lhs.m_data.size(), rhs.m_data.size());
+
+        for(size_t i = 0; i < lowestNumberOfBytes; ++i) {
+            if(lhs.m_data[i] != rhs.m_data[i]) {
+                return false;
+            }
+        }
+
+        // instances can still be considered
+        // equal if the extra bytes are all 0
+
+        const size_t highestNumberOfBytes = std::max(lhs.m_data.size(), rhs.m_data.size());
+
+        for(size_t i = lowestNumberOfBytes; i < highestNumberOfBytes; ++i) {
+            if((lhs.m_data.size() > i && lhs.m_data[i] != 0) || (rhs.m_data.size() > i && rhs.m_data[i] != 0)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     bool operator==(const VariableUnsignedInteger& lhs, const T& rhs) {
-        return false;
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs == variableRhs;
     }
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     bool operator==(const T& lhs, const VariableUnsignedInteger& rhs) {
-        return false;
+        return rhs == lhs;
     }
 
     bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        return false;
+        return ! (lhs == rhs);
     }
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     bool operator!=(const VariableUnsignedInteger& lhs, const T& rhs) {
-        return false;
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs != variableRhs;
     }
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     bool operator!=(const T& lhs, const VariableUnsignedInteger& rhs) {
-        return false;
+        return rhs != lhs;
     }
 
     bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {

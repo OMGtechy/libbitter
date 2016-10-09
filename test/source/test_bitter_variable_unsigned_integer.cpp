@@ -13,19 +13,25 @@ namespace bitter {
                          "and not equal to others") {
                         instance = 42;
                         REQUIRE(instance == 42);
+                        REQUIRE(! (instance != 42));
                         REQUIRE(42 == instance);
+                        REQUIRE(! (42 != instance));
                         REQUIRE(instance != 180);
                         REQUIRE(180 != instance);
 
                         instance = 0;
                         REQUIRE(instance == 0);
+                        REQUIRE(! (instance != 0));
                         REQUIRE(0 == instance);
+                        REQUIRE(! (0 != instance));
                         REQUIRE(instance != 42);
-                        REQUIRE(42 != instance);;
+                        REQUIRE(42 != instance);
 
                         instance = 255;
                         REQUIRE(instance == 255);
+                        REQUIRE(! (instance != 255));
                         REQUIRE(255 == instance);
+                        REQUIRE(! (255 != instance));
                         REQUIRE(instance != 0);
                         REQUIRE(0 != instance);
                     }
