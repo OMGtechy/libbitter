@@ -285,6 +285,30 @@ namespace bitter {
                     }
                 }
             }
+
+            GIVEN("a VariableUnsignedInteger of size 4") {
+                VariableUnsignedInteger instance(4);
+
+                WHEN("addition operations are performed upon it") {
+                    THEN("its value changes appropriately") {
+                        {
+                            instance = 0;
+
+                            constexpr uint32_t valuesToCheck[] = {
+                                0, 1, 2, 542, 76, 99999,                // randomly chosen values
+                                254, 255, 256, 257,                     // around 1st byte boundary
+                                65534, 65535, 65536, 65537,             // around 2nd byte boundary
+                                16777214, 16777215, 16777216, 16777217, // around 3rd byte boundary
+                                4294967294, 4294967295                  // around 4th byte boundary
+                            };
+
+                            for(auto value : valuesToCheck) {
+                                REQUIRE(instance + value == value);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

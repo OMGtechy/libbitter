@@ -18,7 +18,7 @@ INCLUDE_DIRECTORIES(
 
 TARGET_LINK_LIBRARIES(
     test_bitter
-    gcov
+    gcov asan
 )
 
 TARGET_COMPILE_FEATURES(
@@ -30,6 +30,6 @@ TARGET_COMPILE_FEATURES(
 SET_PROPERTY(
     TARGET test_bitter 
     APPEND_STRING PROPERTY COMPILE_FLAGS
-    "-Wall -Werror --coverage"
+    "-Wall -Werror -fsanitize=address --coverage"
 )
 

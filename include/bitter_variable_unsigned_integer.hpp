@@ -5,6 +5,17 @@
 #include <cstdint>
 
 namespace bitter {
+    //////////////////////////
+    // forward declarations //
+    //////////////////////////
+
+    class VariableUnsignedInteger;
+
+    ////////////////////////////////////
+    // arithmetic operator prototypes //
+    ////////////////////////////////////
+
+    VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
     class VariableUnsignedInteger {
     public:
         //////////////////
@@ -31,7 +42,9 @@ namespace bitter {
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
         VariableUnsignedInteger& operator=(T rhs) {
-            for(size_t i = 0; i < sizeof(rhs); ++i) {
+            const auto maxBytes = std::min(sizeof(rhs), m_data.size());
+
+            for(size_t i = 0; i < maxBytes; ++i) {
                 m_data[i] = rhs & static_cast<uint8_t>(0xFF);
                 rhs >>= 8;
             }
@@ -47,15 +60,15 @@ namespace bitter {
             return *this;
         }
 
-        VariableUnsignedInteger operator*=(const VariableUnsignedInteger& rhs) const {
+        VariableUnsignedInteger operator-=(const VariableUnsignedInteger& rhs) {
             return *this;
         }
 
-        VariableUnsignedInteger operator/=(const VariableUnsignedInteger& rhs) const {
+        VariableUnsignedInteger operator/=(const VariableUnsignedInteger& rhs) {
             return *this;
         }
 
-        VariableUnsignedInteger operator%=(const VariableUnsignedInteger& rhs) const {
+        VariableUnsignedInteger operator%=(const VariableUnsignedInteger& rhs) {
             return *this;
         }
 
@@ -79,9 +92,15 @@ namespace bitter {
         friend bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
         friend bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
+        /////////////////////////////////
+        // arithmetic operator friends //
+        /////////////////////////////////
+
+        friend VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
+
     private:
-        using byte = uint8_t;
-        std::vector<byte> m_data;
+        using chunk_t = uint8_t;
+        std::vector<chunk_t> m_data;
     };
 
     //////////////////////////
@@ -89,10 +108,50 @@ namespace bitter {
     //////////////////////////
 
     VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        return lhs;
+        // TODO:
+        // Should the size increase if necessary?
+        VariableUnsignedInteger result(std::max(lhs.m_data.size(), rhs.m_data.size()));
+
+        const size_t maxBytes = std::max(lhs.m_data.size(), rhs.m_data.size());
+
+        // need to make sure the carry is at least
+        // one byte larger than the "chunk" type
+        using carry_t = uint16_t;
+        static_assert(sizeof(carry_t) > sizeof(VariableUnsignedInteger::chunk_t), "");
+
+        carry_t carry = 0;
+
+        for(size_t i = 0; i < maxBytes; ++i) {
+            const auto chunkSum = lhs.m_data[i] + rhs.m_data[i] + carry;
+
+            constexpr auto chunkMax = std::numeric_limits<VariableUnsignedInteger::chunk_t>::max();
+            carry = chunkSum > chunkMax ? chunkSum - chunkMax : 0;
+
+            result.m_data[i] = chunkSum;
+        }
+
+        // TODO:
+        // if(carry != 0) ... overflow!
+        // Do we want to report this?
+
+        return result;
     }
 
-    VariableUnsignedInteger operator-(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs + variableRhs;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator+(const T& lhs, const VariableUnsignedInteger& rhs) {
+        return rhs + lhs;
+    }
+
+    VariableUnsignedInteger operator-(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs) {
         return lhs;
     }
 
@@ -206,8 +265,10 @@ namespace bitter {
         }
 
         for(size_t i = lowestNumberOfBytes; i > 0; --i) {
-            const auto lhsByte = lhs.m_data[i];
-            const auto rhsByte = rhs.m_data[i];
+            const auto byteIndex = i - 1;
+
+            const auto lhsByte = lhs.m_data[byteIndex];
+            const auto rhsByte = rhs.m_data[byteIndex];
 
             if(lhsByte != rhsByte) {
                 return lhsByte < rhsByte;
