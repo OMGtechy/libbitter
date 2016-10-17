@@ -122,10 +122,12 @@ namespace bitter {
         carry_t carry = 0;
 
         for(size_t i = 0; i < maxBytes; ++i) {
-            const auto chunkSum = lhs.m_data[i] + rhs.m_data[i] + carry;
+            auto chunkSum = lhs.m_data[i] + rhs.m_data[i] + carry;
 
             constexpr auto chunkMax = std::numeric_limits<VariableUnsignedInteger::chunk_t>::max();
-            carry = chunkSum > chunkMax ? chunkSum - chunkMax : 0;
+            carry = chunkSum > chunkMax ? 1 : 0;
+
+            chunkSum &= chunkMax;
 
             result.m_data[i] = chunkSum;
         }
