@@ -160,6 +160,30 @@ namespace bitter {
                         REQUIRE(65536 >= instance);
                         REQUIRE(123123 >= instance);
                         REQUIRE(! (321 >= instance));
+
+                        instance = 256;
+
+                        REQUIRE(instance == 256);
+                        REQUIRE(! (instance != 256));
+                        REQUIRE(256 == instance);
+                        REQUIRE(! (256 != instance));
+
+                        REQUIRE(instance != 16777215);
+                        REQUIRE(! (instance == 16777215));
+                        REQUIRE(16777215 != instance);
+                        REQUIRE(! (16777215 == instance));
+
+                        REQUIRE(instance < 257);
+                        REQUIRE(! (instance < 255));
+                        REQUIRE(257 > instance);
+                        REQUIRE(! (255 > instance));
+
+                        REQUIRE(instance <= 256);
+                        REQUIRE(instance <= 257);
+                        REQUIRE(! (instance <= 255));
+                        REQUIRE(256 >= instance);
+                        REQUIRE(257 >= instance);
+                        REQUIRE(! (255 >= instance));
                     }
                 }
             }
