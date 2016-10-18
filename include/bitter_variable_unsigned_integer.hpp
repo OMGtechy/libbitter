@@ -179,11 +179,11 @@ namespace bitter {
                 if(lhs.m_data[borrowByteIndex] > 0) {
                     lhs.m_data[borrowByteIndex] -= 1;
 
-                    for(int j = borrowByteIndex - 1; borrowByteIndex != i; --borrowByteIndex) {
+                    for(size_t j = borrowByteIndex - 1; j != i; --j) {
                         lhs.m_data[j] = std::numeric_limits<VariableUnsignedInteger::chunk_t>::max();
                     }
 
-                    chunkSub +=std::numeric_limits<VariableUnsignedInteger::chunk_t>::max() + 1;
+                    chunkSub += std::numeric_limits<VariableUnsignedInteger::chunk_t>::max() + 1;
                 }
             }
 

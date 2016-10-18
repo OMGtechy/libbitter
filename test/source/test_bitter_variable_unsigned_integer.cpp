@@ -351,6 +351,10 @@ namespace bitter {
                                 if(static_cast<int64_t>(startingValue) - static_cast<int64_t>(operand) >= 0) {
                                     REQUIRE(instance - operand == startingValue - operand);
                                 }
+
+                                if(static_cast<int64_t>(operand) - static_cast<int64_t>(startingValue) >= 0) {
+                                    REQUIRE(operand - instance == operand - startingValue);
+                                }
                             }
                         }
                     }
