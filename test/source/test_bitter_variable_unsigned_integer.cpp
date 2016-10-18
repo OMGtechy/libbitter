@@ -313,7 +313,7 @@ namespace bitter {
             GIVEN("a VariableUnsignedInteger of size 4") {
                 VariableUnsignedInteger instance(4);
 
-                WHEN("addition operations are performed upon it") {
+                WHEN("arithmetic operations are performed upon it") {
                     THEN("its value changes appropriately") {
                         constexpr uint32_t startingValues[] = {
                             0, 1, 42,
@@ -323,7 +323,7 @@ namespace bitter {
                             4294967294
                         };
 
-                        constexpr uint32_t valuesToCheck[] = {
+                        constexpr uint32_t operands[] = {
                             0, 1, 2, 542, 76, 99999,                // randomly chosen values
                             254, 255, 256, 257,                     // around 1st byte boundary
                             65534, 65535, 65536, 65537,             // around 2nd byte boundary
@@ -334,11 +334,22 @@ namespace bitter {
                         for(const auto startingValue : startingValues) {
                             instance = startingValue;
 
-                            for(const auto valueToCheck : valuesToCheck) {
-                                if(valueToCheck >= startingValue) {
-                                    const auto valueToAdd = valueToCheck - startingValue;
-                                    REQUIRE(instance + valueToAdd == valueToCheck);
-                                    REQUIRE(valueToAdd + instance == valueToCheck);
+                            for(const auto operand : operands) {
+                                //////////////
+                                // addition //
+                                //////////////
+
+                                if(static_cast<uint64_t>(startingValue) + static_cast<uint64_t>(operand) <= std::numeric_limits<uint32_t>::max()) {
+                                    REQUIRE(instance + operand == startingValue + operand);
+                                    REQUIRE(operand + instance == operand + startingValue);
+                                }
+
+                                /////////////////
+                                // subtraction //
+                                /////////////////
+
+                                if(static_cast<int64_t>(startingValue) - static_cast<int64_t>(operand) >= 0) {
+                                    REQUIRE(instance - operand == startingValue - operand);
                                 }
                             }
                         }

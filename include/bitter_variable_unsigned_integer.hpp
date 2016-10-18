@@ -16,6 +16,7 @@ namespace bitter {
     ////////////////////////////////////
 
     VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
+    VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
     class VariableUnsignedInteger {
     public:
         //////////////////
@@ -97,6 +98,7 @@ namespace bitter {
         /////////////////////////////////
 
         friend VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
+        friend VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
 
     private:
         using chunk_t = uint8_t;
@@ -154,7 +156,57 @@ namespace bitter {
     }
 
     VariableUnsignedInteger operator-(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs) {
+        const size_t maxBytes = std::max(lhs.m_data.size(), rhs.m_data.size());
+
+        // need to make sure the carry is at least
+        // two bytes larger than the "chunk" type
+        // (one for signedness, one for magnitude)
+        using carry_t = int32_t;
+        static_assert(sizeof(carry_t) > (sizeof(VariableUnsignedInteger::chunk_t) + 1), "");
+
+        for(size_t i = 0; i < maxBytes; ++i) {
+            carry_t chunkSub = static_cast<carry_t>(lhs.m_data[i]) - static_cast<carry_t>(rhs.m_data[i]);
+
+            size_t borrowByteIndex = i;
+            while(chunkSub < 0) {
+                ++borrowByteIndex;
+
+                if(borrowByteIndex >= maxBytes) {
+                    // TODO:
+                    // how to handle underflow?
+                }
+
+                if(lhs.m_data[borrowByteIndex] > 0) {
+                    lhs.m_data[borrowByteIndex] -= 1;
+
+                    for(int j = borrowByteIndex - 1; borrowByteIndex != i; --borrowByteIndex) {
+                        lhs.m_data[j] = std::numeric_limits<VariableUnsignedInteger::chunk_t>::max();
+                    }
+
+                    chunkSub +=std::numeric_limits<VariableUnsignedInteger::chunk_t>::max() + 1;
+                }
+            }
+
+            lhs.m_data[i] = chunkSub;
+        }
+
         return lhs;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator-(const VariableUnsignedInteger& lhs, const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs - variableRhs;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator-(const T& lhs, const VariableUnsignedInteger& rhs) {
+        VariableUnsignedInteger variableLhs(sizeof(lhs));
+        variableLhs = lhs;
+        return variableLhs - rhs;
     }
 
     VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
