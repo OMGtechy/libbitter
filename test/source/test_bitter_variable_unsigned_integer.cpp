@@ -336,7 +336,9 @@ namespace bitter {
 
                             for(const auto valueToCheck : valuesToCheck) {
                                 if(valueToCheck >= startingValue) {
-                                    REQUIRE(instance + (valueToCheck - startingValue) == valueToCheck);
+                                    const auto valueToAdd = valueToCheck - startingValue;
+                                    REQUIRE(instance + valueToAdd == valueToCheck);
+                                    REQUIRE(valueToAdd + instance == valueToCheck);
                                 }
                             }
                         }
