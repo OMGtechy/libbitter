@@ -17,6 +17,29 @@ namespace bitter {
 
     VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
     VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
+    VariableUnsignedInteger& operator++(VariableUnsignedInteger&);
+
+    /////////////////////////////////
+    // logical operator prototypes //
+    /////////////////////////////////
+
+    bool operator>(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
+    bool operator>=(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator==(const VariableUnsignedInteger&, const T&);
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator!=(const VariableUnsignedInteger&, const T&);
+
+    ////////////////////////////////
+    // binary operator prototypes //
+    ////////////////////////////////
+
+    VariableUnsignedInteger operator<<(VariableUnsignedInteger, VariableUnsignedInteger);
+
     class VariableUnsignedInteger {
     public:
         //////////////////
@@ -53,15 +76,41 @@ namespace bitter {
             return *this;
         }
 
-        VariableUnsignedInteger operator+=(const VariableUnsignedInteger& rhs) const {
-            return *this;
+        VariableUnsignedInteger operator+=(const VariableUnsignedInteger& rhs) {
+            // TODO:
+            // add test for this
+            return (*this = *this + rhs);
         }
 
-        VariableUnsignedInteger operator-=(const VariableUnsignedInteger& rhs) const {
-            return *this;
+        template <typename T,
+                  typename = std::enable_if<std::is_unsigned<T>::value>>
+        VariableUnsignedInteger operator+=(const T& rhs) {
+            // TODO:
+            // add test for this
+
+            VariableUnsignedInteger variableRhs(sizeof(rhs));
+            variableRhs = rhs;
+            return *this += variableRhs;
         }
 
         VariableUnsignedInteger operator-=(const VariableUnsignedInteger& rhs) {
+            // TODO:
+            // add test for this
+            return (*this = *this - rhs);
+        }
+
+        template <typename T,
+                  typename = std::enable_if<std::is_unsigned<T>::value>>
+        VariableUnsignedInteger operator-=(const T& rhs) {
+            // TODO:
+            // add test for this
+
+            VariableUnsignedInteger variableRhs(sizeof(rhs));
+            variableRhs = rhs;
+            return *this -= variableRhs;
+        }
+
+        VariableUnsignedInteger operator*=(const VariableUnsignedInteger& rhs) {
             return *this;
         }
 
@@ -99,6 +148,7 @@ namespace bitter {
 
         friend VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
         friend VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
+        friend VariableUnsignedInteger operator/(VariableUnsignedInteger, const VariableUnsignedInteger&);
 
     private:
         using chunk_t = uint8_t;
@@ -213,8 +263,39 @@ namespace bitter {
         return lhs;
     }
 
-    VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        return lhs;
+    VariableUnsignedInteger operator/(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs) {
+        VariableUnsignedInteger result(lhs.m_data.size());
+        result = 0;
+
+        if(rhs == 1) {
+            return lhs;
+        }
+
+        // TODO:
+        // What do if rhs == 0?
+
+        while(lhs >= rhs) {
+            lhs -= rhs;
+            ++result;
+        }
+
+        return result;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs / variableRhs;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator/(const T& lhs, const VariableUnsignedInteger& rhs) {
+        VariableUnsignedInteger variableLhs(sizeof(lhs));
+        variableLhs = lhs;
+        return variableLhs / rhs;
     }
 
     VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
@@ -222,6 +303,9 @@ namespace bitter {
     }
 
     VariableUnsignedInteger& operator++(VariableUnsignedInteger& value) {
+        // TODO:
+        // add test for this
+        value += 1;
         return value;
     }
 
