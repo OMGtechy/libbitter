@@ -39,6 +39,6 @@ IF(NOT WIN32)
     SET_PROPERTY(
         TARGET test_bitter 
         APPEND_STRING PROPERTY COMPILE_FLAGS
-        "-fsanitize=address --coverage"
+        " -fsanitize=address --coverage"
     )
 ENDIF()
