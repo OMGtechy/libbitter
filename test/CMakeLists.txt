@@ -16,10 +16,12 @@ INCLUDE_DIRECTORIES(
     ../include
 )
 
-TARGET_LINK_LIBRARIES(
-    test_bitter
-    gcov asan
-)
+IF(NOT WIN32)
+    TARGET_LINK_LIBRARIES(
+        test_bitter
+        gcov asan
+    )
+ENDIF()
 
 TARGET_COMPILE_FEATURES(
     test_bitter
@@ -30,6 +32,13 @@ TARGET_COMPILE_FEATURES(
 SET_PROPERTY(
     TARGET test_bitter 
     APPEND_STRING PROPERTY COMPILE_FLAGS
-    "-Wall -Werror -fsanitize=address --coverage"
+    "-Wall -Werror"
 )
 
+IF(NOT WIN32)
+    SET_PROPERTY(
+        TARGET test_bitter 
+        APPEND_STRING PROPERTY COMPILE_FLAGS
+        "-fsanitize=address --coverage"
+    )
+ENDIF()
