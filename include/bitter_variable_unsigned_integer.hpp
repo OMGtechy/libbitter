@@ -152,12 +152,12 @@ namespace bitter {
         friend VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
         friend VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
         friend VariableUnsignedInteger operator/(VariableUnsignedInteger, const VariableUnsignedInteger&);
-		
-		//////////////////////////////
-		// bitwise operator friends //
-		//////////////////////////////
-		
-		friend VariableUnsignedInteger operator<<(VariableUnsignedInteger, VariableUnsignedInteger);
+
+        //////////////////////////////
+        // bitwise operator friends //
+        //////////////////////////////
+
+        friend VariableUnsignedInteger operator<<(VariableUnsignedInteger, VariableUnsignedInteger);
 
     private:
         using chunk_t = uint8_t;
@@ -325,17 +325,17 @@ namespace bitter {
     VariableUnsignedInteger operator+(const VariableUnsignedInteger& value) {
         return value;
     }
-	
-	VariableUnsignedInteger& operator--(VariableUnsignedInteger& value) {
-		// TODO:
-		// add test for this
-		value -= 1;
-		return value;
-	}
-	
-	VariableUnsignedInteger operator--(VariableUnsignedInteger& value, int) {
-		return value;
-	}
+
+    VariableUnsignedInteger& operator--(VariableUnsignedInteger& value) {
+        // TODO:
+        // add test for this
+        value -= 1;
+        return value;
+    }
+
+    VariableUnsignedInteger operator--(VariableUnsignedInteger& value, int) {
+        return value;
+    }
 
     VariableUnsignedInteger operator-(const VariableUnsignedInteger& value) {
         return value;
@@ -517,41 +517,41 @@ namespace bitter {
     ///////////////////////
 
     VariableUnsignedInteger operator<<(VariableUnsignedInteger lhs, VariableUnsignedInteger rhs) {
-		// TODO:
-		// if the user was using an uint8_t (for example), and shift by > 7, it's UB
-		// it might be nice to have an exception thrown in those circumstances
+        // TODO:
+        // if the user was using an uint8_t (for example), and shift by > 7, it's UB
+        // it might be nice to have an exception thrown in those circumstances
 
         for(; rhs > 0; --rhs) {
-			for(size_t i = lhs.m_data.size(); i > 0; --i) {
-				const auto chunkIndex = i - 1;
-				
-				if(i != lhs.m_data.size()) {
-					// TODO:
-					// these should be functions; no object is needed. Refactor BitReader/BitWriter...
-					const BitReader bitReader(&lhs.m_data[chunkIndex]);
-					if(bitReader.getBit((sizeof(decltype(lhs.m_data)::value_type) * 8) - 1) == Bit::One) {
-						BitWriter bitWriter(&lhs.m_data[chunkIndex + 1]);
-						bitWriter.setBit(0, Bit::One);
-					}
-				}
-				
-				// TODO:
-				// I know, I know! Shifting one bit at a time will be slow as hell...
-				// the algorithm should be changed and a test should be added for large lhs and rhs values.
-				lhs.m_data[chunkIndex] <<= 1;
-			}
-		}
-		
-		return lhs;
+            for(size_t i = lhs.m_data.size(); i > 0; --i) {
+                const auto chunkIndex = i - 1;
+
+                if(i != lhs.m_data.size()) {
+                    // TODO:
+                    // these should be functions; no object is needed. Refactor BitReader/BitWriter...
+                    const BitReader bitReader(&lhs.m_data[chunkIndex]);
+                    if(bitReader.getBit((sizeof(decltype(lhs.m_data)::value_type) * 8) - 1) == Bit::One) {
+                        BitWriter bitWriter(&lhs.m_data[chunkIndex + 1]);
+                        bitWriter.setBit(0, Bit::One);
+                    }
+                }
+
+                // TODO:
+                // I know, I know! Shifting one bit at a time will be slow as hell...
+                // the algorithm should be changed and a test should be added for large lhs and rhs values.
+                lhs.m_data[chunkIndex] <<= 1;
+            }
+        }
+
+        return lhs;
     }
-	
-	template <typename T,
-		      typename = std::enable_if<std::is_unsigned<T>::value>>
-	VariableUnsignedInteger operator<<(const VariableUnsignedInteger& lhs, const T& rhs) {
-		VariableUnsignedInteger variableRhs(sizeof(rhs));
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator<<(const VariableUnsignedInteger& lhs, const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs << variableRhs;
-	}
+    }
 
     VariableUnsignedInteger operator>>(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return lhs;
