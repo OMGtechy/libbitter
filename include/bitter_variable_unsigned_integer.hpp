@@ -125,6 +125,21 @@ namespace bitter {
             return *this;
         }
 
+        VariableUnsignedInteger operator<<=(const VariableUnsignedInteger& rhs) {
+            return (*this = *this << rhs);
+        }
+        
+        template <typename T,
+                  typename = std::enable_if<std::is_unsigned<T>::value>>
+        VariableUnsignedInteger operator<<=(const T& rhs) {
+            // TODO:
+            // add test for this
+
+            VariableUnsignedInteger variableRhs(sizeof(rhs));
+            variableRhs = rhs;
+            return *this <<= variableRhs;
+        }
+
         ///////////////////////
         // boolean operators //
         ///////////////////////
@@ -151,7 +166,7 @@ namespace bitter {
 
         friend VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
         friend VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
-        friend VariableUnsignedInteger operator/(VariableUnsignedInteger, const VariableUnsignedInteger&);
+        friend VariableUnsignedInteger operator/(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
 
         //////////////////////////////
         // bitwise operator friends //
@@ -272,10 +287,7 @@ namespace bitter {
         return lhs;
     }
 
-    VariableUnsignedInteger operator/(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs) {
-        VariableUnsignedInteger result(lhs.m_data.size());
-        result = 0;
-
+    VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         if(rhs == 1) {
             return lhs;
         }
@@ -283,12 +295,33 @@ namespace bitter {
         // TODO:
         // What do if rhs == 0?
 
-        while(lhs >= rhs) {
-            lhs -= rhs;
-            ++result;
+        VariableUnsignedInteger quotient(lhs.m_data.size());
+        VariableUnsignedInteger remainder(lhs.m_data.size());
+
+        quotient = 0;
+        remainder = 0;
+
+        const auto bitsInRhs = rhs.m_data.size() * (sizeof(decltype(rhs.m_data)::value_type) * 8);
+
+        for(size_t i = bitsInRhs; i > 0; --i) {
+            const auto bitIndex = i - 1;
+            
+            remainder <<= 1;
+            
+            BitReader bitReader(lhs.m_data.data());
+            BitWriter bitWriter(remainder.m_data.data());
+
+            bitWriter.setBit(0, bitReader.getBit(bitIndex));
+            
+            if(remainder >= rhs) {
+                remainder -= rhs;
+                
+                BitWriter bitWriter(quotient.m_data.data());
+                bitWriter.setBit(bitIndex, Bit::One);
+            }
         }
 
-        return result;
+        return quotient;
     }
 
     template <typename T,
