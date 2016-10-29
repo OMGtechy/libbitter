@@ -368,6 +368,77 @@ namespace bitter {
                     }
                 }
             }
+			
+			GIVEN("a VariableUnsignedInteger of size 3") {
+				VariableUnsignedInteger instance(3);
+				
+				WHEN("operator<< is applied to it ") {
+					THEN("its value changes appropriately") {
+						instance = 0;
+						
+						// TODO:
+						// should there be tests like,
+						// 0 << instance?
+						REQUIRE(instance << 0 == 0);
+						REQUIRE(instance << 1 == 0);
+						REQUIRE(instance << 7 == 0);
+						REQUIRE(instance << 8 == 0);
+						REQUIRE(instance << 9 == 0);
+						REQUIRE(instance << 15 == 0);
+						REQUIRE(instance << 16 == 0);
+						REQUIRE(instance << 17 == 0);
+						REQUIRE(instance << 23 == 0);
+						
+						instance = 1;
+						
+						REQUIRE(instance << 0 == 1);
+						REQUIRE(instance << 1 == 2);
+						REQUIRE(instance << 7 == 128);
+						REQUIRE(instance << 8 == 256);
+						REQUIRE(instance << 9 == 512);
+						REQUIRE(instance << 15 == 32768);
+						REQUIRE(instance << 16 == 65536);
+						REQUIRE(instance << 17 == 131072);
+						REQUIRE(instance << 23 == 8388608);
+						
+						instance = 3;
+						
+						REQUIRE(instance << 0 == 3);
+						REQUIRE(instance << 1 == 6);
+						REQUIRE(instance << 7 == 384);
+						REQUIRE(instance << 8 == 768);
+						REQUIRE(instance << 9 == 1536);
+						REQUIRE(instance << 15 == 98304);
+						REQUIRE(instance << 16 == 196608);
+						REQUIRE(instance << 17 == 393216);
+						REQUIRE(instance << 23 == 8388608);
+						
+						instance = 263;
+
+						REQUIRE(instance << 0 == 263);
+						REQUIRE(instance << 1 == 526);
+						REQUIRE(instance << 7 == 33664);
+						REQUIRE(instance << 8 == 67328);
+						REQUIRE(instance << 9 == 134656);
+						REQUIRE(instance << 15 == 8617984);
+						REQUIRE(instance << 16 == 458752);
+						REQUIRE(instance << 17 == 917504);
+						REQUIRE(instance << 23 == 8388608);
+						
+						instance = 98304;
+						
+						REQUIRE(instance << 0 == 98304);
+						REQUIRE(instance << 1 == 196608);
+						REQUIRE(instance << 7 == 12582912);
+						REQUIRE(instance << 8 == 8388608);
+						REQUIRE(instance << 9 == 0);
+						REQUIRE(instance << 15 == 0);
+						REQUIRE(instance << 16 == 0);
+						REQUIRE(instance << 17 == 0);
+						REQUIRE(instance << 23 == 0);
+					}
+				}
+			}
         }
     }
 }
