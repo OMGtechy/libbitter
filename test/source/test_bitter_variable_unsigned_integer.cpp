@@ -344,6 +344,15 @@ namespace bitter {
                                     REQUIRE(operand + instance == operand + startingValue);
                                 }
 
+                                ////////////////////
+                                // multiplication //
+                                ////////////////////
+                                
+                                if(static_cast<uint64_t>(startingValue) * static_cast<uint64_t>(operand) <= std::numeric_limits<uint32_t>::max()) {
+                                    REQUIRE(instance * operand == startingValue * operand);
+                                    REQUIRE(operand * instance == operand * startingValue);
+                                }
+
                                 /////////////////
                                 // subtraction //
                                 /////////////////

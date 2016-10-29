@@ -21,6 +21,7 @@ namespace bitter {
     VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
     VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
     VariableUnsignedInteger& operator++(VariableUnsignedInteger&);
+    VariableUnsignedInteger& operator--(VariableUnsignedInteger&);
 
     /////////////////////////////////
     // logical operator prototypes //
@@ -165,6 +166,7 @@ namespace bitter {
         /////////////////////////////////
 
         friend VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
+        friend VariableUnsignedInteger operator*(const VariableUnsignedInteger&, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
         friend VariableUnsignedInteger operator/(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
 
@@ -283,8 +285,29 @@ namespace bitter {
         return variableLhs - rhs;
     }
 
-    VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        return lhs;
+    VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, VariableUnsignedInteger rhs) {
+        VariableUnsignedInteger result(lhs.m_data.size());
+        result = 0;
+        
+        for(; rhs != 0; --rhs) {
+            result += lhs;
+        }
+        
+        return result;
+    }
+   
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs * variableRhs;
+    }
+    
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator*(const T& lhs, const VariableUnsignedInteger& rhs) {
+        return rhs * lhs;
     }
 
     VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
