@@ -22,7 +22,7 @@ before_script:
     - cmake ../
     - make -j
 
-script: ./test_bitter -s
+script: ./test_bitter
 
 after_success:
     - cd CMakeFiles/test_bitter.dir/source
