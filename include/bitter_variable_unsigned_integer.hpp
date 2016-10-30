@@ -13,6 +13,7 @@ namespace bitter {
     //////////////////////////
 
     class VariableUnsignedInteger;
+    struct DivisonResult;
 
     ////////////////////////////////////
     // arithmetic operator prototypes //
@@ -20,6 +21,12 @@ namespace bitter {
 
     VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
     VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
+    VariableUnsignedInteger operator%(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
+    
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>   
+    VariableUnsignedInteger operator%(const VariableUnsignedInteger&, const T&);              
+    
     VariableUnsignedInteger& operator++(VariableUnsignedInteger&);
     VariableUnsignedInteger& operator--(VariableUnsignedInteger&);
 
@@ -168,7 +175,7 @@ namespace bitter {
         friend VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
         friend VariableUnsignedInteger operator*(const VariableUnsignedInteger&, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
-        friend VariableUnsignedInteger operator/(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
+        friend DivisonResult quotientAndRemainder(const VariableUnsignedInteger& value, const VariableUnsignedInteger& divisor);
 
         //////////////////////////////
         // bitwise operator friends //
@@ -310,41 +317,55 @@ namespace bitter {
         return rhs * lhs;
     }
 
-    VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        if(rhs == 1) {
-            return lhs;
+    // TODO:
+    // either hide quotientAndRemainder / its return type from the public interface
+    // or
+    // find a proper place for it
+    
+    struct DivisonResult {
+        VariableUnsignedInteger quotient;
+        VariableUnsignedInteger remainder;
+    };
+
+    DivisonResult quotientAndRemainder(const VariableUnsignedInteger& value, const VariableUnsignedInteger& divisor) {
+        VariableUnsignedInteger remainder(value.m_data.size());
+        remainder = 0;
+        
+        if(divisor == 1) { 
+            return { value, remainder };
         }
 
         // TODO:
-        // What do if rhs == 0?
+        // What do if divisor == 0?
 
-        VariableUnsignedInteger quotient(lhs.m_data.size());
-        VariableUnsignedInteger remainder(lhs.m_data.size());
-
+        VariableUnsignedInteger quotient(value.m_data.size());
         quotient = 0;
-        remainder = 0;
 
-        const auto bitsInRhs = rhs.m_data.size() * (sizeof(decltype(rhs.m_data)::value_type) * 8);
+        const auto bitsInDivisor = divisor.m_data.size() * (sizeof(decltype(divisor.m_data)::value_type) * 8);
 
-        for(size_t i = bitsInRhs; i > 0; --i) {
+        for(size_t i = bitsInDivisor; i > 0; --i) {
             const auto bitIndex = i - 1;
             
             remainder <<= 1;
             
-            BitReader bitReader(lhs.m_data.data());
+            BitReader bitReader(value.m_data.data());
             BitWriter bitWriter(remainder.m_data.data());
 
             bitWriter.setBit(0, bitReader.getBit(bitIndex));
             
-            if(remainder >= rhs) {
-                remainder -= rhs;
+            if(remainder >= divisor) {
+                remainder -= divisor;
                 
                 BitWriter bitWriter(quotient.m_data.data());
                 bitWriter.setBit(bitIndex, Bit::One);
             }
         }
 
-        return quotient;
+        return { quotient, remainder };
+    }
+    
+    VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+        return quotientAndRemainder(lhs, rhs).quotient;
     }
 
     template <typename T,
@@ -364,7 +385,23 @@ namespace bitter {
     }
 
     VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        return lhs;
+        return quotientAndRemainder(lhs, rhs).remainder;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs % variableRhs;
+    }
+    
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator%(const T& lhs, const VariableUnsignedInteger& rhs) {
+        VariableUnsignedInteger variableLhs(sizeof(lhs));
+        variableLhs = lhs;
+        return variableLhs % rhs;
     }
 
     VariableUnsignedInteger& operator++(VariableUnsignedInteger& value) {

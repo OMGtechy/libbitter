@@ -376,6 +376,18 @@ namespace bitter {
                                 if(startingValue != 0) {
                                     REQUIRE(operand / instance == operand / startingValue);
                                 }
+                                
+                                /////////////
+                                // modulus //
+                                /////////////
+                                
+                                if(operand != 0) {
+                                    REQUIRE(instance % operand == startingValue % operand);
+                                }
+
+                                if(startingValue != 0) {
+                                    REQUIRE(operand % instance == operand % startingValue);
+                                }
                             }
                         }
                     }
