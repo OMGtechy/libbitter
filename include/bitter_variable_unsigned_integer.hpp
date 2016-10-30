@@ -50,6 +50,14 @@ namespace bitter {
     ////////////////////////////////
 
     VariableUnsignedInteger operator<<(VariableUnsignedInteger, VariableUnsignedInteger);
+    
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator<<(const VariableUnsignedInteger&, const T&);
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator>>(const VariableUnsignedInteger&, const T&);
 
     class VariableUnsignedInteger {
     public:
@@ -182,6 +190,7 @@ namespace bitter {
         //////////////////////////////
 
         friend VariableUnsignedInteger operator<<(VariableUnsignedInteger, VariableUnsignedInteger);
+        friend VariableUnsignedInteger operator>>(VariableUnsignedInteger, VariableUnsignedInteger);
 
     private:
         using chunk_t = uint8_t;
@@ -646,8 +655,40 @@ namespace bitter {
         return lhs << variableRhs;
     }
 
-    VariableUnsignedInteger operator>>(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    VariableUnsignedInteger operator>>(VariableUnsignedInteger lhs, VariableUnsignedInteger rhs) {
+        // TODO:
+        // if the user was using an uint8_t (for example), and shift by > 7, it's UB
+        // it might be nice to have an exception thrown in those circumstances
+
+        for(; rhs > 0; --rhs) {
+            for(size_t i = 0; i < lhs.m_data.size(); ++i) {
+
+                if(i != 0) {
+                    // TODO:
+                    // these should be functions; no object is needed. Refactor BitReader/BitWriter...
+                    const BitReader bitReader(&lhs.m_data[i]);
+                    if(bitReader.getBit(0) == Bit::One) {
+                        BitWriter bitWriter(&lhs.m_data[i - 1]);
+                        bitWriter.setBit((sizeof(decltype(lhs.m_data)::value_type) * 8) - 1, Bit::One);
+                    }
+                }
+
+                // TODO:
+                // I know, I know! Shifting one bit at a time will be slow as hell...
+                // the algorithm should be changed and a test should be added for large lhs and rhs values.
+                lhs.m_data[i] >>= 1;
+            }
+        }
+
         return lhs;
+    }
+    
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator>>(const VariableUnsignedInteger& lhs, const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return lhs >> variableRhs;
     }
 
     VariableUnsignedInteger operator&(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
