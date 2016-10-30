@@ -305,8 +305,44 @@ namespace bitter {
         VariableUnsignedInteger result(lhs.m_data.size());
         result = 0;
         
-        for(; rhs != 0; --rhs) {
-            result += lhs;
+        if(lhs == 0 || rhs == 0) {
+            return result;
+        }
+        
+        const auto bitsInLhs = lhs.m_data.size() * (sizeof(decltype(lhs.m_data)::value_type) * 8);
+        const auto bitsInRhs = rhs.m_data.size() * (sizeof(decltype(rhs.m_data)::value_type) * 8);
+
+        using carry_t = uint16_t;
+        static_assert(sizeof(carry_t) >= sizeof(decltype(lhs.m_data)::value_type) + 1, "");
+        carry_t carry;
+
+        BitReader lhsReader(lhs.m_data.data());
+        BitReader rhsReader(rhs.m_data.data());
+        
+        std::vector<VariableUnsignedInteger> lhsResults;
+        std::vector<VariableUnsignedInteger> rhsResults;
+        
+        lhsResults.push_back(lhs);
+        rhsResults.push_back(rhs);
+
+        VariableUnsignedInteger lhsResult(lhs.m_data.size());
+        VariableUnsignedInteger rhsResult(rhs.m_data.size() + 1);
+        
+        lhsResult = lhsResults.back();
+        rhsResult = rhsResults.back();
+        
+        while(lhsResults.back() != 1) {
+            lhsResult = lhsResults.back() >> 1;
+            rhsResult = rhsResults.back() << 1;
+
+            lhsResults.push_back(lhsResult);
+            rhsResults.push_back(rhsResult);
+        }
+        
+        for(size_t i = 0; i < lhsResults.size(); ++i) {
+            if(lhsResults[i] % 2 != 0) {
+                result += rhsResults[i];
+            }
         }
         
         return result;
