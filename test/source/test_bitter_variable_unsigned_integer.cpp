@@ -347,7 +347,7 @@ namespace bitter {
                                 ////////////////////
                                 // multiplication //
                                 ////////////////////
-                                
+
                                 if(static_cast<uint64_t>(startingValue) * static_cast<uint64_t>(operand) <= std::numeric_limits<uint32_t>::max()) {
                                     REQUIRE(instance * operand == startingValue * operand);
                                     REQUIRE(operand * instance == operand * startingValue);
@@ -376,11 +376,11 @@ namespace bitter {
                                 if(startingValue != 0) {
                                     REQUIRE(operand / instance == operand / startingValue);
                                 }
-                                
+
                                 /////////////
                                 // modulus //
                                 /////////////
-                                
+
                                 if(operand != 0) {
                                     REQUIRE(instance % operand == startingValue % operand);
                                 }
@@ -520,9 +520,9 @@ namespace bitter {
                         REQUIRE(instance >> 16 == 1);
                         REQUIRE(instance >> 17 == 0);
                         REQUIRE(instance >> 23 == 0);
-                        
+
                         instance = 16777215;
-                        
+
                         REQUIRE(instance >> 0 == 16777215);
                         REQUIRE(instance >> 1 == 8388607);
                         REQUIRE(instance >> 7 == 131071);
