@@ -309,9 +309,6 @@ namespace bitter {
             return result;
         }
         
-        const auto bitsInLhs = lhs.m_data.size() * (sizeof(decltype(lhs.m_data)::value_type) * 8);
-        const auto bitsInRhs = rhs.m_data.size() * (sizeof(decltype(rhs.m_data)::value_type) * 8);
-
         using carry_t = uint16_t;
         static_assert(sizeof(carry_t) >= sizeof(decltype(lhs.m_data)::value_type) + 1, "");
         carry_t carry;
