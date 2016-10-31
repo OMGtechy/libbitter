@@ -95,18 +95,13 @@ namespace bitter {
             return *this;
         }
 
-        VariableUnsignedInteger operator+=(const VariableUnsignedInteger& rhs) {
-            // TODO:
-            // add test for this
+        VariableUnsignedInteger& operator+=(const VariableUnsignedInteger& rhs) {
             return (*this = *this + rhs);
         }
 
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
-        VariableUnsignedInteger operator+=(const T& rhs) {
-            // TODO:
-            // add test for this
-
+        VariableUnsignedInteger& operator+=(const T& rhs) {
             VariableUnsignedInteger variableRhs(sizeof(rhs));
             variableRhs = rhs;
             return *this += variableRhs;
@@ -216,7 +211,10 @@ namespace bitter {
         carry_t carry = 0;
 
         for(size_t i = 0; i < maxBytes; ++i) {
-            auto chunkSum = lhs.m_data[i] + rhs.m_data[i] + carry;
+            auto lhsChunk = i < lhs.m_data.size() ? lhs.m_data[i] : 0;
+            auto rhsChunk = i < rhs.m_data.size() ? rhs.m_data[i] : 0;
+            
+            auto chunkSum = lhsChunk + rhsChunk + carry;
 
             constexpr auto chunkMax = std::numeric_limits<VariableUnsignedInteger::chunk_t>::max();
             carry = chunkSum > chunkMax ? 1 : 0;

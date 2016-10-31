@@ -366,6 +366,18 @@ namespace bitter {
                 }
             }
 
+            GIVEN("a VariableUnsignedInteger of size 2") {
+                VariableUnsignedInteger instance(2);
+                instance = 0;
+
+                WHEN("arithmetic assignment operators are used") {
+                    THEN("its value should change appropriately and the same object should be returned") {
+                        REQUIRE(&(instance += 100) == &instance);
+                        REQUIRE(instance == 100);
+                    }
+                }
+            }
+
             GIVEN("a VariableUnsignedInteger of size 4") {
                 VariableUnsignedInteger instance(4);
 
