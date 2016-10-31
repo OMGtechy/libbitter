@@ -374,6 +374,18 @@ namespace bitter {
                     THEN("its value should change appropriately and the same object should be returned") {
                         REQUIRE(&(instance += 100) == &instance);
                         REQUIRE(instance == 100);
+
+                        REQUIRE(&(instance -= 50) == &instance);
+                        REQUIRE(instance == 50);
+
+                        REQUIRE(&(instance *= 4) == &instance);
+                        REQUIRE(instance == 200);
+
+                        REQUIRE(&(instance /= 8) == &instance);
+                        REQUIRE(instance == 25);
+
+                        REQUIRE(&(instance %= 10) == &instance);
+                        REQUIRE(instance == 5);
                     }
                 }
             }
