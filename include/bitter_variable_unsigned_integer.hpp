@@ -47,9 +47,9 @@ namespace bitter {
               typename = std::enable_if<std::is_unsigned<T>::value>>
     bool operator!=(const VariableUnsignedInteger&, const T&);
 
-    ////////////////////////////////
-    // binary operator prototypes //
-    ////////////////////////////////
+    /////////////////////////////////
+    // bitwise operator prototypes //
+    /////////////////////////////////
 
     VariableUnsignedInteger operator<<(VariableUnsignedInteger, VariableUnsignedInteger);
 
