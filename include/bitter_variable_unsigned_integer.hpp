@@ -549,17 +549,6 @@ namespace bitter {
             }
         }
 
-        for(size_t i = lowestNumberOfBytes; i > 0; --i) {
-            const auto byteIndex = i - 1;
-
-            const auto lhsByte = lhs.m_data[byteIndex];
-            const auto rhsByte = rhs.m_data[byteIndex];
-
-            if(lhsByte != rhsByte) {
-                return lhsByte < rhsByte;
-            }
-        }
-
         return false;
     }
 
