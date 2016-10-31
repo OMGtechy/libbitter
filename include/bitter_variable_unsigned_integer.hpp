@@ -316,9 +316,6 @@ namespace bitter {
         static_assert(sizeof(carry_t) >= sizeof(decltype(lhs.m_data)::value_type) + 1, "");
         carry_t carry;
 
-        BitReader lhsReader(lhs.m_data.data());
-        BitReader rhsReader(rhs.m_data.data());
-        
         std::vector<VariableUnsignedInteger> lhsResults;
         std::vector<VariableUnsignedInteger> rhsResults;
         
@@ -392,17 +389,12 @@ namespace bitter {
             const auto bitIndex = i - 1;
             
             remainder <<= 1;
-            
-            BitReader bitReader(value.m_data.data());
-            BitWriter bitWriter(remainder.m_data.data());
 
-            bitWriter.setBit(0, bitReader.getBit(bitIndex));
+            setBit(remainder.m_data.data(), 0, getBit(value.m_data.data(), bitIndex));
             
             if(remainder >= divisor) {
                 remainder -= divisor;
-                
-                BitWriter bitWriter(quotient.m_data.data());
-                bitWriter.setBit(bitIndex, Bit::One);
+                setBit(quotient.m_data.data(), bitIndex, Bit::One);
             }
         }
 
@@ -664,12 +656,8 @@ namespace bitter {
                 const auto chunkIndex = i - 1;
 
                 if(i != lhs.m_data.size()) {
-                    // TODO:
-                    // these should be functions; no object is needed. Refactor BitReader/BitWriter...
-                    const BitReader bitReader(&lhs.m_data[chunkIndex]);
-                    if(bitReader.getBit((sizeof(decltype(lhs.m_data)::value_type) * 8) - 1) == Bit::One) {
-                        BitWriter bitWriter(&lhs.m_data[chunkIndex + 1]);
-                        bitWriter.setBit(0, Bit::One);
+                    if(getBit(&lhs.m_data[chunkIndex], (sizeof(decltype(lhs.m_data)::value_type) * 8) - 1) == Bit::One) {
+                        setBit(&lhs.m_data[chunkIndex + 1], 0, Bit::One);
                     }
                 }
 
@@ -700,12 +688,8 @@ namespace bitter {
             for(size_t i = 0; i < lhs.m_data.size(); ++i) {
 
                 if(i != 0) {
-                    // TODO:
-                    // these should be functions; no object is needed. Refactor BitReader/BitWriter...
-                    const BitReader bitReader(&lhs.m_data[i]);
-                    if(bitReader.getBit(0) == Bit::One) {
-                        BitWriter bitWriter(&lhs.m_data[i - 1]);
-                        bitWriter.setBit((sizeof(decltype(lhs.m_data)::value_type) * 8) - 1, Bit::One);
+                    if(getBit(&lhs.m_data[i], 0) == Bit::One) {
+                        setBit(&lhs.m_data[i - 1], (sizeof(decltype(lhs.m_data)::value_type) * 8) - 1, Bit::One);
                     }
                 }
 

@@ -10,22 +10,18 @@ namespace bitter {
             GIVEN("a single byte with all zeros") {
                 uint8_t byte = 0b00000000;
 
-                WHEN("a bit writer is created to write to it") {
-                    BitWriter bitWriter(&byte);
+                WHEN("bit 0 is set to 1 and the others are set to 0") {
+                    bitter::setBit(&byte, 0, Bit::One);
+                    bitter::setBit(&byte, 1, Bit::Zero);
+                    bitter::setBit(&byte, 2, Bit::Zero);
+                    bitter::setBit(&byte, 3, Bit::Zero);
+                    bitter::setBit(&byte, 4, Bit::Zero);
+                    bitter::setBit(&byte, 5, Bit::Zero);
+                    bitter::setBit(&byte, 6, Bit::Zero);
+                    bitter::setBit(&byte, 7, Bit::Zero);
 
-                    WHEN("bit 0 is set to 1 and the others are set to 0") {
-                        bitWriter.setBit(0, Bit::One);
-                        bitWriter.setBit(1, Bit::Zero);
-                        bitWriter.setBit(2, Bit::Zero);
-                        bitWriter.setBit(3, Bit::Zero);
-                        bitWriter.setBit(4, Bit::Zero);
-                        bitWriter.setBit(5, Bit::Zero);
-                        bitWriter.setBit(6, Bit::Zero);
-                        bitWriter.setBit(7, Bit::Zero);
-
-                        THEN("the byte (when interpreted as a uint8_t) is equal to one") {
-                            REQUIRE(byte == 1);
-                        }
+                    THEN("the byte (when interpreted as a uint8_t) is equal to one") {
+                        REQUIRE(byte == 1);
                     }
                 }
             }
@@ -33,22 +29,18 @@ namespace bitter {
             GIVEN("a single byte with all ones") {
                 uint8_t byte = 0b11111111;
 
-                WHEN("a bit writer is created to write to it") {
-                    BitWriter bitWriter(&byte);
+                WHEN("bit 7 is set to 0 and the others are set to 1") {
+                    bitter::setBit(&byte, 0, Bit::One);
+                    bitter::setBit(&byte, 1, Bit::One);
+                    bitter::setBit(&byte, 2, Bit::One);
+                    bitter::setBit(&byte, 3, Bit::One);
+                    bitter::setBit(&byte, 4, Bit::One);
+                    bitter::setBit(&byte, 5, Bit::One);
+                    bitter::setBit(&byte, 6, Bit::One);
+                    bitter::setBit(&byte, 7, Bit::Zero);
 
-                    WHEN("bit 7 is set to 0 and the others are set to 1") {
-                        bitWriter.setBit(0, Bit::One);
-                        bitWriter.setBit(1, Bit::One);
-                        bitWriter.setBit(2, Bit::One);
-                        bitWriter.setBit(3, Bit::One);
-                        bitWriter.setBit(4, Bit::One);
-                        bitWriter.setBit(5, Bit::One);
-                        bitWriter.setBit(6, Bit::One);
-                        bitWriter.setBit(7, Bit::Zero);
-
-                        THEN("the byte (when interpreted as a uint8_t) is equal to 127") {
-                            REQUIRE(byte == 127);
-                        }
+                    THEN("the byte (when interpreted as a uint8_t) is equal to 127") {
+                        REQUIRE(byte == 127);
                     }
                 }
             }
@@ -57,26 +49,22 @@ namespace bitter {
                 uint8_t byte = 0b01101001;
                 REQUIRE(byte == 105);
 
-                WHEN("a bit writer is created to write to it") {
-                    BitWriter bitWriter(&byte);
+                WHEN("some of the bits are set") {
+                    THEN("the byte (when interpreted as a uint8_t) changes accordingly") {
+                        bitter::setBit(&byte, 0, Bit::Zero);
+                        REQUIRE(byte == 104);
 
-                    WHEN("some of the bits are set") {
-                        THEN("the byte (when interpreted as a uint8_t) changes accordingly") {
-                            bitWriter.setBit(0, Bit::Zero);
-                            REQUIRE(byte == 104);
+                        bitter::setBit(&byte, 1, Bit::Zero);
+                        REQUIRE(byte == 104);
 
-                            bitWriter.setBit(1, Bit::Zero);
-                            REQUIRE(byte == 104);
+                        bitter::setBit(&byte, 3, Bit::Zero);
+                        REQUIRE(byte == 96);
 
-                            bitWriter.setBit(3, Bit::Zero);
-                            REQUIRE(byte == 96);
+                        bitter::setBit(&byte, 5, Bit::One);
+                        REQUIRE(byte == 96);
 
-                            bitWriter.setBit(5, Bit::One);
-                            REQUIRE(byte == 96);
-
-                            bitWriter.setBit(7, Bit::One);
-                            REQUIRE(byte == 224);
-                        }
+                        bitter::setBit(&byte, 7, Bit::One);
+                        REQUIRE(byte == 224);
                     }
                 }
             }
@@ -87,71 +75,67 @@ namespace bitter {
                 REQUIRE(bytes[1] == 204);
                 REQUIRE(bytes[2] == 51);
 
-                WHEN(" a bit writer is created to write to them") {
-                    BitWriter bitWriter(&bytes);
+                WHEN("the bits are written to") {
+                    THEN("the byte values change accordingly") {
+                        bitter::setBit(bytes, 0, Bit::Zero);
+                        REQUIRE(bytes[0] == 194);
+                        REQUIRE(bytes[1] == 204);
+                        REQUIRE(bytes[2] == 51);
 
-                    WHEN("the bits are written to") {
-                        THEN("the byte values change accordingly") {
-                            bitWriter.setBit(0, Bit::Zero);
-                            REQUIRE(bytes[0] == 194);
-                            REQUIRE(bytes[1] == 204);
-                            REQUIRE(bytes[2] == 51);
+                        bitter::setBit(bytes, 1, Bit::One);
+                        REQUIRE(bytes[0] == 194);
+                        REQUIRE(bytes[1] == 204);
+                        REQUIRE(bytes[2] == 51);
 
-                            bitWriter.setBit(1, Bit::One);
-                            REQUIRE(bytes[0] == 194);
-                            REQUIRE(bytes[1] == 204);
-                            REQUIRE(bytes[2] == 51);
+                        bitter::setBit(bytes, 6, Bit::Zero);
+                        REQUIRE(bytes[0] == 130);
+                        REQUIRE(bytes[1] == 204);
+                        REQUIRE(bytes[2] == 51);
 
-                            bitWriter.setBit(6, Bit::Zero);
-                            REQUIRE(bytes[0] == 130);
-                            REQUIRE(bytes[1] == 204);
-                            REQUIRE(bytes[2] == 51);
+                        bitter::setBit(bytes, 7, Bit::One);
+                        REQUIRE(bytes[0] == 130);
+                        REQUIRE(bytes[1] == 204);
+                        REQUIRE(bytes[2] == 51);
 
-                            bitWriter.setBit(7, Bit::One);
-                            REQUIRE(bytes[0] == 130);
-                            REQUIRE(bytes[1] == 204);
-                            REQUIRE(bytes[2] == 51);
+                        bitter::setBit(bytes, 8, Bit::One);
+                        REQUIRE(bytes[0] == 130);
+                        REQUIRE(bytes[1] == 205);
+                        REQUIRE(bytes[2] == 51);
 
-                            bitWriter.setBit(8, Bit::One);
-                            REQUIRE(bytes[0] == 130);
-                            REQUIRE(bytes[1] == 205);
-                            REQUIRE(bytes[2] == 51);
+                        bitter::setBit(bytes, 10, Bit::Zero);
+                        REQUIRE(bytes[0] == 130);
+                        REQUIRE(bytes[1] == 201);
+                        REQUIRE(bytes[2] == 51);
 
-                            bitWriter.setBit(10, Bit::Zero);
-                            REQUIRE(bytes[0] == 130);
-                            REQUIRE(bytes[1] == 201);
-                            REQUIRE(bytes[2] == 51);
+                        bitter::setBit(bytes, 11, Bit::Zero);
+                        REQUIRE(bytes[0] == 130);
+                        REQUIRE(bytes[1] == 193);
+                        REQUIRE(bytes[2] == 51);
 
-                            bitWriter.setBit(11, Bit::Zero);
-                            REQUIRE(bytes[0] == 130);
-                            REQUIRE(bytes[1] == 193);
-                            REQUIRE(bytes[2] == 51);
+                        bitter::setBit(bytes, 15, Bit::Zero);
+                        REQUIRE(bytes[0] == 130);
+                        REQUIRE(bytes[1] == 65);
+                        REQUIRE(bytes[2] == 51);
 
-                            bitWriter.setBit(15, Bit::Zero);
-                            REQUIRE(bytes[0] == 130);
-                            REQUIRE(bytes[1] == 65);
-                            REQUIRE(bytes[2] == 51);
+                        bitter::setBit(bytes, 16, Bit::Zero);
+                        REQUIRE(bytes[0] == 130);
+                        REQUIRE(bytes[1] == 65);
+                        REQUIRE(bytes[2] == 50);
 
-                            bitWriter.setBit(16, Bit::Zero);
-                            REQUIRE(bytes[0] == 130);
-                            REQUIRE(bytes[1] == 65);
-                            REQUIRE(bytes[2] == 50);
+                        bitter::setBit(bytes, 18, Bit::One);
+                        REQUIRE(bytes[0] == 130);
+                        REQUIRE(bytes[1] == 65);
+                        REQUIRE(bytes[2] == 54);
 
-                            bitWriter.setBit(18, Bit::One);
-                            REQUIRE(bytes[0] == 130);
-                            REQUIRE(bytes[1] == 65);
-                            REQUIRE(bytes[2] == 54);
+                        bitter::setBit(bytes, 22, Bit::One);
+                        REQUIRE(bytes[0] == 130);
+                        REQUIRE(bytes[1] == 65);
+                        REQUIRE(bytes[2] == 118);
 
-                            bitWriter.setBit(22, Bit::One);
-                            REQUIRE(bytes[0] == 130);
-                            REQUIRE(bytes[1] == 65);
-                            REQUIRE(bytes[2] == 118);
-
-                            bitWriter.setBit(23, Bit::Zero);
-                            REQUIRE(bytes[0] == 130);
-                            REQUIRE(bytes[1] == 65);
-                            REQUIRE(bytes[2] == 118);
-                        }
+                        bitter::setBit(bytes, 23, Bit::Zero);
+                        REQUIRE(bytes[0] == 130);
+                        REQUIRE(bytes[1] == 65);
+                        REQUIRE(bytes[2] == 118);
                     }
                 }
             }
