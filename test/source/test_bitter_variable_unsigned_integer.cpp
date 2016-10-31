@@ -310,6 +310,62 @@ namespace bitter {
                 }
             }
 
+            GIVEN("2 initialised instances of different size and different value") {
+                VariableUnsignedInteger instanceA(4);
+                instanceA = 524288;
+
+                VariableUnsignedInteger instanceB(2);
+                instanceB = 0;
+
+                WHEN("they are compared") {
+                    THEN("all comparison operations should act appropriately") {
+                        REQUIRE(instanceA != instanceB);
+                        REQUIRE(instanceB != instanceA);
+
+                        REQUIRE(! (instanceA == instanceB));
+                        REQUIRE(! (instanceB == instanceA));
+
+                        REQUIRE(instanceA >= instanceB);
+                        REQUIRE(! (instanceB >= instanceA));
+                        REQUIRE(! (instanceA <= instanceB));
+                        REQUIRE(instanceB <= instanceA);
+
+                        REQUIRE((instanceA > instanceB));
+                        REQUIRE(! (instanceB > instanceA));
+                        REQUIRE(! (instanceA < instanceB));
+                        REQUIRE((instanceB < instanceA));
+                    }
+                }
+            }
+
+            GIVEN("2 initialised instances of different size but of the same value") {
+                VariableUnsignedInteger instanceA(4);
+                instanceA = 200;
+
+                VariableUnsignedInteger instanceB(2);
+                instanceB = 200;
+
+                WHEN("they are compared") {
+                    THEN("all comparison operations should act appropriately") {
+                        REQUIRE(instanceA == instanceB);
+                        REQUIRE(instanceB == instanceA);
+
+                        REQUIRE(! (instanceA != instanceB));
+                        REQUIRE(! (instanceB != instanceA));
+
+                        REQUIRE(instanceA >= instanceB);
+                        REQUIRE(instanceB >= instanceA);
+                        REQUIRE(instanceA <= instanceB);
+                        REQUIRE(instanceB <= instanceA);
+
+                        REQUIRE(! (instanceA > instanceB));
+                        REQUIRE(! (instanceB > instanceA));
+                        REQUIRE(! (instanceA < instanceB));
+                        REQUIRE(! (instanceB < instanceA));
+                    }
+                }
+            }
+
             GIVEN("a VariableUnsignedInteger of size 4") {
                 VariableUnsignedInteger instance(4);
 
