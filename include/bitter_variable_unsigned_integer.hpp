@@ -301,7 +301,13 @@ namespace bitter {
                 }
             }
 
-            lhs.m_data[i] = chunkSub;
+            // if this is false and chunkSub is non-zero, underflow!
+            // TODO:
+            // if i is out of bounds for lhs, we could just break out of the loop
+            // but that would stop use detecting underflow. Pick one!
+            if(i < lhs.m_data.size()) {
+                lhs.m_data[i] = chunkSub;
+            }
         }
 
         return lhs;

@@ -404,6 +404,10 @@ namespace bitter {
                         REQUIRE(instanceB + instanceA == 312);
                         
                         REQUIRE(instanceA - instanceB == 264);
+                        
+                        instanceB = 289;
+                        
+                        REQUIRE(instanceB - instanceA == 1); 
                     }
                 }
             }
