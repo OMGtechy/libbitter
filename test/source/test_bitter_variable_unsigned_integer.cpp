@@ -405,6 +405,9 @@ namespace bitter {
                         
                         REQUIRE(instanceA - instanceB == 264);
                         
+                        REQUIRE(instanceA * instanceB == 6912);
+                        REQUIRE(instanceB * instanceA == 6912);
+                        
                         instanceB = 289;
                         
                         REQUIRE(instanceB - instanceA == 1); 
