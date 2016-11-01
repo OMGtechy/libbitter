@@ -389,6 +389,21 @@ namespace bitter {
                     }
                 }
             }
+            
+            GIVEN("two VariableUnsignedIntegers of different size") {
+                VariableUnsignedInteger instanceA(4);
+                VariableUnsignedInteger instanceB(2);
+
+                
+                WHEN("arithmetic operations are perfored between them") {
+                    THEN("the resulting values are expected") {
+                        instanceA = 288;
+                        instanceB = 24;
+                        
+                        REQUIRE(instanceA - instanceB == 264);
+                    }
+                }
+            }
 
             GIVEN("a VariableUnsignedInteger of size 4") {
                 VariableUnsignedInteger instance(4);

@@ -276,7 +276,10 @@ namespace bitter {
         static_assert(sizeof(carry_t) > (sizeof(VariableUnsignedInteger::chunk_t) + 1), "");
 
         for(size_t i = 0; i < maxBytes; ++i) {
-            carry_t chunkSub = static_cast<carry_t>(lhs.m_data[i]) - static_cast<carry_t>(rhs.m_data[i]);
+            const carry_t lhsChunk = i < lhs.m_data.size() ? lhs.m_data[i] : 0;
+            const carry_t rhsChunk = i < rhs.m_data.size() ? rhs.m_data[i] : 0;
+        
+            carry_t chunkSub = lhsChunk - rhsChunk;
 
             size_t borrowByteIndex = i;
             while(chunkSub < 0) {
