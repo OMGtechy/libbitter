@@ -409,7 +409,7 @@ namespace bitter {
                 VariableUnsignedInteger instance(4);
 
                 WHEN("arithmetic operations are performed upon it") {
-                    THEN("its value changes appropriately") {
+                    THEN("the resulting value changes appropriately") {
                         constexpr uint32_t startingValues[] = {
                             0, 1, 42,
                             255, 256,
