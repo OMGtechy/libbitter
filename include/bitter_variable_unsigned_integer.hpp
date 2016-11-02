@@ -68,7 +68,7 @@ namespace bitter {
         //////////////////
 
         explicit VariableUnsignedInteger(const size_t numberOfBytes)
-        : m_data(numberOfBytes) {
+        : m_data(numberOfBytes, 0) {
 
         }
 
@@ -88,6 +88,7 @@ namespace bitter {
                   typename = std::enable_if<std::is_unsigned<T>::value>>
         VariableUnsignedInteger& operator=(T rhs) {
             const auto maxBytes = std::min(sizeof(rhs), m_data.size());
+            std::fill(m_data.begin(), m_data.end(), 0);
 
             for(size_t i = 0; i < maxBytes; ++i) {
                 m_data[i] = rhs & static_cast<uint8_t>(0xFF);
@@ -501,8 +502,8 @@ namespace bitter {
         return value;
     }
 
-    VariableUnsignedInteger operator-(const VariableUnsignedInteger& value) {
-        return value;
+    VariableUnsignedInteger operator-(const VariableUnsignedInteger& value) {       
+        return ~value + 1U;
     }
 
     ///////////////////////

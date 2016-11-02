@@ -504,7 +504,41 @@ namespace bitter {
                     }
                 }
             }
+            
+            GIVEN("a VariableUnsignedInteger of size 8") {
+                VariableUnsignedInteger instance(8);
 
+                WHEN("unary operator- is applied to it") {
+                    THEN("the value changes as expected") {
+                        instance = 0U;
+                        REQUIRE(-instance == 0U);
+
+                        instance = 1U;
+                        REQUIRE(-instance == 18446744073709551615U);
+                        
+                        instance = 18446744073709551615U;
+                        REQUIRE(-instance == 1U);
+                        
+                        instance = 257U;
+                        REQUIRE(-instance == 18446744073709551359U);
+                        
+                        instance = 18446744073709551359U;
+                        REQUIRE(-instance == 257U);
+                        
+                        instance = 123456789U;
+                        REQUIRE(-instance == 18446744073586094827U);
+                        
+                        instance = 18446744073586094827U;
+                        REQUIRE(-instance == 123456789U);
+                        
+                        instance = 18443616647367798558U;
+                        REQUIRE(-instance == 3127426341753058U);
+                        
+                        instance = 3127426341753058U;
+                        REQUIRE(-instance == 18443616647367798558U);
+                    }
+                }
+            }
 
             GIVEN("a VariableUnsignedInteger of size 2") {
                 VariableUnsignedInteger instance(2);
