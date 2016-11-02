@@ -209,7 +209,9 @@ namespace bitter {
         friend VariableUnsignedInteger operator<<(VariableUnsignedInteger, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator>>(VariableUnsignedInteger, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator~(VariableUnsignedInteger);
-        friend VariableUnsignedInteger operator&(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
+        
+        template <template<typename> typename Operation>
+        friend VariableUnsignedInteger applyBinaryOperationBetweenChunks(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
 
     private:
         using chunk_t = uint8_t;
@@ -736,7 +738,10 @@ namespace bitter {
         return lhs >> variableRhs;
     }
 
-    VariableUnsignedInteger operator&(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    template <template<typename> typename Operation>
+    VariableUnsignedInteger applyBinaryOperationBetweenChunks(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+        constexpr Operation<VariableUnsignedInteger::chunk_t> operation;
+        
         VariableUnsignedInteger result(std::max(lhs.m_data.size(), rhs.m_data.size()));
         result = 0;
         
@@ -744,10 +749,14 @@ namespace bitter {
             const auto lhsChunk = i < lhs.m_data.size() ? lhs.m_data[i] : 0;
             const auto rhsChunk = i < rhs.m_data.size() ? rhs.m_data[i] : 0;
             
-            result.m_data[i] = lhsChunk & rhsChunk;
+            result.m_data[i] = operation(lhsChunk, rhsChunk);
         }
         
         return result;
+    }
+    
+    VariableUnsignedInteger operator&(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+        return applyBinaryOperationBetweenChunks<std::bit_and>(lhs, rhs);
     }
 
     VariableUnsignedInteger operator^(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
@@ -755,7 +764,7 @@ namespace bitter {
     }
 
     VariableUnsignedInteger operator|(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        return lhs;
+        return applyBinaryOperationBetweenChunks<std::bit_or>(lhs, rhs);
     }
 
     VariableUnsignedInteger operator~(VariableUnsignedInteger value) {

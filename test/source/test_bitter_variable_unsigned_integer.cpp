@@ -607,6 +607,56 @@ namespace bitter {
                 }
             }
             
+            GIVEN("a pair of VariableUnsignedIntegers of size 2 and 3") {
+                VariableUnsignedInteger instanceA(2);
+                VariableUnsignedInteger instanceB(3);
+                
+                WHEN("operator| is applied to it") {
+                    THEN("its value changes appropriately") {
+                        instanceA = 0b0000000000000000;
+                        instanceB = 0b000000000000000000000000;
+                        
+                        REQUIRE((instanceA | instanceB) == 0b000000000000000000000000);
+                        REQUIRE((instanceB | instanceA) == 0b000000000000000000000000);
+                        
+                        instanceB = 0b100000000000000000000000;
+                        
+                        REQUIRE((instanceA | instanceB) == 0b100000000000000000000000);
+                        REQUIRE((instanceB | instanceA) == 0b100000000000000000000000);
+                        
+                        instanceA = 0b0000000000000001;
+                        
+                        REQUIRE((instanceA | instanceB) == 0b100000000000000000000001);
+                        REQUIRE((instanceB | instanceA) == 0b100000000000000000000001);
+                        
+                        instanceB = 0b111111111111111111111111;
+                        
+                        REQUIRE((instanceA | instanceB) == 0b111111111111111111111111);
+                        REQUIRE((instanceB | instanceA) == 0b111111111111111111111111);
+                        
+                        instanceA = 0b1000000000000000;
+                        
+                        REQUIRE((instanceA | instanceB) == 0b111111111111111111111111);
+                        REQUIRE((instanceB | instanceA) == 0b111111111111111111111111);
+                        
+                        instanceB = 0b100000001000000000000000;
+                        
+                        REQUIRE((instanceA | instanceB) == 0b100000001000000000000000);
+                        REQUIRE((instanceB | instanceA) == 0b100000001000000000000000);
+                        
+                        instanceA = 0b1111111111111111;
+                        
+                        REQUIRE((instanceA | instanceB) == 0b100000001111111111111111);
+                        REQUIRE((instanceB | instanceA) == 0b100000001111111111111111);
+                        
+                        instanceB = 0b101010101010101010101010;
+                        
+                        REQUIRE((instanceA | instanceB) == 0b101010101111111111111111);
+                        REQUIRE((instanceB | instanceA) == 0b101010101111111111111111);
+                    }
+                }
+            }
+            
             GIVEN("a VariableUnsignedInteger of size 3") {
                 VariableUnsignedInteger instance(3);
 
