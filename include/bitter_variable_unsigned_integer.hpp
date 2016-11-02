@@ -60,6 +60,8 @@ namespace bitter {
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     VariableUnsignedInteger operator>>(const VariableUnsignedInteger&, const T&);
+    
+    VariableUnsignedInteger operator~(const VariableUnsignedInteger&);
 
     class VariableUnsignedInteger {
     public:
@@ -208,7 +210,9 @@ namespace bitter {
 
         friend VariableUnsignedInteger operator<<(VariableUnsignedInteger, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator>>(VariableUnsignedInteger, VariableUnsignedInteger);
-        friend VariableUnsignedInteger operator~(VariableUnsignedInteger);
+        
+        template <template<typename> typename Operation>
+        friend VariableUnsignedInteger applyOperationToChunks(VariableUnsignedInteger);
 
     private:
         using chunk_t = uint8_t;
@@ -735,6 +739,19 @@ namespace bitter {
         return lhs >> variableRhs;
     }
 
+    // TODO:
+    // hide this somewhere outside the public interface
+    template <template<typename> typename Operation>
+    VariableUnsignedInteger applyOperationToChunks(VariableUnsignedInteger value) {
+        constexpr Operation<VariableUnsignedInteger::chunk_t> operation;
+        
+        for(size_t i = 0; i < value.m_data.size(); ++i) {
+            value.m_data[i] = operation(value.m_data[i]);
+        }
+        
+        return value;
+    }
+    
     VariableUnsignedInteger operator&(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return lhs;
     }
@@ -747,15 +764,8 @@ namespace bitter {
         return lhs;
     }
 
-    VariableUnsignedInteger operator~(VariableUnsignedInteger value) {
-        // TODO:
-        // add test for this
-
-        for(size_t i = 0; i < value.m_data.size(); ++i) {
-            value.m_data[i] = ~value.m_data[i];
-        }
-        
-        return value;
+    VariableUnsignedInteger operator~(const VariableUnsignedInteger& value) {
+        return applyOperationToChunks<std::bit_not>(value);
     }
 
     //////////////////////
