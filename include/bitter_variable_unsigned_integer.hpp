@@ -207,6 +207,7 @@ namespace bitter {
 
         friend VariableUnsignedInteger operator<<(VariableUnsignedInteger, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator>>(VariableUnsignedInteger, VariableUnsignedInteger);
+        friend VariableUnsignedInteger operator~(VariableUnsignedInteger);
 
     private:
         using chunk_t = uint8_t;
@@ -745,7 +746,14 @@ namespace bitter {
         return lhs;
     }
 
-    VariableUnsignedInteger operator~(const VariableUnsignedInteger& value) {
+    VariableUnsignedInteger operator~(VariableUnsignedInteger value) {
+        // TODO:
+        // add test for this
+
+        for(size_t i = 0; i < value.m_data.size(); ++i) {
+            value.m_data[i] = ~value.m_data[i];
+        }
+        
         return value;
     }
 

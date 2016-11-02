@@ -505,6 +505,24 @@ namespace bitter {
                 }
             }
 
+
+            GIVEN("a VariableUnsignedInteger of size 2") {
+                VariableUnsignedInteger instance(2);
+                
+                WHEN("operator~ is applied to it") {
+                    THEN("its value changes appropriately") {
+                        instance = 0b0000000000000000;
+                        REQUIRE(~instance == 0b1111111111111111);
+                        
+                        instance = 0b1111000011110000;
+                        REQUIRE(~instance == 0b0000111100001111);
+                        
+                        instance = 0b0011110011000011;
+                        REQUIRE(~instance == 0b1100001100111100);
+                    }
+                }
+            }
+            
             GIVEN("a VariableUnsignedInteger of size 3") {
                 VariableUnsignedInteger instance(3);
 
