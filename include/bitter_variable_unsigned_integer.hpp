@@ -760,7 +760,7 @@ namespace bitter {
     }
 
     VariableUnsignedInteger operator^(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        return lhs;
+        return applyBinaryOperationBetweenChunks<std::bit_xor>(lhs, rhs);
     }
 
     VariableUnsignedInteger operator|(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
