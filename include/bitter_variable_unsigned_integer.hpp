@@ -216,6 +216,12 @@ namespace bitter {
         
         template <template<typename> typename Operation>
         friend VariableUnsignedInteger applyBinaryOperationBetweenChunks(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
+        
+        /////////////////////////////
+        // stream operator friends //
+        /////////////////////////////
+        
+        friend std::ostream& operator<<(std::ostream&, VariableUnsignedInteger);
 
     private:
         using chunk_t = uint8_t;
@@ -782,7 +788,24 @@ namespace bitter {
     // stream operators //
     //////////////////////
 
-    std::ostream& operator<<(std::ostream& stream, const VariableUnsignedInteger& value) {
+    std::ostream& operator<<(std::ostream& stream, VariableUnsignedInteger value) {
+        VariableUnsignedInteger divisor(1);
+        divisor = 10;
+
+        std::vector<std::string> reversedResult;
+        
+        do {
+            const auto quotientAndRemainderResult = quotientAndRemainder(value, divisor);
+            
+            reversedResult.push_back(std::to_string(quotientAndRemainderResult.remainder.m_data[0]));
+            
+            value = quotientAndRemainderResult.quotient;
+        } while(value != 0);
+
+        for(auto reverseIter = reversedResult.crbegin(); reverseIter != reversedResult.crend(); ++reverseIter) {
+            stream << *reverseIter;
+        }
+        
         return stream;
     }
 

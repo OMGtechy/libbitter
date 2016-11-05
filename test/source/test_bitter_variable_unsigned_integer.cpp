@@ -872,6 +872,46 @@ namespace bitter {
                     }
                 }
             }
+            
+            GIVEN("a VariableUnsignedInteger of size 2") {
+                VariableUnsignedInteger instance(2);
+                
+                WHEN("stream operator<< is called") {
+                    THEN("the appropriate string is added to the stream") {
+                        std::stringstream ss;
+                        
+                        instance = 0;
+                        ss << instance;
+                        
+                        REQUIRE(ss.str() == "0");
+                        
+                        instance = 1;
+                        ss << instance;
+                        
+                        REQUIRE(ss.str() == "01");
+                        
+                        instance = 254;
+                        ss << instance;
+                        
+                        REQUIRE(ss.str() == "01254");
+                        
+                        instance = 255;
+                        ss << instance;
+                        
+                        REQUIRE(ss.str() == "01254255");
+                        
+                        instance = 256;
+                        ss << instance;
+                        
+                        REQUIRE(ss.str() == "01254255256");
+                        
+                        instance = 65535;
+                        ss << instance;
+                        
+                        REQUIRE(ss.str() == "0125425525665535");
+                    }
+                }
+            }
         }
     }
 }
