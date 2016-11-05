@@ -80,7 +80,11 @@ namespace bitter {
             // TODO:
             // This potentially changes the size of the integer.
             // What's the desired behaviour given different sizes?
+            const auto targetSize = std::max(rhs.m_data.size(), m_data.size());
+            
             m_data = rhs.m_data;
+            m_data.resize(targetSize, 0);
+            
             return *this;
         }
 
@@ -335,7 +339,9 @@ namespace bitter {
     }
 
     VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, VariableUnsignedInteger rhs) {
-        VariableUnsignedInteger result(std::max(lhs.m_data.size(), rhs.m_data.size()));
+        const auto maxBytes = std::max(lhs.m_data.size(), rhs.m_data.size());
+
+        VariableUnsignedInteger result(maxBytes);
         result = 0;
 
         if(lhs == 0 || rhs == 0) {
@@ -349,14 +355,14 @@ namespace bitter {
         std::vector<VariableUnsignedInteger> lhsResults;
         std::vector<VariableUnsignedInteger> rhsResults;
 
-        lhsResults.push_back(lhs);
-        rhsResults.push_back(rhs);
-
-        VariableUnsignedInteger lhsResult(lhs.m_data.size());
-        VariableUnsignedInteger rhsResult(rhs.m_data.size() + 1);
-
-        lhsResult = lhsResults.back();
-        rhsResult = rhsResults.back();
+        VariableUnsignedInteger lhsResult(maxBytes);
+        lhsResult = lhs;
+        
+        VariableUnsignedInteger rhsResult(maxBytes);
+        rhsResult = rhs;
+        
+        lhsResults.push_back(lhsResult);
+        rhsResults.push_back(rhsResult);
 
         while(lhsResults.back() != 1) {
             lhsResult = lhsResults.back() >> 1;
@@ -416,9 +422,8 @@ namespace bitter {
         quotient = 0;
 
         const auto bitsInValue = value.m_data.size() * (sizeof(decltype(value.m_data)::value_type) * 8);
-        const auto bitsInDivisor = divisor.m_data.size() * (sizeof(decltype(divisor.m_data)::value_type) * 8);
 
-        for(size_t i = bitsInDivisor; i > 0; --i) {
+        for(size_t i = bitsInValue; i > 0; --i) {
             const auto bitIndex = i - 1;
 
             remainder <<= 1;
@@ -426,9 +431,7 @@ namespace bitter {
             // TODO:
             // should be able to break out of the loop if this is false,
             // investigate and do so if possible, otherwise explain why
-            if(bitIndex < bitsInValue) {
-                setBit(remainder.m_data.data(), 0, getBit(value.m_data.data(), bitIndex));
-            }
+            setBit(remainder.m_data.data(), 0, getBit(value.m_data.data(), bitIndex));
 
             if(remainder >= divisor) {
                 remainder -= divisor;

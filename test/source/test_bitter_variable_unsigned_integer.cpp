@@ -2,6 +2,8 @@
 
 #include <bitter_variable_unsigned_integer.hpp>
 
+#include <array>
+
 namespace bitter {
     namespace test {
         SCENARIO("VariableUnsignedInteger can be used like an intrinsic unsigned int") {
@@ -426,7 +428,7 @@ namespace bitter {
 
                 WHEN("arithmetic operations are performed upon it") {
                     THEN("the resulting value changes appropriately") {
-                        constexpr uint32_t startingValues[] = {
+                        constexpr std::array<uint32_t, 10> startingValues32 = {
                             0, 1, 42,
                             255, 256,
                             65535, 65536,
@@ -434,7 +436,13 @@ namespace bitter {
                             4294967294
                         };
 
-                        constexpr uint32_t operands[] = {
+                        constexpr std::array<uint16_t, 11> operands16 = {
+                            0, 1, 2, 542, 76,                       // randomly chosen values
+                            254, 255, 256, 257,                     // around 1st byte boundary
+                            65534, 65535                            // around 2nd byte boundary
+                        };
+
+                        constexpr std::array<uint32_t, 20> operands32 = {
                             0, 1, 2, 542, 76, 99999,                // randomly chosen values
                             254, 255, 256, 257,                     // around 1st byte boundary
                             65534, 65535, 65536, 65537,             // around 2nd byte boundary
@@ -442,65 +450,81 @@ namespace bitter {
                             4294967294, 4294967295                  // around 4th byte boundary
                         };
 
-                        for(const auto startingValue : startingValues) {
-                            instance = startingValue;
+                        constexpr std::array<uint64_t, 20> operands64 = {
+                            0, 1, 2, 542, 76, 99999,                // randomly chosen values
+                            254, 255, 256, 257,                     // around 1st byte boundary
+                            65534, 65535, 65536, 65537,             // around 2nd byte boundary
+                            16777214, 16777215, 16777216, 16777217, // around 3rd byte boundary
+                            4294967294, 4294967295                  // around 4th byte boundary
+                        };
 
-                            for(const auto operand : operands) {
-                                //////////////
-                                // addition //
-                                //////////////
+                        // NOTE:
+                        // this function assumes no values >= 2^32 are used
+                        const auto testFunction = [&instance](const auto startingValues, const auto operands) {
+                            for(const auto startingValue : startingValues) {
+                                instance = startingValue;
 
-                                if(static_cast<uint64_t>(startingValue) + static_cast<uint64_t>(operand) <= std::numeric_limits<uint32_t>::max()) {
-                                    REQUIRE(instance + operand == startingValue + operand);
-                                    REQUIRE(operand + instance == operand + startingValue);
-                                }
+                                for(const auto operand : operands) {
+                                    //////////////
+                                    // addition //
+                                    //////////////
 
-                                ////////////////////
-                                // multiplication //
-                                ////////////////////
+                                    if(static_cast<uint64_t>(startingValue) + static_cast<uint64_t>(operand) <= std::numeric_limits<uint32_t>::max()) {
+                                        REQUIRE(instance + operand == startingValue + operand);
+                                        REQUIRE(operand + instance == operand + startingValue);
+                                    }
 
-                                if(static_cast<uint64_t>(startingValue) * static_cast<uint64_t>(operand) <= std::numeric_limits<uint32_t>::max()) {
-                                    REQUIRE(instance * operand == startingValue * operand);
-                                    REQUIRE(operand * instance == operand * startingValue);
-                                }
+                                    ////////////////////
+                                    // multiplication //
+                                    ////////////////////
 
-                                /////////////////
-                                // subtraction //
-                                /////////////////
+                                    if(static_cast<uint64_t>(startingValue) * static_cast<uint64_t>(operand) <= std::numeric_limits<uint32_t>::max()) {
+                                        REQUIRE(instance * operand == startingValue * operand);
+                                        REQUIRE(operand * instance == operand * startingValue);
+                                    }
 
-                                if(static_cast<int64_t>(startingValue) - static_cast<int64_t>(operand) >= 0) {
-                                    REQUIRE(instance - operand == startingValue - operand);
-                                }
+                                    /////////////////
+                                    // subtraction //
+                                    /////////////////
 
-                                if(static_cast<int64_t>(operand) - static_cast<int64_t>(startingValue) >= 0) {
-                                    REQUIRE(operand - instance == operand - startingValue);
-                                }
+                                    if(static_cast<int64_t>(startingValue) - static_cast<int64_t>(operand) >= 0) {
+                                        REQUIRE(instance - operand == startingValue - operand);
+                                    }
 
-                                //////////////
-                                // division //
-                                //////////////
+                                    if(static_cast<int64_t>(operand) - static_cast<int64_t>(startingValue) >= 0) {
+                                        REQUIRE(operand - instance == operand - startingValue);
+                                    }
 
-                                if(operand != 0) {
-                                    REQUIRE(instance / operand == startingValue / operand);
-                                }
+                                    //////////////
+                                    // division //
+                                    //////////////
 
-                                if(startingValue != 0) {
-                                    REQUIRE(operand / instance == operand / startingValue);
-                                }
+                                    if(operand != 0) {
+                                        REQUIRE(instance / operand == startingValue / operand);
+                                    }
 
-                                /////////////
-                                // modulus //
-                                /////////////
+                                    if(startingValue != 0) {
+                                        REQUIRE(operand / instance == operand / startingValue);
+                                    }
 
-                                if(operand != 0) {
-                                    REQUIRE(instance % operand == startingValue % operand);
-                                }
+                                    /////////////
+                                    // modulus //
+                                    /////////////
 
-                                if(startingValue != 0) {
-                                    REQUIRE(operand % instance == operand % startingValue);
+                                    if(operand != 0) {
+                                        REQUIRE(instance % operand == startingValue % operand);
+                                    }
+
+                                    if(startingValue != 0) {
+                                        REQUIRE(operand % instance == operand % startingValue);
+                                    }
                                 }
                             }
-                        }
+                        };
+
+                        testFunction(startingValues32, operands16);
+                        testFunction(startingValues32, operands32);
+                        testFunction(startingValues32, operands64);
                     }
                 }
             }
