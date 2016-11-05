@@ -81,10 +81,10 @@ namespace bitter {
             // This potentially changes the size of the integer.
             // What's the desired behaviour given different sizes?
             const auto targetSize = std::max(rhs.m_data.size(), m_data.size());
-            
+
             m_data = rhs.m_data;
             m_data.resize(targetSize, 0);
-            
+
             return *this;
         }
 
@@ -213,14 +213,14 @@ namespace bitter {
         friend VariableUnsignedInteger operator<<(VariableUnsignedInteger, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator>>(VariableUnsignedInteger, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator~(VariableUnsignedInteger);
-        
+
         template <template<typename> typename Operation>
         friend VariableUnsignedInteger applyBinaryOperationBetweenChunks(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
-        
+
         /////////////////////////////
         // stream operator friends //
         /////////////////////////////
-        
+
         friend std::ostream& operator<<(std::ostream&, VariableUnsignedInteger);
 
     private:
@@ -293,7 +293,7 @@ namespace bitter {
         for(size_t i = 0; i < maxBytes; ++i) {
             const carry_t lhsChunk = i < lhs.m_data.size() ? lhs.m_data[i] : 0;
             const carry_t rhsChunk = i < rhs.m_data.size() ? rhs.m_data[i] : 0;
-        
+
             carry_t chunkSub = lhsChunk - rhsChunk;
 
             size_t borrowByteIndex = i;
@@ -363,10 +363,10 @@ namespace bitter {
 
         VariableUnsignedInteger lhsResult(maxBytes);
         lhsResult = lhs;
-        
+
         VariableUnsignedInteger rhsResult(maxBytes);
         rhsResult = rhs;
-        
+
         lhsResults.push_back(lhsResult);
         rhsResults.push_back(rhsResult);
 
@@ -514,7 +514,7 @@ namespace bitter {
         return value;
     }
 
-    VariableUnsignedInteger operator-(const VariableUnsignedInteger& value) {       
+    VariableUnsignedInteger operator-(const VariableUnsignedInteger& value) {
         return ~value + 1U;
     }
 
@@ -750,20 +750,20 @@ namespace bitter {
     template <template<typename> typename Operation>
     VariableUnsignedInteger applyBinaryOperationBetweenChunks(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         constexpr Operation<VariableUnsignedInteger::chunk_t> operation;
-        
+
         VariableUnsignedInteger result(std::max(lhs.m_data.size(), rhs.m_data.size()));
         result = 0;
-        
+
         for(size_t i = 0; i < result.m_data.size(); ++i) {
             const auto lhsChunk = i < lhs.m_data.size() ? lhs.m_data[i] : 0;
             const auto rhsChunk = i < rhs.m_data.size() ? rhs.m_data[i] : 0;
-            
+
             result.m_data[i] = operation(lhsChunk, rhsChunk);
         }
-        
+
         return result;
     }
-    
+
     VariableUnsignedInteger operator&(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return applyBinaryOperationBetweenChunks<std::bit_and>(lhs, rhs);
     }
@@ -780,7 +780,7 @@ namespace bitter {
         for(size_t i = 0; i < value.m_data.size(); ++i) {
             value.m_data[i] = ~value.m_data[i];
         }
-        
+
         return value;
     }
 
@@ -793,19 +793,19 @@ namespace bitter {
         divisor = 10;
 
         std::vector<std::string> reversedResult;
-        
+
         do {
             const auto quotientAndRemainderResult = quotientAndRemainder(value, divisor);
-            
+
             reversedResult.push_back(std::to_string(quotientAndRemainderResult.remainder.m_data[0]));
-            
+
             value = quotientAndRemainderResult.quotient;
         } while(value != 0);
 
         for(auto reverseIter = reversedResult.crbegin(); reverseIter != reversedResult.crend(); ++reverseIter) {
             stream << *reverseIter;
         }
-        
+
         return stream;
     }
 

@@ -391,34 +391,34 @@ namespace bitter {
                     }
                 }
             }
-            
+
             GIVEN("two VariableUnsignedIntegers of different size") {
                 VariableUnsignedInteger instanceA(4);
                 VariableUnsignedInteger instanceB(2);
 
-                
+
                 WHEN("arithmetic operations are perfored between them") {
                     THEN("the resulting values are expected") {
                         instanceA = 288;
                         instanceB = 24;
-                        
+
                         REQUIRE(instanceA + instanceB == 312);
                         REQUIRE(instanceB + instanceA == 312);
-                        
+
                         REQUIRE(instanceA - instanceB == 264);
-                        
+
                         REQUIRE(instanceA * instanceB == 6912);
                         REQUIRE(instanceB * instanceA == 6912);
-                        
+
                         REQUIRE(instanceA / instanceB == 12);
                         REQUIRE(instanceB / instanceA == 0);
-                        
+
                         REQUIRE(instanceA % instanceB == 0);
                         REQUIRE(instanceB % instanceA == 24);
-                        
+
                         instanceB = 289;
-                        
-                        REQUIRE(instanceB - instanceA == 1); 
+
+                        REQUIRE(instanceB - instanceA == 1);
                     }
                 }
             }
@@ -528,7 +528,7 @@ namespace bitter {
                     }
                 }
             }
-            
+
             GIVEN("a VariableUnsignedInteger of size 8") {
                 VariableUnsignedInteger instance(8);
 
@@ -539,25 +539,25 @@ namespace bitter {
 
                         instance = 1U;
                         REQUIRE(-instance == 18446744073709551615U);
-                        
+
                         instance = 18446744073709551615U;
                         REQUIRE(-instance == 1U);
-                        
+
                         instance = 257U;
                         REQUIRE(-instance == 18446744073709551359U);
-                        
+
                         instance = 18446744073709551359U;
                         REQUIRE(-instance == 257U);
-                        
+
                         instance = 123456789U;
                         REQUIRE(-instance == 18446744073586094827U);
-                        
+
                         instance = 18446744073586094827U;
                         REQUIRE(-instance == 123456789U);
-                        
+
                         instance = 18443616647367798558U;
                         REQUIRE(-instance == 3127426341753058U);
-                        
+
                         instance = 3127426341753058U;
                         REQUIRE(-instance == 18443616647367798558U);
                     }
@@ -566,15 +566,15 @@ namespace bitter {
 
             GIVEN("a VariableUnsignedInteger of size 2") {
                 VariableUnsignedInteger instance(2);
-                
+
                 WHEN("operator~ is applied to it") {
                     THEN("its value changes appropriately") {
                         instance = 0b0000000000000000;
                         REQUIRE(~instance == 0b1111111111111111);
-                        
+
                         instance = 0b1111000011110000;
                         REQUIRE(~instance == 0b0000111100001111);
-                        
+
                         instance = 0b0011110011000011;
                         REQUIRE(~instance == 0b1100001100111100);
                     }
@@ -584,153 +584,153 @@ namespace bitter {
             GIVEN("a pair of VariableUnsignedIntegers of size 2 and 3") {
                 VariableUnsignedInteger instanceA(2);
                 VariableUnsignedInteger instanceB(3);
-                
+
                 WHEN("operator& is applied to it") {
                     THEN("its value changes appropriately") {
                         instanceA = 0b0000000000000000;
                         instanceB = 0b000000000000000000000000;
-                        
+
                         REQUIRE((instanceA & instanceB) == 0b000000000000000000000000);
                         REQUIRE((instanceB & instanceA) == 0b000000000000000000000000);
-                        
+
                         instanceB = 0b100000000000000000000000;
-                        
+
                         REQUIRE((instanceA & instanceB) == 0b000000000000000000000000);
                         REQUIRE((instanceB & instanceA) == 0b000000000000000000000000);
-                        
+
                         instanceA = 0b0000000000000001;
-                        
+
                         REQUIRE((instanceA & instanceB) == 0b000000000000000000000000);
                         REQUIRE((instanceB & instanceA) == 0b000000000000000000000000);
-                        
+
                         instanceB = 0b111111111111111111111111;
-                        
+
                         REQUIRE((instanceA & instanceB) == 0b000000000000000000000001);
                         REQUIRE((instanceB & instanceA) == 0b000000000000000000000001);
-                        
+
                         instanceA = 0b1000000000000000;
-                        
+
                         REQUIRE((instanceA & instanceB) == 0b000000001000000000000000);
                         REQUIRE((instanceB & instanceA) == 0b000000001000000000000000);
-                        
+
                         instanceB = 0b100000001000000000000000;
-                        
+
                         REQUIRE((instanceA & instanceB) == 0b000000001000000000000000);
                         REQUIRE((instanceB & instanceA) == 0b000000001000000000000000);
-                        
+
                         instanceA = 0b1111111111111111;
-                        
+
                         REQUIRE((instanceA & instanceB) == 0b000000001000000000000000);
                         REQUIRE((instanceB & instanceA) == 0b000000001000000000000000);
-                        
+
                         instanceB = 0b101010101010101010101010;
-                        
+
                         REQUIRE((instanceA & instanceB) == 0b000000001010101010101010);
                         REQUIRE((instanceB & instanceA) == 0b000000001010101010101010);
                     }
                 }
             }
-            
+
             GIVEN("a pair of VariableUnsignedIntegers of size 2 and 3") {
                 VariableUnsignedInteger instanceA(2);
                 VariableUnsignedInteger instanceB(3);
-                
+
                 WHEN("operator| is applied to it") {
                     THEN("its value changes appropriately") {
                         instanceA = 0b0000000000000000;
                         instanceB = 0b000000000000000000000000;
-                        
+
                         REQUIRE((instanceA | instanceB) == 0b000000000000000000000000);
                         REQUIRE((instanceB | instanceA) == 0b000000000000000000000000);
-                        
+
                         instanceB = 0b100000000000000000000000;
-                        
+
                         REQUIRE((instanceA | instanceB) == 0b100000000000000000000000);
                         REQUIRE((instanceB | instanceA) == 0b100000000000000000000000);
-                        
+
                         instanceA = 0b0000000000000001;
-                        
+
                         REQUIRE((instanceA | instanceB) == 0b100000000000000000000001);
                         REQUIRE((instanceB | instanceA) == 0b100000000000000000000001);
-                        
+
                         instanceB = 0b111111111111111111111111;
-                        
+
                         REQUIRE((instanceA | instanceB) == 0b111111111111111111111111);
                         REQUIRE((instanceB | instanceA) == 0b111111111111111111111111);
-                        
+
                         instanceA = 0b1000000000000000;
-                        
+
                         REQUIRE((instanceA | instanceB) == 0b111111111111111111111111);
                         REQUIRE((instanceB | instanceA) == 0b111111111111111111111111);
-                        
+
                         instanceB = 0b100000001000000000000000;
-                        
+
                         REQUIRE((instanceA | instanceB) == 0b100000001000000000000000);
                         REQUIRE((instanceB | instanceA) == 0b100000001000000000000000);
-                        
+
                         instanceA = 0b1111111111111111;
-                        
+
                         REQUIRE((instanceA | instanceB) == 0b100000001111111111111111);
                         REQUIRE((instanceB | instanceA) == 0b100000001111111111111111);
-                        
+
                         instanceB = 0b101010101010101010101010;
-                        
+
                         REQUIRE((instanceA | instanceB) == 0b101010101111111111111111);
                         REQUIRE((instanceB | instanceA) == 0b101010101111111111111111);
                     }
                 }
             }
-            
+
             GIVEN("a pair of VariableUnsignedIntegers of size 2 and 3") {
                 VariableUnsignedInteger instanceA(2);
                 VariableUnsignedInteger instanceB(3);
-                
+
                 WHEN("operator^ is applied to it") {
                     THEN("its value changes appropriately") {
                         instanceA = 0b0000000000000000;
                         instanceB = 0b000000000000000000000000;
-                        
+
                         REQUIRE((instanceA ^ instanceB) == 0b000000000000000000000000);
                         REQUIRE((instanceB ^ instanceA) == 0b000000000000000000000000);
-                        
+
                         instanceB = 0b100000000000000000000000;
-                        
+
                         REQUIRE((instanceA ^ instanceB) == 0b100000000000000000000000);
                         REQUIRE((instanceB ^ instanceA) == 0b100000000000000000000000);
-                        
+
                         instanceA = 0b0000000000000001;
-                        
+
                         REQUIRE((instanceA ^ instanceB) == 0b100000000000000000000001);
                         REQUIRE((instanceB ^ instanceA) == 0b100000000000000000000001);
-                        
+
                         instanceB = 0b111111111111111111111111;
-                        
+
                         REQUIRE((instanceA ^ instanceB) == 0b111111111111111111111110);
                         REQUIRE((instanceB ^ instanceA) == 0b111111111111111111111110);
-                        
+
                         instanceA = 0b1000000000000000;
-                        
+
                         REQUIRE((instanceA ^ instanceB) == 0b111111110111111111111111);
                         REQUIRE((instanceB ^ instanceA) == 0b111111110111111111111111);
-                        
+
                         instanceB = 0b100000001000000000000000;
-                        
+
                         REQUIRE((instanceA ^ instanceB) == 0b100000000000000000000000);
                         REQUIRE((instanceB ^ instanceA) == 0b100000000000000000000000);
-                        
+
                         instanceA = 0b1111111111111111;
 
                         REQUIRE((instanceA ^ instanceB) == 0b100000000111111111111111);
                         REQUIRE((instanceB ^ instanceA) == 0b100000000111111111111111);
-                        
+
                         instanceB = 0b101010101010101010101010;
-                        
+
                         REQUIRE((instanceA ^ instanceB) == 0b101010100101010101010101);
                         REQUIRE((instanceB ^ instanceA) == 0b101010100101010101010101);
                     }
                 }
             }
-            
+
             GIVEN("a VariableUnsignedInteger of size 3") {
                 VariableUnsignedInteger instance(3);
 
@@ -872,42 +872,42 @@ namespace bitter {
                     }
                 }
             }
-            
+
             GIVEN("a VariableUnsignedInteger of size 2") {
                 VariableUnsignedInteger instance(2);
-                
+
                 WHEN("stream operator<< is called") {
                     THEN("the appropriate string is added to the stream") {
                         std::stringstream ss;
-                        
+
                         instance = 0;
                         ss << instance;
-                        
+
                         REQUIRE(ss.str() == "0");
-                        
+
                         instance = 1;
                         ss << instance;
-                        
+
                         REQUIRE(ss.str() == "01");
-                        
+
                         instance = 254;
                         ss << instance;
-                        
+
                         REQUIRE(ss.str() == "01254");
-                        
+
                         instance = 255;
                         ss << instance;
-                        
+
                         REQUIRE(ss.str() == "01254255");
-                        
+
                         instance = 256;
                         ss << instance;
-                        
+
                         REQUIRE(ss.str() == "01254255256");
-                        
+
                         instance = 65535;
                         ss << instance;
-                        
+
                         REQUIRE(ss.str() == "0125425525665535");
                     }
                 }
