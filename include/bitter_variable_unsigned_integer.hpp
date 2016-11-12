@@ -816,6 +816,16 @@ namespace bitter {
     }
 
     std::istream& operator>>(std::istream& stream, VariableUnsignedInteger& value) {
+        value = 0;
+
+        for(char character = stream.get(); ! (stream.eof() || std::isspace(character)); character = stream.get()) {
+            value *= 10;
+
+            const char buffer[] = { character, '\0' };
+
+            value += atoi(&buffer[0]);
+        }
+
         return stream;
     }
 }

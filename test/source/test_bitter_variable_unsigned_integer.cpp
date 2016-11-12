@@ -948,6 +948,45 @@ namespace bitter {
                     }
                 }
             }
+
+            GIVEN("a VariableUnsignedInteger of size 2") {
+                VariableUnsignedInteger instance(2);
+
+                WHEN("steam operator>> is called") {
+                    THEN("the appropriate value is assigned") {
+                        std::stringstream ss;
+
+                        ss << 42;
+                        ss >> instance;
+
+                        REQUIRE(instance == 42);
+
+                        ss.clear();
+                        ss << 254;
+                        ss >> instance;
+
+                        REQUIRE(instance == 254);
+
+                        ss.clear();
+                        ss << 255;
+                        ss >> instance;
+
+                        REQUIRE(instance == 255);
+
+                        ss.clear();
+                        ss << 256;
+                        ss >> instance;
+
+                        REQUIRE(instance == 256);
+
+                        ss.clear();
+                        ss << 0;
+                        ss >> instance;
+
+                        REQUIRE(instance == 0);
+                    }
+                }
+            }
         }
     }
 }
