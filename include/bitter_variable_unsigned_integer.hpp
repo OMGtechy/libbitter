@@ -205,6 +205,8 @@ namespace bitter {
         friend VariableUnsignedInteger operator*(const VariableUnsignedInteger&, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
         friend DivisonResult quotientAndRemainder(const VariableUnsignedInteger& value, const VariableUnsignedInteger& divisor);
+        friend VariableUnsignedInteger operator++(VariableUnsignedInteger&, int);
+        friend VariableUnsignedInteger operator--(VariableUnsignedInteger&, int);
 
         //////////////////////////////
         // bitwise operator friends //
@@ -489,14 +491,16 @@ namespace bitter {
     }
 
     VariableUnsignedInteger& operator++(VariableUnsignedInteger& value) {
-        // TODO:
-        // add test for this
         value += 1;
         return value;
     }
 
     VariableUnsignedInteger operator++(VariableUnsignedInteger& value, int) {
-        return value;
+        VariableUnsignedInteger oldValue(value.m_data.size());
+        oldValue = value;
+
+        value += 1;
+        return oldValue;
     }
 
     VariableUnsignedInteger operator+(const VariableUnsignedInteger& value) {
@@ -504,14 +508,16 @@ namespace bitter {
     }
 
     VariableUnsignedInteger& operator--(VariableUnsignedInteger& value) {
-        // TODO:
-        // add test for this
         value -= 1;
         return value;
     }
 
     VariableUnsignedInteger operator--(VariableUnsignedInteger& value, int) {
-        return value;
+        VariableUnsignedInteger oldValue(value.m_data.size());
+        oldValue = value;
+
+        value -= 1;
+        return oldValue;
     }
 
     VariableUnsignedInteger operator-(const VariableUnsignedInteger& value) {

@@ -802,6 +802,42 @@ namespace bitter {
                 }
             }
 
+            GIVEN("a VariableUnsignedInteger of size 42") {
+                VariableUnsignedInteger instance(42);
+
+                WHEN("pre/post increment/decrement are applied to it") {
+                    THEN("its value changes accordingly") {
+                        instance = 0;
+
+                        REQUIRE(++instance == 1);
+                        REQUIRE(instance == 1);
+
+                        REQUIRE(instance++ == 1);
+                        REQUIRE(instance == 2);
+
+                        REQUIRE(--instance == 1);
+                        REQUIRE(instance == 1);
+
+                        REQUIRE(instance-- == 1);
+                        REQUIRE(instance == 0);
+
+                        instance = 254;
+
+                        REQUIRE(++instance == 255);
+                        REQUIRE(instance == 255);
+
+                        REQUIRE(instance++ == 255);
+                        REQUIRE(instance == 256);
+
+                        REQUIRE(--instance == 255);
+                        REQUIRE(instance == 255);
+
+                        REQUIRE(instance-- == 255);
+                        REQUIRE(instance == 254);
+                    }
+                }
+            }
+
             GIVEN("a VariableUnsignedInteger of size 3") {
                 VariableUnsignedInteger instance(3);
 
