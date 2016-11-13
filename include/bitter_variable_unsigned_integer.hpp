@@ -182,11 +182,11 @@ namespace bitter {
         ///////////////////////
 
         explicit operator bool() const {
-            return false;
+            return *this != 0;
         }
 
         bool operator!() const {
-            return false;
+            return *this == 0;
         }
 
         //////////////////////////////

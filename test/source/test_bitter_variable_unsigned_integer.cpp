@@ -1011,6 +1011,29 @@ namespace bitter {
                 // that's what this is supposed to check
                 static_assert(! std::is_reference<decltype(operator+(std::declval<VariableUnsignedInteger>()))>::value, "");
             }
+
+            GIVEN("a VariableUnsignedInteger of size 2") {
+                VariableUnsignedInteger instance(2);
+
+                WHEN("unary boolean operators are applied") {
+                    THEN("the returned boolean is correct") {
+                        instance = 0;
+
+                        REQUIRE(static_cast<bool>(instance) == false);
+                        REQUIRE((! instance) == true);
+
+                        instance = 1;
+
+                        REQUIRE(static_cast<bool>(instance) == true);
+                        REQUIRE((! instance) == false);
+
+                        instance = 256;
+
+                        REQUIRE(static_cast<bool>(instance) == true);
+                        REQUIRE((! instance) == false);
+                    }
+                }
+            }
         }
     }
 }
