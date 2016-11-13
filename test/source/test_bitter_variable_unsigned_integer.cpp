@@ -987,6 +987,30 @@ namespace bitter {
                     }
                 }
             }
+
+            GIVEN("a VariableUnsignedInteger of size 3") {
+                VariableUnsignedInteger instance(3);
+
+                WHEN("unary operator+ is called") {
+                    THEN("a instance of the same value is returned") {
+                        instance = 0;
+
+                        REQUIRE(+instance == 0);
+
+                        instance = 24;
+
+                        REQUIRE(+instance == 24);
+
+                        instance = 256;
+
+                        REQUIRE(+instance == 256);
+                    }
+                }
+
+                // unary operator+ is supposed to reutrn a copy, not a reference to the same value
+                // that's what this is supposed to check
+                static_assert(! std::is_reference<decltype(operator+(std::declval<VariableUnsignedInteger>()))>::value, "");
+            }
         }
     }
 }

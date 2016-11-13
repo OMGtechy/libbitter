@@ -503,7 +503,7 @@ namespace bitter {
         return oldValue;
     }
 
-    VariableUnsignedInteger operator+(const VariableUnsignedInteger& value) {
+    VariableUnsignedInteger operator+(VariableUnsignedInteger value) {
         return value;
     }
 
