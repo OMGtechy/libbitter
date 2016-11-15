@@ -2,15 +2,54 @@
 
 #include <bitter_bit.hpp>
 
+///
+/// INTERFACE
+///
+
+namespace bitter {
+    //!
+    //! \brief  Retrieves the state of a bit
+    //!
+    //! \tparam  T  the type the source pointer points to,
+    //!             should be inferred from that parameter,
+    //!             do not set this explicitly
+    //!
+    //! \param[in]  source     where to read from
+    //! \param[in]  bitNumber  which bit to retrieve (zero-indexed)
+    //!
+    //! \returns  #Bit::One if the bit is set,
+    //!           #Bit::Zero if it is not.
+    //!
+    //! \par Example
+    //! \code
+    //!     constexpr uint8_t data[] = { 0, 1 };
+    //!     const auto x = getBit(&data, 0); // returns Bit::Zero
+    //!     const auto y = getBit(&data, 8); // returns Bit::One
+    //! \endcode
+    //!
+    //! \warning  this function necessarily dereferences
+    //!           the \p source pointer, so make sure it
+    //!           points to valid memory!
+    //!
+    //! \see  #setBit
+    //! \see  #Bit
+    //!
+    template <typename T>
+    constexpr Bit getBit(const T* source, size_t bitNumber);
+}
+
+///
+/// IMPLEMENTATION
+///
+
 namespace bitter {
     template <typename T>
-    constexpr Bit getBit(const T* const uncastSource, size_t bitNumber) {
-        const char* const source = reinterpret_cast<const char* const>(uncastSource);
-        
+    constexpr Bit getBit(const T* const source, size_t bitNumber) {
+        const char* const castSource = reinterpret_cast<const char* const>(source);
+
         const size_t byteNumber = bitNumber / 8;
         bitNumber %= 8;
 
-        return (*(source + byteNumber) & (1 << bitNumber)) ? Bit::One : Bit::Zero;
+        return (*(castSource + byteNumber) & (1 << bitNumber)) ? Bit::One : Bit::Zero;
     }
 }
-
