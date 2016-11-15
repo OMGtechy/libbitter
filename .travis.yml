@@ -13,13 +13,10 @@ addons:
             - cmake-data
             - g++-5
             - gcc-5
-            - doxygen
 
 before_script:
-    - cd documentation
-    - [ $(doxygen Doxyfile 3>&1 1>&2 2>&3 | wc -l) == 0 ] || exit -1
     - export CXX="g++-5" COMPILER="g++-5" CC="gcc-5"
-    - cd ../test
+    - cd ./test
     - mkdir ./build
     - cd ./build
     - cmake ../
