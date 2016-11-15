@@ -19,7 +19,7 @@ before_script:
     - cd documentation
     - if [[ `doxygen Doxyfile 3>&1 1>&2 2>&3 | wc -l` -ne 0 ]]; then exit -1; fi;
     - export CXX="g++-5" COMPILER="g++-5" CC="gcc-5"
-    - cd ./test
+    - cd ../test
     - mkdir ./build
     - cd ./build
     - cmake ../
