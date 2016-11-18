@@ -11,7 +11,7 @@ namespace bitter {
     //! \brief  Retrieves the state of a bit
     //!
     //! \tparam  T  the type the source pointer points to,
-    //!             should be inferred from that parameter,
+    //!             should be inferred from the parameter,
     //!             do not set this explicitly
     //!
     //! \param[in]  source     where to read from
