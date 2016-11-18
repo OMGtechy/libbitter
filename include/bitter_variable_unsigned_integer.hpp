@@ -70,7 +70,7 @@ namespace bitter {
     //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, VariableUnsignedInteger rhs);
-    
+
     //!
     //! \brief  Divides one VariableUnsignedInteger by another, returning the quotient
     //!
@@ -89,7 +89,7 @@ namespace bitter {
     //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
-    
+
     //!
     //! \brief  Divides one VariableUnsignedInteger by another, returning the remainder
     //!
