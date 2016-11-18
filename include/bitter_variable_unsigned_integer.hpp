@@ -188,6 +188,17 @@ namespace bitter {
         bool operator!() const {
             return *this == 0;
         }
+        
+        /////////////////////
+        // other operators //
+        /////////////////////
+        
+        VariableUnsignedInteger maxValue() const {
+            VariableUnsignedInteger result(m_data.size());
+            std::fill(result.m_data.begin(), result.m_data.end(), std::numeric_limits<decltype(m_data)::value_type>::max());
+            
+            return result;
+        }
 
         //////////////////////////////
         // logical operator friends //

@@ -1034,6 +1034,17 @@ namespace bitter {
                     }
                 }
             }
+            
+            GIVEN("VariableUnsignedIntegers of various sizes") {
+                WHEN("their size is queried") {
+                    THEN("its size should be at least the passed in size") {
+                        REQUIRE(VariableUnsignedInteger(0).maxValue() >= 0);
+                        REQUIRE(VariableUnsignedInteger(1).maxValue() >= 255);
+                        REQUIRE(VariableUnsignedInteger(2).maxValue() >= 65535);
+                        REQUIRE(VariableUnsignedInteger(64).maxValue() >= 18446744073709551615UL);
+                    }
+                }
+            }
         }
     }
 }
