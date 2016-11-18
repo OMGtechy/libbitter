@@ -7,6 +7,113 @@
 #include <bitter_read.hpp>
 #include <bitter_write.hpp>
 
+///
+/// INTERFACE
+///
+
+namespace bitter {
+    class VariableUnsignedInteger;
+
+    //!
+    //! \brief  Adds two VariableUnsignedIntegers together
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the sum,
+    //!           whose maxValue() >= max(lhs.maxValue(), rhs.maxValue())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     VariableUnsignedInteger sum = x + y;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
+    //! \brief  Subtracts one VariableUnsignedInteger from another
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the difference,
+    //!           whose maxValue() >= max(lhs.maxValue(), rhs.maxValue())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     VariableUnsignedInteger difference = x - y;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger operator-(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs);
+
+    //!
+    //! \brief  Multiplies two VariableUnsignedIntegers together
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the product,
+    //!           whose maxValue() >= max(lhs.maxValue(), rhs.maxValue())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     VariableUnsignedInteger product = x * y;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, VariableUnsignedInteger rhs);
+    
+    //!
+    //! \brief  Divides one VariableUnsignedInteger by another, returning the quotient
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the quotient,
+    //!           whose maxValue() >= max(lhs.maxValue(), rhs.maxValue())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     VariableUnsignedInteger quotient = x / y;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    
+    //!
+    //! \brief  Divides one VariableUnsignedInteger by another, returning the remainder
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the remainder,
+    //!           whose maxValue() >= max(lhs.maxValue(), rhs.maxValue())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     VariableUnsignedInteger remainder = x % y;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+}
+
+///
+/// IMPLEMENTATION
+///
+
 namespace bitter {
     //////////////////////////
     // forward declarations //
@@ -19,11 +126,7 @@ namespace bitter {
     // arithmetic operator prototypes //
     ////////////////////////////////////
 
-    VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
-    VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
-    VariableUnsignedInteger operator*(const VariableUnsignedInteger&, VariableUnsignedInteger);
-    VariableUnsignedInteger operator/(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
-    VariableUnsignedInteger operator%(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
+
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
