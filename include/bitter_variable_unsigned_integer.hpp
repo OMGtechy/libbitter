@@ -396,9 +396,21 @@ namespace bitter {
     VariableUnsignedInteger operator+(const T& lhs, const VariableUnsignedInteger& rhs) {
         return rhs + lhs;
     }
+    
+    VariableUnsignedInteger operator-(const VariableUnsignedInteger& value) {
+        return ~value + 1U;
+    }
 
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator-(const VariableUnsignedInteger& lhs, const T& rhs);
+    
     VariableUnsignedInteger operator-(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs) {
         const size_t maxBytes = std::max(lhs.m_data.size(), rhs.m_data.size());
+        
+        if(rhs > lhs) {
+            return (std::max(lhs, rhs).maxValue() - (rhs - lhs)) + 1;
+        }
 
         // need to make sure the carry is at least
         // two bytes larger than the "chunk" type
@@ -415,11 +427,6 @@ namespace bitter {
             size_t borrowByteIndex = i;
             while(chunkSub < 0) {
                 ++borrowByteIndex;
-
-                if(borrowByteIndex >= maxBytes) {
-                    // TODO:
-                    // how to handle underflow?
-                }
 
                 if(lhs.m_data[borrowByteIndex] > 0) {
                     lhs.m_data[borrowByteIndex] -= 1;
@@ -632,10 +639,6 @@ namespace bitter {
 
         value -= 1;
         return oldValue;
-    }
-
-    VariableUnsignedInteger operator-(const VariableUnsignedInteger& value) {
-        return ~value + 1U;
     }
 
     ///////////////////////

@@ -563,6 +563,35 @@ namespace bitter {
                     }
                 }
             }
+            
+            GIVEN("a VariableUnsignedInteger of size 4") {
+                VariableUnsignedInteger instance(4);
+
+                WHEN("binary operator- is applied where the right operand is greater than the left VariableUnsignedInteger") {
+                    THEN("the result is correct") {
+                        instance = 0;
+
+                        REQUIRE(instance - 1 == 4294967295);
+                        REQUIRE(instance - 200 == 4294967096);
+                        REQUIRE(instance - 500 == 4294966796);
+                        REQUIRE(instance - 1000 == 4294966296);
+                        
+                        instance = 1;
+                        
+                        REQUIRE(instance - 11 == 4294967286);
+                        REQUIRE(instance - 200 == 4294967097);
+                        REQUIRE(instance - 500 == 4294966797);
+                        REQUIRE(instance - 1000 == 4294966297);
+                        
+                        instance = 300;
+                        
+                        REQUIRE(instance - 301 == 4294967295);
+                        REQUIRE(instance - 3200 == 4294964396);
+                        REQUIRE(instance - 500 == 4294967096);
+                        REQUIRE(instance - 1000 == 4294966596);
+                    }
+                }
+            }
 
             GIVEN("a VariableUnsignedInteger of size 2") {
                 VariableUnsignedInteger instance(2);
