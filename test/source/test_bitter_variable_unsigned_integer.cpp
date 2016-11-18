@@ -1034,7 +1034,7 @@ namespace bitter {
                     }
                 }
             }
-            
+
             GIVEN("VariableUnsignedIntegers of various sizes") {
                 WHEN("their size is queried") {
                     THEN("its size should be at least the passed in size") {
