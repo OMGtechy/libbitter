@@ -225,6 +225,48 @@ namespace bitter {
     VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
+    //! \brief  Divides a VariableUnsignedInteger by an unsigned primitive, returning the quotient
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the quotient,
+    //!           whose maxValue() >= max(lhs.maxValue(), std::numeric_limits<T>::max())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     VariableUnsignedInteger quotient = x / 180;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const T& rhs);
+
+    //!
+    //! \brief  Divides an unsigned primitive by a VariableUnsignedInteger, returning the quotient
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the quotient,
+    //!           whose maxValue() >= max(std::numeric_limits<T>::max(), rhs.maxValue())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     VariableUnsignedInteger quotient = 180 / x;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator/(const T& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
     //! \brief  Divides one VariableUnsignedInteger by another, returning the remainder
     //!
     //! \param[in]  lhs  the left operand
