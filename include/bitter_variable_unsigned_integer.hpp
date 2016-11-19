@@ -349,18 +349,11 @@ namespace bitter {
     // forward declarations //
     //////////////////////////
 
-    class VariableUnsignedInteger;
     struct DivisonResult;
 
     ////////////////////////////////////
     // arithmetic operator prototypes //
     ////////////////////////////////////
-
-
-
-    template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator%(const VariableUnsignedInteger&, const T&);
 
     VariableUnsignedInteger& operator++(VariableUnsignedInteger&);
     VariableUnsignedInteger& operator--(VariableUnsignedInteger&);
