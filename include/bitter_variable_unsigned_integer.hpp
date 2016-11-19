@@ -166,6 +166,8 @@ namespace bitter {
     //!
     //! \brief  Multiplies a VariableUnsignedIntegers and unsigned primitive together
     //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
     //! \param[in]  lhs  the left operand
     //! \param[in]  rhs  the right operand
     //!
@@ -186,6 +188,8 @@ namespace bitter {
 
     //!
     //! \brief  Multiplies an unsigned primitive and VariableUnsignedInteger together
+    //!
+    //! \tparam  T  the type of the unsigned primitive
     //!
     //! \param[in]  lhs  the left operand
     //! \param[in]  rhs  the right operand
@@ -227,6 +231,8 @@ namespace bitter {
     //!
     //! \brief  Divides a VariableUnsignedInteger by an unsigned primitive, returning the quotient
     //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
     //! \param[in]  lhs  the left operand
     //! \param[in]  rhs  the right operand
     //!
@@ -247,6 +253,8 @@ namespace bitter {
 
     //!
     //! \brief  Divides an unsigned primitive by a VariableUnsignedInteger, returning the quotient
+    //!
+    //! \tparam  T  the type of the unsigned primitive
     //!
     //! \param[in]  lhs  the left operand
     //! \param[in]  rhs  the right operand
