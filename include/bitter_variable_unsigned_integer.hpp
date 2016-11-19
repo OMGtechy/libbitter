@@ -34,6 +34,52 @@ namespace bitter {
     VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
+    //! \brief  Adds a VariableUnsignedInteger and unsigned primitive together
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the sum,
+    //!           whose maxValue() >= max(lhs.maxValue(), std::numeric_limits<T>::max())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     VariableUnsignedInteger sum = x + 42;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const T& rhs);
+
+    //!
+    //! \brief  Adds an unsigned primitive and VariableUnsignedInteger together
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the sum,
+    //!           whose maxValue() >= max(std::numeric_limits<T>::max(), rhs.maxValue())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     VariableUnsignedInteger sum = 42 + x;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator+(const T& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
     //! \brief  Subtracts one VariableUnsignedInteger from another
     //!
     //! \param[in]  lhs  the left operand
@@ -396,7 +442,7 @@ namespace bitter {
     VariableUnsignedInteger operator+(const T& lhs, const VariableUnsignedInteger& rhs) {
         return rhs + lhs;
     }
-    
+
     VariableUnsignedInteger operator-(const VariableUnsignedInteger& value) {
         return ~value + 1U;
     }
@@ -404,10 +450,10 @@ namespace bitter {
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     VariableUnsignedInteger operator-(const VariableUnsignedInteger& lhs, const T& rhs);
-    
+
     VariableUnsignedInteger operator-(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs) {
         const size_t maxBytes = std::max(lhs.m_data.size(), rhs.m_data.size());
-        
+
         if(rhs > lhs) {
             return (std::max(lhs, rhs).maxValue() - (rhs - lhs)) + 1;
         }
