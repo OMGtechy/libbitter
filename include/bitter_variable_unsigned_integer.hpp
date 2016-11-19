@@ -99,6 +99,52 @@ namespace bitter {
     VariableUnsignedInteger operator-(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs);
 
     //!
+    //! \brief  Subtracts an unsigned primitive from a VariableUnsignedInteger
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the difference,
+    //!           whose maxValue() >= max(lhs.maxValue(), std::numeric_limits<T>::max())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     VariableUnsignedInteger difference = x - 1024;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator-(const VariableUnsignedInteger& lhs, const T& rhs);
+
+    //!
+    //! \brief  Subtracts a VariableUnsignedInteger from an unsigned primitive
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the difference,
+    //!           whose maxValue() >= max(std::numeric_limits<T>::max(), rhs.maxValue())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     VariableUnsignedInteger difference = 1024 - x;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator-(const T& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
     //! \brief  Multiplies two VariableUnsignedIntegers together
     //!
     //! \param[in]  lhs  the left operand
