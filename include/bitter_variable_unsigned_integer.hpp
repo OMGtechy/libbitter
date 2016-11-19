@@ -292,6 +292,52 @@ namespace bitter {
     //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
+    //! \brief  Divides a VariableUnsignedInteger by an unsigned primitive, returning the remainder
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the remainder,
+    //!           whose maxValue() >= max(lhs.maxValue(), std::numeric_limits<T>::max())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     VariableUnsignedInteger remainder = x % 180;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const T& rhs);
+
+    //!
+    //! \brief  Divides an unsigned primitive by a VariableUnsignedInteger, returning the remainder
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the remainder,
+    //!           whose maxValue() >= max(std::numeric_limits<T>::max(), rhs.maxValue())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     VariableUnsignedInteger remainder = 180 % x;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator%(const T& lhs, const VariableUnsignedInteger& rhs);
 }
 
 ///
