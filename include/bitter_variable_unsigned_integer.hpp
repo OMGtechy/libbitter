@@ -164,6 +164,48 @@ namespace bitter {
     VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, VariableUnsignedInteger rhs);
 
     //!
+    //! \brief  Multiplies a VariableUnsignedIntegers and unsigned primitive together
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the product,
+    //!           whose maxValue() >= max(lhs.maxValue(), std::numeric_limits<T>::max())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     VariableUnsignedInteger product = x * 2;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, const T& rhs);
+
+    //!
+    //! \brief  Multiplies an unsigned primitive and VariableUnsignedInteger together
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger containing the product,
+    //!           whose maxValue() >= max(std::numeric_limits<T>::max(), rhs.maxValue())
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     VariableUnsignedInteger product = 2 * x;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger operator*(const T& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
     //! \brief  Divides one VariableUnsignedInteger by another, returning the quotient
     //!
     //! \param[in]  lhs  the left operand
