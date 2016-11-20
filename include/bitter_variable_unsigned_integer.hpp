@@ -357,6 +357,25 @@ namespace bitter {
     //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger& operator++(VariableUnsignedInteger& instance);
+
+    //!
+    //! \brief  Predecrements a VariableUnsignedInteger
+    //!
+    //! \param[in,out]  instance
+    //!
+    //! \returns  \p instance, decremented
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     x = 2;
+    //!     y = --x;
+    //!     // x == 1 && y == 1
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger& operator--(VariableUnsignedInteger& instance);
 }
 
 ///
@@ -369,12 +388,6 @@ namespace bitter {
     //////////////////////////
 
     struct DivisonResult;
-
-    ////////////////////////////////////
-    // arithmetic operator prototypes //
-    ////////////////////////////////////
-
-    VariableUnsignedInteger& operator--(VariableUnsignedInteger&);
 
     /////////////////////////////////
     // logical operator prototypes //
