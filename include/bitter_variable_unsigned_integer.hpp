@@ -359,6 +359,25 @@ namespace bitter {
     VariableUnsignedInteger& operator++(VariableUnsignedInteger& instance);
 
     //!
+    //! \brief  Postincrements a VariableUnsignedInteger
+    //!
+    //! \param[in,out]  instance
+    //!
+    //! \returns  \p instance, not incremented
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     x = 0;
+    //!     y = x++;
+    //!     // x == 1 && y == 0
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger operator++(VariableUnsignedInteger& instance, int);
+
+    //!
     //! \brief  Predecrements a VariableUnsignedInteger
     //!
     //! \param[in,out]  instance
@@ -376,6 +395,25 @@ namespace bitter {
     //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger& operator--(VariableUnsignedInteger& instance);
+
+    //!
+    //! \brief  Postdecrements a VariableUnsignedInteger
+    //!
+    //! \param[in,out]  instance
+    //!
+    //! \returns  \p instance, not decremented
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     x = 2;
+    //!     y = x--;
+    //!     // x == 1 && y == 2
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger operator--(VariableUnsignedInteger& instance, int);
 }
 
 ///
