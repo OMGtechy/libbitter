@@ -338,6 +338,25 @@ namespace bitter {
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     VariableUnsignedInteger operator%(const T& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
+    //! \brief  Preincrements a VariableUnsignedInteger
+    //!
+    //! \param[in,out]  instance
+    //!
+    //! \returns  \p instance, incremented
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     x = 0;
+    //!     y = ++x;
+    //!     // x == 1 && y == 1
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger& operator++(VariableUnsignedInteger& instance);
 }
 
 ///
@@ -355,7 +374,6 @@ namespace bitter {
     // arithmetic operator prototypes //
     ////////////////////////////////////
 
-    VariableUnsignedInteger& operator++(VariableUnsignedInteger&);
     VariableUnsignedInteger& operator--(VariableUnsignedInteger&);
 
     /////////////////////////////////
