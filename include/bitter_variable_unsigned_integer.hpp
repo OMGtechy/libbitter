@@ -342,7 +342,7 @@ namespace bitter {
     //!
     //! \brief  Preincrements a VariableUnsignedInteger
     //!
-    //! \param[in,out]  instance
+    //! \param[in,out]  instance  the instance to preincrement
     //!
     //! \returns  \p instance, incremented
     //!
@@ -361,7 +361,7 @@ namespace bitter {
     //!
     //! \brief  Postincrements a VariableUnsignedInteger
     //!
-    //! \param[in,out]  instance
+    //! \param[in,out]  instance  the instance to postincrement
     //!
     //! \returns  \p instance, not incremented
     //!
@@ -380,7 +380,7 @@ namespace bitter {
     //!
     //! \brief  Predecrements a VariableUnsignedInteger
     //!
-    //! \param[in,out]  instance
+    //! \param[in,out]  instance  the instance to predecrement
     //!
     //! \returns  \p instance, decremented
     //!
@@ -399,7 +399,7 @@ namespace bitter {
     //!
     //! \brief  Postdecrements a VariableUnsignedInteger
     //!
-    //! \param[in,out]  instance
+    //! \param[in,out]  instance  the instance to postdecrement
     //!
     //! \returns  \p instance, not decremented
     //!
