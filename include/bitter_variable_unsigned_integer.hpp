@@ -414,6 +414,26 @@ namespace bitter {
     //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger operator--(VariableUnsignedInteger& instance, int);
+
+    //!
+    //! \brief  Checks if one VariableUnsignedInteger is less than another
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  true if \p lhs is less than \p rhs, false otherwise
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     x = 1;
+    //!     y = 2;
+    //!     const bool xIsLessThanY = x < y;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 }
 
 ///
