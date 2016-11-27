@@ -436,6 +436,50 @@ namespace bitter {
     bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
+    //! \brief  Checks if a VariableUnsignedInteger is less than an unsigned primitive
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  true if \p lhs is less than \p rhs, false otherwise
+    //!
+    //! \par Example
+    //! \code
+    //!     // given an VariableUnsignedInteger called x
+    //!     const bool xIsLessThan42 = x < 42;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator<(const VariableUnsignedInteger& lhs, const T& rhs);
+
+    //!
+    //! \brief  Checks if an unsigned primitive is less than a VariableUnsignedInteger
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  true if \p lhs is less than \p rhs, false otherwise
+    //!
+    //! \par Example
+    //! \code
+    //!     // given an VariableUnsignedInteger called x
+    //!     const bool fourtyTwoIsLessThanX = 42 < x;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator<(const T& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
     //! \brief  Checks if one VariableUnsignedInteger is less than or equal to another
     //!
     //! \param[in]  lhs  the left operand
