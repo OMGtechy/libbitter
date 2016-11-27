@@ -426,8 +426,6 @@ namespace bitter {
     //! \par Example
     //! \code
     //!     // given two VariableUnsignedIntegers called x and y
-    //!     x = 1;
-    //!     y = 2;
     //!     const bool xIsLessThanY = x < y;
     //! \endcode
     //!
@@ -490,8 +488,6 @@ namespace bitter {
     //! \par Example
     //! \code
     //!     // given two VariableUnsignedIntegers called x and y
-    //!     x = 2;
-    //!     y = 2;
     //!     const bool xIsLessThanOrEqualToY = x <= y;
     //! \endcode
     //!
@@ -510,8 +506,6 @@ namespace bitter {
     //! \par Example
     //! \code
     //!     // given two VariableUnsignedIntegers called x and y
-    //!     x = 2;
-    //!     y = 2;
     //!     const bool xIsGreaterThanY = x > y;
     //! \endcode
     //!
@@ -530,8 +524,6 @@ namespace bitter {
     //! \par Example
     //! \code
     //!     // given two VariableUnsignedIntegers called x and y
-    //!     x = 2;
-    //!     y = 2;
     //!     const bool xIsGreaterThanOrEqualToY = x >= y;
     //! \endcode
     //!
