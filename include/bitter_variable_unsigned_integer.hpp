@@ -530,7 +530,7 @@ namespace bitter {
     //! \par Example
     //! \code
     //!     // given an VariableUnsignedInteger called x
-    //!     const bool fourtyTwoIsLessOrEqualToX = 42 <= x;
+    //!     const bool fourtyTwoIsLessThanOrEqualToX = 42 <= x;
     //! \endcode
     //!
     //! \relates  VariableUnsignedInteger
