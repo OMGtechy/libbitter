@@ -662,6 +662,68 @@ namespace bitter {
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     bool operator>=(const T& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
+    //! \brief  Checks if one VariableUnsignedInteger is equal to another
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  true if \p lhs is equal to \p rhs, false otherwise
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     const bool xIsEqualToY = x == y;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    bool operator==(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
+    //! \brief  Checks if a VariableUnsignedInteger is equal to an unsigned primitive
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  true if \p lhs is equal to \p rhs, false otherwise
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     const bool xIsEqualTo42 = x == 42;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator==(const VariableUnsignedInteger& lhs, const T& rhs);
+
+    //!
+    //! \brief  Checks if an unsigned primitive is equal to a VariableUnsignedInteger
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  true if \p lhs is equal to \p rhs, false otherwise
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     const bool fourtyTwoIsEqualToX = 42 == x;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator==(const T& lhs, const VariableUnsignedInteger& rhs);
 }
 
 ///
@@ -678,10 +740,6 @@ namespace bitter {
     /////////////////////////////////
     // logical operator prototypes //
     /////////////////////////////////
-
-    template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator==(const VariableUnsignedInteger&, const T&);
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
