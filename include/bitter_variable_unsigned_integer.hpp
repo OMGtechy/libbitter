@@ -679,9 +679,6 @@ namespace bitter {
     // logical operator prototypes //
     /////////////////////////////////
 
-    bool operator>(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
-    bool operator>=(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
-
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     bool operator==(const VariableUnsignedInteger&, const T&);
