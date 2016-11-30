@@ -445,7 +445,7 @@ namespace bitter {
     //!
     //! \par Example
     //! \code
-    //!     // given an VariableUnsignedInteger called x
+    //!     // given a VariableUnsignedInteger called x
     //!     const bool xIsLessThan42 = x < 42;
     //! \endcode
     //!
@@ -467,7 +467,7 @@ namespace bitter {
     //!
     //! \par Example
     //! \code
-    //!     // given an VariableUnsignedInteger called x
+    //!     // given a VariableUnsignedInteger called x
     //!     const bool fourtyTwoIsLessThanX = 42 < x;
     //! \endcode
     //!
@@ -507,7 +507,7 @@ namespace bitter {
     //!
     //! \par Example
     //! \code
-    //!     // given an VariableUnsignedInteger called x
+    //!     // given a VariableUnsignedInteger called x
     //!     const bool xIsLessThanOrEqualTo42 = x <= 42;
     //! \endcode
     //!
@@ -529,7 +529,7 @@ namespace bitter {
     //!
     //! \par Example
     //! \code
-    //!     // given an VariableUnsignedInteger called x
+    //!     // given a VariableUnsignedInteger called x
     //!     const bool fourtyTwoIsLessThanOrEqualToX = 42 <= x;
     //! \endcode
     //!
@@ -569,7 +569,7 @@ namespace bitter {
     //!
     //! \par Example
     //! \code
-    //!     // given an VariableUnsignedInteger called x
+    //!     // given a VariableUnsignedInteger called x
     //!     const bool xIsGreaterThan42 = x > 42;
     //! \endcode
     //!
@@ -591,7 +591,7 @@ namespace bitter {
     //!
     //! \par Example
     //! \code
-    //!     // given an VariableUnsignedInteger called x
+    //!     // given a VariableUnsignedInteger called x
     //!     const bool fourtyTwoIsGreaterThanX = 42 < x;
     //! \endcode
     //!
@@ -631,7 +631,7 @@ namespace bitter {
     //!
     //! \par Example
     //! \code
-    //!     // given an VariableUnsignedInteger called x
+    //!     // given a VariableUnsignedInteger called x
     //!     const bool xIsGreaterThanOrEqualTo42 = x >= 42;
     //! \endcode
     //!
@@ -653,7 +653,7 @@ namespace bitter {
     //!
     //! \par Example
     //! \code
-    //!     // given an VariableUnsignedInteger called x
+    //!     // given a VariableUnsignedInteger called x
     //!     const bool fourtyTwoIsGreaterThanOrEqualToX = 42 >= x;
     //! \endcode
     //!
