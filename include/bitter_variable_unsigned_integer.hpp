@@ -829,27 +829,6 @@ namespace bitter {
     VariableUnsignedInteger operator<<(const VariableUnsignedInteger& shiftee, const T& bitsToShiftBy);
 
     //!
-    //! \brief  Left-shifts an unsigned primitive by a VariableUnsignedInteger
-    //!
-    //! \param[in]  shiftee        the value to shift
-    //! \param[in]  bitsToShiftBy  the number of bits to shift by
-    //!
-    //! \returns  \p shiftee, left-shifted by \p bitsToShiftBy bits
-    //!
-    //! \par Example
-    //! \code
-    //!     // given a VariableUnsignedIntegers called x
-    //!     x = 2;
-    //!     const VariableUnsignedInteger shifted = 1 << x; // return value == 4
-    //! \endcode
-    //!
-    //! \relates VariableUnsignedInteger
-    //!
-    template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator<<(const T& shiftee, const VariableUnsignedInteger& bitsToShiftBy);
-
-    //!
     //! \brief  Right-shifts a VariableUnsignedInteger by another
     //!
     //! \param[in]  shiftee        the value to shift
@@ -889,27 +868,6 @@ namespace bitter {
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     VariableUnsignedInteger operator>>(const VariableUnsignedInteger& shiftee, const T& bitsToShiftBy);
-
-    //!
-    //! \brief  Right-shifts an unsigned primitive by a VariableUnsignedInteger
-    //!
-    //! \param[in]  shiftee        the value to shift
-    //! \param[in]  bitsToShiftBy  the number of bits to shift by
-    //!
-    //! \returns  \p shiftee, right-shifted by \p bitsToShiftBy bits
-    //!
-    //! \par Example
-    //! \code
-    //!     // given a VariableUnsignedIntegers called x
-    //!     x = 2;
-    //!     const VariableUnsignedInteger shifted = 4 >> x; // return value == 1
-    //! \endcode
-    //!
-    //! \relates VariableUnsignedInteger
-    //!
-    template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator>>(const T& shiftee, const VariableUnsignedInteger& bitsToShiftBy);
 }
 
 ///
