@@ -42,14 +42,13 @@ namespace bitter {
 /// IMPLEMENTATION
 ///
 
-namespace bitter {
-    template <typename T>
-    constexpr Bit getBit(const T* const source, size_t bitNumber) {
-        const char* const castSource = reinterpret_cast<const char* const>(source);
+template <typename T>
+constexpr bitter::Bit bitter::getBit(const T* const source, size_t bitNumber) {
+    const char* const castSource = reinterpret_cast<const char* const>(source);
 
-        const size_t byteNumber = bitNumber / 8;
-        bitNumber %= 8;
+    const size_t byteNumber = bitNumber / 8;
+    bitNumber %= 8;
 
-        return (*(castSource + byteNumber) & (1 << bitNumber)) ? Bit::One : Bit::Zero;
-    }
+    return (*(castSource + byteNumber) & (1 << bitNumber)) ? Bit::One : Bit::Zero;
 }
+
