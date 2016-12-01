@@ -724,6 +724,68 @@ namespace bitter {
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     bool operator==(const T& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
+    //! \brief  Checks if one VariableUnsignedInteger is not equal to another
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  true if \p lhs is not equal to \p rhs, false otherwise
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     const bool xIsNotEqualToY = x != y;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
+    //! \brief  Checks if a VariableUnsignedInteger is not equal to an unsigned primitive
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  true if \p lhs is not equal to \p rhs, false otherwise
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     const bool xIsNotEqualTo42 = x != 42;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator!=(const VariableUnsignedInteger& lhs, const T& rhs);
+
+    //!
+    //! \brief  Checks if an unsigned primitive is not equal to a VariableUnsignedInteger
+    //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  true if \p lhs is not equal to \p rhs, false otherwise
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x
+    //!     const bool fourtyTwoIsNotEqualToX = 42 != x;
+    //! \endcode
+    //!
+    //! \relates  VariableUnsignedInteger
+    //!
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    bool operator!=(const T& lhs, const VariableUnsignedInteger& rhs);
 }
 
 ///
@@ -736,14 +798,6 @@ namespace bitter {
     //////////////////////////
 
     struct DivisonResult;
-
-    /////////////////////////////////
-    // logical operator prototypes //
-    /////////////////////////////////
-
-    template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator!=(const VariableUnsignedInteger&, const T&);
 
     /////////////////////////////////
     // bitwise operator prototypes //
