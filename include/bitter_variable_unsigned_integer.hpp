@@ -804,7 +804,7 @@ namespace bitter {
     //!     const VariableUnsignedInteger shifted = x << y; // return value == 4
     //! \endcode
     //!
-    //! \relates VariableUnsignedInteger
+    //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger operator<<(VariableUnsignedInteger shiftee, VariableUnsignedInteger bitsToShiftBy);
 
@@ -823,7 +823,7 @@ namespace bitter {
     //!     const VariableUnsignedInteger shifted = x << 2; // return value == 4
     //! \endcode
     //!
-    //! \relates VariableUnsignedInteger
+    //! \relates  VariableUnsignedInteger
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
@@ -845,7 +845,7 @@ namespace bitter {
     //!     const VariableUnsignedInteger shifted = x >> y; // return value == 1
     //! \endcode
     //!
-    //! \relates VariableUnsignedInteger
+    //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger operator>>(VariableUnsignedInteger shiftee, VariableUnsignedInteger bitsToShiftBy);
 
@@ -864,7 +864,7 @@ namespace bitter {
     //!     const VariableUnsignedInteger shifted = x >> 2; // return value == 1
     //! \endcode
     //!
-    //! \relates VariableUnsignedInteger
+    //! \relates  VariableUnsignedInteger
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
@@ -886,7 +886,7 @@ namespace bitter {
     //!     const VariableUnsignedInteger commonBits = x & y; return value == 1
     //! \endcode
     //!
-    //! \relates VariableUnsignedInteger
+    //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger operator&(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
@@ -906,7 +906,7 @@ namespace bitter {
     //!     const VariableUnsignedInteger exclusiveBits = x ^ y; return value == 12
     //! \endcode
     //!
-    //! \relates VariableUnsignedInteger
+    //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger operator^(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
@@ -926,7 +926,7 @@ namespace bitter {
     //!     const VariableUnsignedInteger setBits = x | y; return value == 13
     //! \endcode
     //!
-    //! \relates VariableUnsignedInteger
+    //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger operator|(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
@@ -944,7 +944,7 @@ namespace bitter {
     //!     const VariableUnsignedInteger flippedBits = ~x; // return value == 255
     //! \endcode
     //!
-    //! \relates VariableUnsignedInteger
+    //! \relates  VariableUnsignedInteger
     //!
     VariableUnsignedInteger operator~(VariableUnsignedInteger value);
 
