@@ -870,6 +870,84 @@ namespace bitter {
               typename = std::enable_if<std::is_unsigned<T>::value>>
     VariableUnsignedInteger operator>>(const VariableUnsignedInteger& shiftee, const T& bitsToShiftBy);
 
+    //!
+    //! \brief  Applies bitwise AND between two VariableUnsignedIntegers
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger with all the common bits between \p lhs and \p rhs set
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     x = 5;
+    //!     y = 9;
+    //!     const VariableUnsignedInteger commonBits = x & y; return value == 1
+    //! \endcode
+    //!
+    //! \relates VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger operator&(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
+    //! \brief  Applies bitwise XOR between two VariableUnsignedIntegers
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger with the non-common bits between \p lhs and \p rhs set
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     x = 5;
+    //!     y = 9;
+    //!     const VariableUnsignedInteger exclusiveBits = x ^ y; return value == 12
+    //! \endcode
+    //!
+    //! \relates VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger operator^(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
+    //! \brief  Applies bitwise OR between two VariableUnsignedIntegers
+    //!
+    //! \param[in]  lhs  the left operand
+    //! \param[in]  rhs  the right operand
+    //!
+    //! \returns  a VariableUnsignedInteger with bits in either \p lhs or \p rhs set
+    //!
+    //! \par Example
+    //! \code
+    //!     // given two VariableUnsignedIntegers called x and y
+    //!     x = 5;
+    //!     y = 9;
+    //!     const VariableUnsignedInteger setBits = x | y; return value == 13
+    //! \endcode
+    //!
+    //! \relates VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger operator|(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+
+    //!
+    //! \brief  Applies bitwise NOT between to VariableUnsignedInteger
+    //!
+    //! \param[in]  value  the value to apply bitwise NOT to
+    //!
+    //! \returns  a VariableUnsignedInteger with all bits flipped
+    //!
+    //! \par Example
+    //! \code
+    //!     // given a VariableUnsignedInteger called x of size 1
+    //!     x = 0;
+    //!     const VariableUnsignedInteger flippedBits = ~x; // return value == 255
+    //! \endcode
+    //!
+    //! \relates VariableUnsignedInteger
+    //!
+    VariableUnsignedInteger operator~(VariableUnsignedInteger value);
+
     class VariableUnsignedInteger {
     public:
         explicit VariableUnsignedInteger(const size_t numberOfBytes);
