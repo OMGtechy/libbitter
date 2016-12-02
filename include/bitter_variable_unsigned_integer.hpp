@@ -13,6 +13,7 @@
 
 namespace bitter {
     class VariableUnsignedInteger;
+    struct DivisonResult;
 
     //!
     //! \brief  Adds two VariableUnsignedIntegers together
@@ -868,169 +869,61 @@ namespace bitter {
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
     VariableUnsignedInteger operator>>(const VariableUnsignedInteger& shiftee, const T& bitsToShiftBy);
-}
-
-///
-/// IMPLEMENTATION
-///
-
-namespace bitter {
-    //////////////////////////
-    // forward declarations //
-    //////////////////////////
-
-    struct DivisonResult;
 
     class VariableUnsignedInteger {
     public:
-        //////////////////
-        // constructors //
-        //////////////////
+        explicit VariableUnsignedInteger(const size_t numberOfBytes);
 
-        explicit VariableUnsignedInteger(const size_t numberOfBytes)
-        : m_data(numberOfBytes, 0) {
-
-        }
-
-        //////////////////////////
-        // assignment operators //
-        //////////////////////////
-
-        VariableUnsignedInteger& operator=(const VariableUnsignedInteger& rhs) {
-            // TODO:
-            // This potentially changes the size of the integer.
-            // What's the desired behaviour given different sizes?
-            const auto targetSize = std::max(rhs.m_data.size(), m_data.size());
-
-            m_data = rhs.m_data;
-            m_data.resize(targetSize, 0);
-
-            return *this;
-        }
+        VariableUnsignedInteger& operator=(const VariableUnsignedInteger& rhs);
 
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
-        VariableUnsignedInteger& operator=(T rhs) {
-            const auto maxBytes = std::min(sizeof(rhs), m_data.size());
-            std::fill(m_data.begin(), m_data.end(), 0);
+        VariableUnsignedInteger& operator=(T rhs);
 
-            for(size_t i = 0; i < maxBytes; ++i) {
-                m_data[i] = rhs & static_cast<uint8_t>(0xFF);
-                rhs >>= 8;
-            }
-
-            return *this;
-        }
-
-        VariableUnsignedInteger& operator+=(const VariableUnsignedInteger& rhs) {
-            return (*this = *this + rhs);
-        }
+        VariableUnsignedInteger& operator+=(const VariableUnsignedInteger& rhs);
 
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
-        VariableUnsignedInteger& operator+=(const T& rhs) {
-            VariableUnsignedInteger variableRhs(sizeof(rhs));
-            variableRhs = rhs;
-            return *this += variableRhs;
-        }
+        VariableUnsignedInteger& operator+=(const T& rhs);
 
-        VariableUnsignedInteger& operator-=(const VariableUnsignedInteger& rhs) {
-            return (*this = *this - rhs);
-        }
+        VariableUnsignedInteger& operator-=(const VariableUnsignedInteger& rhs);
 
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
-        VariableUnsignedInteger& operator-=(const T& rhs) {
-            VariableUnsignedInteger variableRhs(sizeof(rhs));
-            variableRhs = rhs;
-            return *this -= variableRhs;
-        }
+        VariableUnsignedInteger& operator-=(const T& rhs);
 
-        VariableUnsignedInteger& operator*=(const VariableUnsignedInteger& rhs) {
-            return (*this = *this * rhs);
-        }
+        VariableUnsignedInteger& operator*=(const VariableUnsignedInteger& rhs);
 
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
-        VariableUnsignedInteger& operator*=(const T& rhs) {
-            VariableUnsignedInteger variableRhs(sizeof(rhs));
-            variableRhs = rhs;
-            return *this *= variableRhs;
-        }
+        VariableUnsignedInteger& operator*=(const T& rhs);
 
-        VariableUnsignedInteger& operator/=(const VariableUnsignedInteger& rhs) {
-            return (*this = *this / rhs);
-        }
+        VariableUnsignedInteger& operator/=(const VariableUnsignedInteger& rhs);
 
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
-        VariableUnsignedInteger& operator/=(const T& rhs) {
-            VariableUnsignedInteger variableRhs(sizeof(rhs));
-            variableRhs = rhs;
-            return *this /= variableRhs;
-        }
+        VariableUnsignedInteger& operator/=(const T& rhs);
 
-        VariableUnsignedInteger& operator%=(const VariableUnsignedInteger& rhs) {
-            return (*this = *this % rhs);
-        }
+        VariableUnsignedInteger& operator%=(const VariableUnsignedInteger& rhs);
 
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
-        VariableUnsignedInteger& operator%=(const T& rhs) {
-            VariableUnsignedInteger variableRhs(sizeof(rhs));
-            variableRhs = rhs;
-            return *this %= variableRhs;
-        }
+        VariableUnsignedInteger& operator%=(const T& rhs);
 
-        VariableUnsignedInteger& operator<<=(const VariableUnsignedInteger& rhs) {
-            return (*this = *this << rhs);
-        }
+        VariableUnsignedInteger& operator<<=(const VariableUnsignedInteger& rhs);
 
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
-        VariableUnsignedInteger& operator<<=(const T& rhs) {
-            // TODO:
-            // add test for this
+        VariableUnsignedInteger& operator<<=(const T& rhs);
 
-            VariableUnsignedInteger variableRhs(sizeof(rhs));
-            variableRhs = rhs;
-            return *this <<= variableRhs;
-        }
+        explicit operator bool() const;
+        bool operator!() const;
 
-        ///////////////////////
-        // boolean operators //
-        ///////////////////////
-
-        explicit operator bool() const {
-            return *this != 0;
-        }
-
-        bool operator!() const {
-            return *this == 0;
-        }
-
-        /////////////////////
-        // other operators //
-        /////////////////////
-
-        VariableUnsignedInteger maxValue() const {
-            VariableUnsignedInteger result(m_data.size());
-            std::fill(result.m_data.begin(), result.m_data.end(), std::numeric_limits<decltype(m_data)::value_type>::max());
-
-            return result;
-        }
-
-        //////////////////////////////
-        // logical operator friends //
-        //////////////////////////////
+        VariableUnsignedInteger maxValue() const;
 
         friend bool operator==(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
         friend bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
         friend bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
-
-        /////////////////////////////////
-        // arithmetic operator friends //
-        /////////////////////////////////
 
         friend VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
         friend VariableUnsignedInteger operator*(const VariableUnsignedInteger&, VariableUnsignedInteger);
@@ -1039,10 +932,6 @@ namespace bitter {
         friend VariableUnsignedInteger operator++(VariableUnsignedInteger&, int);
         friend VariableUnsignedInteger operator--(VariableUnsignedInteger&, int);
 
-        //////////////////////////////
-        // bitwise operator friends //
-        //////////////////////////////
-
         friend VariableUnsignedInteger operator<<(VariableUnsignedInteger, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator>>(VariableUnsignedInteger, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator~(VariableUnsignedInteger);
@@ -1050,16 +939,151 @@ namespace bitter {
         template <template<typename> typename Operation>
         friend VariableUnsignedInteger applyBinaryOperationBetweenChunks(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
 
-        /////////////////////////////
-        // stream operator friends //
-        /////////////////////////////
-
         friend std::ostream& operator<<(std::ostream&, VariableUnsignedInteger);
 
     private:
         using chunk_t = uint8_t;
         std::vector<chunk_t> m_data;
     };
+}
+
+///
+/// IMPLEMENTATION
+///
+
+namespace bitter {
+    VariableUnsignedInteger::VariableUnsignedInteger(const size_t numberOfBytes)
+    : m_data(numberOfBytes, 0) {
+
+    }
+
+    //////////////////////////
+    // assignment operators //
+    //////////////////////////
+
+    VariableUnsignedInteger& VariableUnsignedInteger::operator=(const VariableUnsignedInteger& rhs) {
+        // TODO:
+        // This potentially changes the size of the integer.
+        // What's the desired behaviour given different sizes?
+        const auto targetSize = std::max(rhs.m_data.size(), m_data.size());
+
+        m_data = rhs.m_data;
+        m_data.resize(targetSize, 0);
+
+        return *this;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger& VariableUnsignedInteger::operator=(T rhs) {
+        const auto maxBytes = std::min(sizeof(rhs), m_data.size());
+        std::fill(m_data.begin(), m_data.end(), 0);
+
+        for(size_t i = 0; i < maxBytes; ++i) {
+            m_data[i] = rhs & static_cast<uint8_t>(0xFF);
+            rhs >>= 8;
+        }
+
+        return *this;
+    }
+
+    VariableUnsignedInteger& VariableUnsignedInteger::operator+=(const VariableUnsignedInteger& rhs) {
+        return (*this = *this + rhs);
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger& VariableUnsignedInteger::operator+=(const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return *this += variableRhs;
+    }
+
+    VariableUnsignedInteger& VariableUnsignedInteger::operator-=(const VariableUnsignedInteger& rhs) {
+        return (*this = *this - rhs);
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger& VariableUnsignedInteger::operator-=(const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return *this -= variableRhs;
+    }
+
+    VariableUnsignedInteger& VariableUnsignedInteger::operator*=(const VariableUnsignedInteger& rhs) {
+        return (*this = *this * rhs);
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger& VariableUnsignedInteger::operator*=(const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return *this *= variableRhs;
+    }
+
+    VariableUnsignedInteger& VariableUnsignedInteger::operator/=(const VariableUnsignedInteger& rhs) {
+        return (*this = *this / rhs);
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger& VariableUnsignedInteger::operator/=(const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return *this /= variableRhs;
+    }
+
+    VariableUnsignedInteger& VariableUnsignedInteger::operator%=(const VariableUnsignedInteger& rhs) {
+        return (*this = *this % rhs);
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger& VariableUnsignedInteger::operator%=(const T& rhs) {
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return *this %= variableRhs;
+    }
+
+    VariableUnsignedInteger& VariableUnsignedInteger::operator<<=(const VariableUnsignedInteger& rhs) {
+        return (*this = *this << rhs);
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    VariableUnsignedInteger& VariableUnsignedInteger::operator<<=(const T& rhs) {
+        // TODO:
+        // add test for this
+
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return *this <<= variableRhs;
+    }
+
+    ///////////////////////
+    // boolean operators //
+    ///////////////////////
+
+    VariableUnsignedInteger::operator bool() const {
+        return *this != 0;
+    }
+
+    bool VariableUnsignedInteger::operator!() const {
+        return *this == 0;
+    }
+
+    /////////////////////
+    // other operators //
+    /////////////////////
+
+    VariableUnsignedInteger VariableUnsignedInteger::maxValue() const {
+        VariableUnsignedInteger result(m_data.size());
+        std::fill(result.m_data.begin(), result.m_data.end(), std::numeric_limits<decltype(m_data)::value_type>::max());
+
+        return result;
+    }
 
     //////////////////////////
     // arithmetic operators //
