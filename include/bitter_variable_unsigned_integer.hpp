@@ -13,7 +13,7 @@
 
 namespace bitter {
     class VariableUnsignedInteger;
-    struct DivisonResult;
+    struct DivisionResult;
 
     //!
     //! \brief  Adds two VariableUnsignedIntegers together
@@ -928,7 +928,7 @@ namespace bitter {
         friend VariableUnsignedInteger operator+(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
         friend VariableUnsignedInteger operator*(const VariableUnsignedInteger&, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator-(VariableUnsignedInteger, const VariableUnsignedInteger&);
-        friend DivisonResult quotientAndRemainder(const VariableUnsignedInteger& value, const VariableUnsignedInteger& divisor);
+        friend DivisionResult quotientAndRemainder(const VariableUnsignedInteger& value, const VariableUnsignedInteger& divisor);
         friend VariableUnsignedInteger operator++(VariableUnsignedInteger&, int);
         friend VariableUnsignedInteger operator--(VariableUnsignedInteger&, int);
 
@@ -1270,12 +1270,12 @@ namespace bitter {
     // or
     // find a proper place for it
 
-    struct DivisonResult {
+    struct DivisionResult {
         VariableUnsignedInteger quotient;
         VariableUnsignedInteger remainder;
     };
 
-    DivisonResult quotientAndRemainder(const VariableUnsignedInteger& value, const VariableUnsignedInteger& divisor) {
+    DivisionResult quotientAndRemainder(const VariableUnsignedInteger& value, const VariableUnsignedInteger& divisor) {
         const auto maxBytes = std::max(value.m_data.size(), divisor.m_data.size());
 
         VariableUnsignedInteger remainder(maxBytes);
