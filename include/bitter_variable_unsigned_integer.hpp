@@ -939,9 +939,9 @@ namespace bitter {
     //!
     //! \par Example
     //! \code
-    //!     // given a VariableUnsignedInteger called x of size 1
+    //!     // given a VariableUnsignedInteger called x of size >= 1
     //!     x = 0;
-    //!     const VariableUnsignedInteger flippedBits = ~x; // return value == 255
+    //!     const VariableUnsignedInteger flippedBits = ~x; // return value >= 255
     //! \endcode
     //!
     //! \relates  VariableUnsignedInteger
@@ -950,7 +950,20 @@ namespace bitter {
 
     class VariableUnsignedInteger {
     public:
-        explicit VariableUnsignedInteger(const size_t numberOfBytes);
+        //!
+        //! \brief  Creates a VariableUnsignedInteger
+        //!
+        //! \param[in]  numberOfBytes  how many bytes should be allocated (minimum),
+        //!                            so that maxValue() >= pow(2, numberOfBytes * 8) - 1
+        //!
+        //! \returns  a VariableUnsignedInteger of at least the requested size
+        //!
+        //! \par Example
+        //! \code
+        //!     VariableUnsignedInteger example(42);
+        //! \endcode
+        //!
+        explicit VariableUnsignedInteger(size_t numberOfBytes);
 
         VariableUnsignedInteger& operator=(const VariableUnsignedInteger& rhs);
 
