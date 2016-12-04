@@ -965,6 +965,23 @@ namespace bitter {
         //!
         explicit VariableUnsignedInteger(size_t numberOfBytes);
 
+        //!
+        //! \brief  Copys onto VariableUnsignedInteger into another
+        //!
+        //! \param[in]  rhs  the VariableUnsignedInteger to copy
+        //!
+        //! \returns  the assigned-to instance
+        //!
+        //! \note  maxValue() may change as a result of this operation,
+        //!        but do not rely upon this as it is not guaranteed
+        //!
+        //! \par Example
+        //! \code
+        //!     // given two VariableUnsignedIntegers called x and y
+        //!     x = y
+        //!     // x == y is now true
+        //! \endcode
+        //!
         VariableUnsignedInteger& operator=(const VariableUnsignedInteger& rhs);
 
         template <typename T,
