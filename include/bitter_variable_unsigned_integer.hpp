@@ -828,6 +828,8 @@ namespace bitter {
     //!
     //! \brief  Left-shifts a VariableUnsignedInteger by an unsigned primitive
     //!
+    //! \tparam  T  the type of the unsigned primitive
+    //!
     //! \param[in]  shiftee        the value to shift
     //! \param[in]  bitsToShiftBy  the number of bits to shift by
     //!
@@ -868,6 +870,8 @@ namespace bitter {
 
     //!
     //! \brief  Right-shifts a VariableUnsignedInteger by an unsigned primitive
+    //!
+    //! \tparam  T  the type of the unsigned primitive
     //!
     //! \param[in]  shiftee        the value to shift
     //! \param[in]  bitsToShiftBy  the number of bits to shift by
