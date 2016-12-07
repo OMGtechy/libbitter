@@ -1001,6 +1001,25 @@ namespace bitter {
         //!
         VariableUnsignedInteger& operator=(const VariableUnsignedInteger& rhs);
 
+        //!
+        //! \brief  Assigns an unsigned value to a VariableUnsignedInteger
+        //!
+        //! \tparam  T  the type of the unsigned value
+        //!
+        //! \param[in]  rhs  the unsigned value
+        //!
+        //! \returns  the assigned-to instance
+        //!
+        //! \note  if the value is > maxValue,
+        //!        the behaviour is undefined
+        //!
+        //! \par Example
+        //! \code
+        //!     // given a VariableUnsignedInteger called x
+        //!     x = 42
+        //!     // x == 42 is now true
+        //! \endcode
+        //!
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
         VariableUnsignedInteger& operator=(T rhs);
