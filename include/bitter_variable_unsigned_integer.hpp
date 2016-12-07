@@ -987,9 +987,9 @@ namespace bitter {
         explicit VariableUnsignedInteger(size_t numberOfBytes);
 
         //!
-        //! \brief  Copys onto VariableUnsignedInteger into another
+        //! \brief  Assigns the value of one VariableUnsignedInteger to another
         //!
-        //! \param[in]  rhs  the VariableUnsignedInteger to copy
+        //! \param[in]  rhs  the value to assign
         //!
         //! \returns  the assigned-to instance
         //!
