@@ -1028,8 +1028,47 @@ namespace bitter {
                   typename = std::enable_if<std::is_unsigned<T>::value>>
         VariableUnsignedInteger& operator=(T rhs);
 
+        //!
+        //! \brief  Add-assigns the value of one VariableUnsignedInteger to another
+        //!
+        //! \param[in]  rhs  the value to add-assign
+        //!
+        //! \returns  the add-assigned-to instance
+        //!
+        //! \note  maxValue() may change as a result of this operation,
+        //!        but do not rely upon this as it is not guaranteed
+        //!
+        //! \par Example
+        //! \code
+        //!     // given two VariableUnsignedIntegers called x and y
+        //!     x = 1;
+        //!     y = 2;
+        //!     x += y;
+        //!     // x == 3 is now true
+        //! \endcode
+        //!
         VariableUnsignedInteger& operator+=(const VariableUnsignedInteger& rhs);
 
+        //!
+        //! \brief  Add-assigns an unsigned value to a VariableUnsignedInteger
+        //!
+        //! \tparam  T  the type of the unsigned value
+        //!
+        //! \param[in]  rhs  the unsigned value
+        //!
+        //! \returns  the add-assigned-to instance
+        //!
+        //! \note  if the new value is > maxValue(),
+        //!        the behaviour is undefined
+        //!
+        //! \par Example
+        //! \code
+        //!     // given a VariableUnsignedInteger called x
+        //!     x = 42;
+        //!     x += 2;
+        //!     // x == 44 is now true
+        //! \endcode
+        //!
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
         VariableUnsignedInteger& operator+=(const T& rhs);
