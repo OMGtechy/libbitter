@@ -999,7 +999,7 @@ namespace bitter {
         //! \par Example
         //! \code
         //!     // given two VariableUnsignedIntegers called x and y
-        //!     x = y
+        //!     x = y;
         //!     // x == y is now true
         //! \endcode
         //!
@@ -1014,13 +1014,13 @@ namespace bitter {
         //!
         //! \returns  the assigned-to instance
         //!
-        //! \note  if the value is > maxValue,
+        //! \note  if the value is > maxValue(),
         //!        the behaviour is undefined
         //!
         //! \par Example
         //! \code
         //!     // given a VariableUnsignedInteger called x
-        //!     x = 42
+        //!     x = 42;
         //!     // x == 42 is now true
         //! \endcode
         //!
