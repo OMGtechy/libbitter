@@ -1073,8 +1073,41 @@ namespace bitter {
                   typename = std::enable_if<std::is_unsigned<T>::value>>
         VariableUnsignedInteger& operator+=(const T& rhs);
 
+        //!
+        //! \brief  Subtract-assigns the value of one VariableUnsignedInteger from another
+        //!
+        //! \param[in]  rhs  the value to subtract-assign
+        //!
+        //! \returns  the subtract-assigned-to instance
+        //!
+        //! \par Example
+        //! \code
+        //!     // given two VariableUnsignedIntegers called x and y
+        //!     x = 2;
+        //!     y = 1;
+        //!     x -= y;
+        //!     // x == 1 is now true
+        //! \endcode
+        //!
         VariableUnsignedInteger& operator-=(const VariableUnsignedInteger& rhs);
 
+        //!
+        //! \brief  Subtract-assigns an unsigned value from a VariableUnsignedInteger
+        //!
+        //! \tparam  T  the type of the unsigned value
+        //!
+        //! \param[in]  rhs  the unsigned value
+        //!
+        //! \returns  the subtract-assigned-to instance
+        //!
+        //! \par Example
+        //! \code
+        //!     // given a VariableUnsignedInteger called x
+        //!     x = 42;
+        //!     x -= 2;
+        //!     // x == 40 is now true
+        //! \endcode
+        //!
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
         VariableUnsignedInteger& operator-=(const T& rhs);
