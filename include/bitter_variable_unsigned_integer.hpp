@@ -20,6 +20,7 @@
 #include <type_traits>
 #include <algorithm>
 #include <cstdint>
+#include <ostream>
 
 #include <bitter_read.hpp>
 #include <bitter_write.hpp>
