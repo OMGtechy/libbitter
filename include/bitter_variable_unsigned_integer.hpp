@@ -1441,10 +1441,6 @@ namespace bitter {
             return result;
         }
 
-        using carry_t = uint16_t;
-        static_assert(sizeof(carry_t) >= sizeof(decltype(lhs.m_data)::value_type) + 1, "");
-        carry_t carry;
-
         std::vector<VariableUnsignedInteger> lhsResults;
         std::vector<VariableUnsignedInteger> rhsResults;
 
@@ -1665,7 +1661,6 @@ namespace bitter {
     }
 
     bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        const size_t lowestNumberOfBytes = std::min(lhs.m_data.size(), rhs.m_data.size());
         const size_t highestNumberOfBytes = std::max(lhs.m_data.size(), rhs.m_data.size());
 
         for(size_t i = highestNumberOfBytes; i > 0; --i) {
