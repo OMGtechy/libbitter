@@ -17,10 +17,12 @@
 
 #pragma once
 
-#include <type_traits>
 #include <algorithm>
 #include <cstdint>
+#include <istream>
 #include <ostream>
+#include <type_traits>
+#include <vector>
 
 #include <bitter_read.hpp>
 #include <bitter_write.hpp>
