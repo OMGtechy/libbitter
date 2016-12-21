@@ -1334,7 +1334,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline T VariableUnsignedInteger::toPrimitive() const {
         // TODO:
         // this won't work for anything other than uint8_t
