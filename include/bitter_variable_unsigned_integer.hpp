@@ -1144,6 +1144,10 @@ namespace bitter {
 
         VariableUnsignedInteger maxValue() const;
 
+        template <typename T,
+                  typename = std::enable_if<std::is_unsigned<T>::value>>
+        T toPrimitive();
+
         friend bool operator==(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
         friend bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
         friend bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
@@ -1306,6 +1310,18 @@ namespace bitter {
         std::fill(result.m_data.begin(), result.m_data.end(), std::numeric_limits<decltype(m_data)::value_type>::max());
 
         return result;
+    }
+
+    template <typename T,
+              typename = std::enable_if<std::is_unsigned<T>::value>>
+    inline T VariableUnsignedInteger::toPrimitive() {
+        // TODO:
+        // this won't work for anything other than uint8_t
+        // implement test for other types then add support for them
+        // could use a reinterpret_cast on m_data.data(), but would
+        // also need to account for sizeof(T) > m_data.size()
+        static_assert(std::is_same<T, uint8_t>::value, "toPrimitive called with unsupported type");
+        return m_data[0];
     }
 
     //////////////////////////

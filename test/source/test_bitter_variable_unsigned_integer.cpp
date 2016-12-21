@@ -20,6 +20,7 @@
 #include <bitter_variable_unsigned_integer.hpp>
 
 #include <array>
+#include <type_traits>
 
 namespace bitter {
     namespace test {
@@ -1088,6 +1089,35 @@ namespace bitter {
                         REQUIRE(VariableUnsignedInteger(1).maxValue() >= 255);
                         REQUIRE(VariableUnsignedInteger(2).maxValue() >= 65535);
                         REQUIRE(VariableUnsignedInteger(64).maxValue() >= 18446744073709551615UL);
+                    }
+                }
+            }
+
+            GIVEN("VariableUnsignedIntegers of various sizes and values") {
+                WHEN("conversions to primitive types are requested") {
+                    THEN("the result has the correct value and type") {
+                        static_assert(
+                            std::is_same<
+                                decltype(
+                                    static_cast<VariableUnsignedInteger*>(nullptr)->toPrimitive<uint8_t>()),
+                                uint8_t>::value,
+                            "toPrimitive doesn't return the type it's given!"
+                        );
+
+                        VariableUnsignedInteger instanceSize1(1);
+                        instanceSize1 = 0;
+                        REQUIRE(instanceSize1.toPrimitive<uint8_t>() == 0);
+
+                        // TODO:
+                        // add tests for more primitive types
+                        // TODO:
+                        // add tests for more primitive sizes
+
+                        instanceSize1 = 1;
+                        REQUIRE(instanceSize1.toPrimitive<uint8_t>() == 1);
+
+                        instanceSize1 = 42;
+                        REQUIRE(instanceSize1.toPrimitive<uint8_t>() == 42);
                     }
                 }
             }
