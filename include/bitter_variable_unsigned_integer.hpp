@@ -52,7 +52,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Adds a VariableUnsignedInteger and unsigned primitive together
@@ -75,7 +75,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const T& rhs);
+    inline VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const T& rhs);
 
     //!
     //! \brief  Adds an unsigned primitive and VariableUnsignedInteger together
@@ -98,7 +98,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator+(const T& lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator+(const T& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Subtracts one VariableUnsignedInteger from another
@@ -117,7 +117,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator-(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator-(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Subtracts an unsigned primitive from a VariableUnsignedInteger
@@ -140,7 +140,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator-(const VariableUnsignedInteger& lhs, const T& rhs);
+    inline VariableUnsignedInteger operator-(const VariableUnsignedInteger& lhs, const T& rhs);
 
     //!
     //! \brief  Subtracts a VariableUnsignedInteger from an unsigned primitive
@@ -163,7 +163,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator-(const T& lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator-(const T& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Multiplies two VariableUnsignedIntegers together
@@ -182,7 +182,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, VariableUnsignedInteger rhs);
+    inline VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, VariableUnsignedInteger rhs);
 
     //!
     //! \brief  Multiplies a VariableUnsignedIntegers and unsigned primitive together
@@ -205,7 +205,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, const T& rhs);
+    inline VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, const T& rhs);
 
     //!
     //! \brief  Multiplies an unsigned primitive and VariableUnsignedInteger together
@@ -228,7 +228,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator*(const T& lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator*(const T& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Divides one VariableUnsignedInteger by another, returning the quotient
@@ -247,7 +247,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Divides a VariableUnsignedInteger by an unsigned primitive, returning the quotient
@@ -270,7 +270,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const T& rhs);
+    inline VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const T& rhs);
 
     //!
     //! \brief  Divides an unsigned primitive by a VariableUnsignedInteger, returning the quotient
@@ -293,7 +293,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator/(const T& lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator/(const T& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Divides one VariableUnsignedInteger by another, returning the remainder
@@ -312,7 +312,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Divides a VariableUnsignedInteger by an unsigned primitive, returning the remainder
@@ -335,7 +335,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const T& rhs);
+    inline VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const T& rhs);
 
     //!
     //! \brief  Divides an unsigned primitive by a VariableUnsignedInteger, returning the remainder
@@ -358,7 +358,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator%(const T& lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator%(const T& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Preincrements a VariableUnsignedInteger
@@ -377,7 +377,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger& operator++(VariableUnsignedInteger& instance);
+    inline VariableUnsignedInteger& operator++(VariableUnsignedInteger& instance);
 
     //!
     //! \brief  Postincrements a VariableUnsignedInteger
@@ -396,7 +396,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator++(VariableUnsignedInteger& instance, int);
+    inline VariableUnsignedInteger operator++(VariableUnsignedInteger& instance, int);
 
     //!
     //! \brief  Predecrements a VariableUnsignedInteger
@@ -415,7 +415,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger& operator--(VariableUnsignedInteger& instance);
+    inline VariableUnsignedInteger& operator--(VariableUnsignedInteger& instance);
 
     //!
     //! \brief  Postdecrements a VariableUnsignedInteger
@@ -434,7 +434,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator--(VariableUnsignedInteger& instance, int);
+    inline VariableUnsignedInteger operator--(VariableUnsignedInteger& instance, int);
 
     //!
     //! \brief  Checks if one VariableUnsignedInteger is less than another
@@ -452,7 +452,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Checks if a VariableUnsignedInteger is less than an unsigned primitive
@@ -474,7 +474,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator<(const VariableUnsignedInteger& lhs, const T& rhs);
+    inline bool operator<(const VariableUnsignedInteger& lhs, const T& rhs);
 
     //!
     //! \brief  Checks if an unsigned primitive is less than a VariableUnsignedInteger
@@ -496,7 +496,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator<(const T& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator<(const T& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Checks if one VariableUnsignedInteger is less than or equal to another
@@ -514,7 +514,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    bool operator<=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator<=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Checks if a VariableUnsignedInteger is less than or equal to an unsigned primitive
@@ -536,7 +536,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator<=(const VariableUnsignedInteger& lhs, const T& rhs);
+    inline bool operator<=(const VariableUnsignedInteger& lhs, const T& rhs);
 
     //!
     //! \brief  Checks if an unsigned primitive is less than or equal to a VariableUnsignedInteger
@@ -558,7 +558,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator<=(const T& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator<=(const T& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Checks if one VariableUnsignedInteger is greater than another
@@ -576,7 +576,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    bool operator>(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator>(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Checks if a VariableUnsignedInteger is greater than an unsigned primitive
@@ -598,7 +598,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator>(const VariableUnsignedInteger& lhs, const T& rhs);
+    inline bool operator>(const VariableUnsignedInteger& lhs, const T& rhs);
 
     //!
     //! \brief  Checks if an unsigned primitive is greater than a VariableUnsignedInteger
@@ -620,7 +620,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator>(const T& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator>(const T& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Checks if one VariableUnsignedInteger is greater than or equal to another
@@ -638,7 +638,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    bool operator>=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator>=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Checks if a VariableUnsignedInteger is greater than or equal to an unsigned primitive
@@ -660,7 +660,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator>=(const VariableUnsignedInteger& lhs, const T& rhs);
+    inline bool operator>=(const VariableUnsignedInteger& lhs, const T& rhs);
 
     //!
     //! \brief  Checks if an unsigned primitive is greater than or equal to a VariableUnsignedInteger
@@ -682,7 +682,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator>=(const T& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator>=(const T& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Checks if one VariableUnsignedInteger is equal to another
@@ -700,7 +700,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    bool operator==(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator==(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Checks if a VariableUnsignedInteger is equal to an unsigned primitive
@@ -722,7 +722,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator==(const VariableUnsignedInteger& lhs, const T& rhs);
+    inline bool operator==(const VariableUnsignedInteger& lhs, const T& rhs);
 
     //!
     //! \brief  Checks if an unsigned primitive is equal to a VariableUnsignedInteger
@@ -744,7 +744,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator==(const T& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator==(const T& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Checks if one VariableUnsignedInteger is not equal to another
@@ -762,7 +762,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Checks if a VariableUnsignedInteger is not equal to an unsigned primitive
@@ -784,7 +784,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator!=(const VariableUnsignedInteger& lhs, const T& rhs);
+    inline bool operator!=(const VariableUnsignedInteger& lhs, const T& rhs);
 
     //!
     //! \brief  Checks if an unsigned primitive is not equal to a VariableUnsignedInteger
@@ -806,7 +806,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator!=(const T& lhs, const VariableUnsignedInteger& rhs);
+    inline bool operator!=(const T& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Left-shifts a VariableUnsignedInteger by another
@@ -826,7 +826,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator<<(VariableUnsignedInteger shiftee, VariableUnsignedInteger bitsToShiftBy);
+    inline VariableUnsignedInteger operator<<(VariableUnsignedInteger shiftee, VariableUnsignedInteger bitsToShiftBy);
 
     //!
     //! \brief  Left-shifts a VariableUnsignedInteger by an unsigned primitive
@@ -849,7 +849,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator<<(const VariableUnsignedInteger& shiftee, const T& bitsToShiftBy);
+    inline VariableUnsignedInteger operator<<(const VariableUnsignedInteger& shiftee, const T& bitsToShiftBy);
 
     //!
     //! \brief  Right-shifts a VariableUnsignedInteger by another
@@ -869,7 +869,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator>>(VariableUnsignedInteger shiftee, VariableUnsignedInteger bitsToShiftBy);
+    inline VariableUnsignedInteger operator>>(VariableUnsignedInteger shiftee, VariableUnsignedInteger bitsToShiftBy);
 
     //!
     //! \brief  Right-shifts a VariableUnsignedInteger by an unsigned primitive
@@ -892,7 +892,7 @@ namespace bitter {
     //!
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator>>(const VariableUnsignedInteger& shiftee, const T& bitsToShiftBy);
+    inline VariableUnsignedInteger operator>>(const VariableUnsignedInteger& shiftee, const T& bitsToShiftBy);
 
     //!
     //! \brief  Applies bitwise AND between two VariableUnsignedIntegers
@@ -912,7 +912,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator&(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator&(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Applies bitwise XOR between two VariableUnsignedIntegers
@@ -932,7 +932,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator^(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator^(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Applies bitwise OR between two VariableUnsignedIntegers
@@ -952,7 +952,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator|(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
+    inline VariableUnsignedInteger operator|(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
 
     //!
     //! \brief  Applies bitwise NOT between to VariableUnsignedInteger
@@ -970,7 +970,7 @@ namespace bitter {
     //!
     //! \relates  VariableUnsignedInteger
     //!
-    VariableUnsignedInteger operator~(VariableUnsignedInteger value);
+    inline VariableUnsignedInteger operator~(VariableUnsignedInteger value);
 
     class VariableUnsignedInteger {
     public:
@@ -1312,7 +1312,7 @@ namespace bitter {
     // arithmetic operators //
     //////////////////////////
 
-    VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         // TODO:
         // Should the size increase if necessary?
         VariableUnsignedInteger result(std::max(lhs.m_data.size(), rhs.m_data.size()));
@@ -1349,7 +1349,7 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs + variableRhs;
@@ -1357,19 +1357,15 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator+(const T& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator+(const T& lhs, const VariableUnsignedInteger& rhs) {
         return rhs + lhs;
     }
 
-    VariableUnsignedInteger operator-(const VariableUnsignedInteger& value) {
+    inline VariableUnsignedInteger operator-(const VariableUnsignedInteger& value) {
         return ~value + 1U;
     }
 
-    template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator-(const VariableUnsignedInteger& lhs, const T& rhs);
-
-    VariableUnsignedInteger operator-(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator-(VariableUnsignedInteger lhs, const VariableUnsignedInteger& rhs) {
         const size_t maxBytes = std::max(lhs.m_data.size(), rhs.m_data.size());
 
         if(rhs > lhs) {
@@ -1417,7 +1413,7 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator-(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline VariableUnsignedInteger operator-(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs - variableRhs;
@@ -1425,13 +1421,13 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator-(const T& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator-(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
         return variableLhs - rhs;
     }
 
-    VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, VariableUnsignedInteger rhs) {
+    inline VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, VariableUnsignedInteger rhs) {
         const auto maxBytes = std::max(lhs.m_data.size(), rhs.m_data.size());
 
         VariableUnsignedInteger result(maxBytes);
@@ -1472,7 +1468,7 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs * variableRhs;
@@ -1480,7 +1476,7 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator*(const T& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator*(const T& lhs, const VariableUnsignedInteger& rhs) {
         return rhs * lhs;
     }
 
@@ -1494,7 +1490,7 @@ namespace bitter {
         VariableUnsignedInteger remainder;
     };
 
-    DivisionResult quotientAndRemainder(const VariableUnsignedInteger& value, const VariableUnsignedInteger& divisor) {
+    inline DivisionResult quotientAndRemainder(const VariableUnsignedInteger& value, const VariableUnsignedInteger& divisor) {
         const auto maxBytes = std::max(value.m_data.size(), divisor.m_data.size());
 
         VariableUnsignedInteger remainder(maxBytes);
@@ -1531,13 +1527,13 @@ namespace bitter {
         return { quotient, remainder };
     }
 
-    VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return quotientAndRemainder(lhs, rhs).quotient;
     }
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs / variableRhs;
@@ -1545,19 +1541,19 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator/(const T& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator/(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
         return variableLhs / rhs;
     }
 
-    VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return quotientAndRemainder(lhs, rhs).remainder;
     }
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs % variableRhs;
@@ -1565,18 +1561,18 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator%(const T& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator%(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
         return variableLhs % rhs;
     }
 
-    VariableUnsignedInteger& operator++(VariableUnsignedInteger& value) {
+    inline VariableUnsignedInteger& operator++(VariableUnsignedInteger& value) {
         value += 1;
         return value;
     }
 
-    VariableUnsignedInteger operator++(VariableUnsignedInteger& value, int) {
+    inline VariableUnsignedInteger operator++(VariableUnsignedInteger& value, int) {
         VariableUnsignedInteger oldValue(value.m_data.size());
         oldValue = value;
 
@@ -1584,16 +1580,16 @@ namespace bitter {
         return oldValue;
     }
 
-    VariableUnsignedInteger operator+(VariableUnsignedInteger value) {
+    inline VariableUnsignedInteger operator+(VariableUnsignedInteger value) {
         return value;
     }
 
-    VariableUnsignedInteger& operator--(VariableUnsignedInteger& value) {
+    inline VariableUnsignedInteger& operator--(VariableUnsignedInteger& value) {
         value -= 1;
         return value;
     }
 
-    VariableUnsignedInteger operator--(VariableUnsignedInteger& value, int) {
+    inline VariableUnsignedInteger operator--(VariableUnsignedInteger& value, int) {
         VariableUnsignedInteger oldValue(value.m_data.size());
         oldValue = value;
 
@@ -1605,7 +1601,7 @@ namespace bitter {
     // logical operators //
     ///////////////////////
 
-    bool operator==(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator==(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         const size_t lowestNumberOfBytes = std::min(lhs.m_data.size(), rhs.m_data.size());
 
         for(size_t i = 0; i < lowestNumberOfBytes; ++i) {
@@ -1630,7 +1626,7 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator==(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline bool operator==(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs == variableRhs;
@@ -1638,17 +1634,17 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator==(const T& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator==(const T& lhs, const VariableUnsignedInteger& rhs) {
         return rhs == lhs;
     }
 
-    bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return ! (lhs == rhs);
     }
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator!=(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline bool operator!=(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs != variableRhs;
@@ -1656,11 +1652,11 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator!=(const T& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator!=(const T& lhs, const VariableUnsignedInteger& rhs) {
         return rhs != lhs;
     }
 
-    bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator<(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         const size_t highestNumberOfBytes = std::max(lhs.m_data.size(), rhs.m_data.size());
 
         for(size_t i = highestNumberOfBytes; i > 0; --i) {
@@ -1686,7 +1682,7 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator<(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline bool operator<(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs < variableRhs;
@@ -1694,19 +1690,19 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator<(const T& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator<(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
         return variableLhs < rhs;
     }
 
-    bool operator>(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator>(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return (lhs != rhs) && (! (lhs < rhs));
     }
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator>(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline bool operator>(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs > variableRhs;
@@ -1714,19 +1710,19 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator>(const T& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator>(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
         return variableLhs > rhs;
     }
 
-    bool operator<=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator<=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return ! (lhs > rhs);
     }
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator<=(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline bool operator<=(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs <= variableRhs;
@@ -1734,19 +1730,19 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator<=(const T& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator<=(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
         return variableLhs <= rhs;
     }
 
-    bool operator>=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator>=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return ! (lhs < rhs);
     }
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator>=(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline bool operator>=(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs >= variableRhs;
@@ -1754,7 +1750,7 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    bool operator>=(const T& lhs, const VariableUnsignedInteger& rhs) {
+    inline bool operator>=(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
         return variableLhs >= rhs;
@@ -1764,7 +1760,7 @@ namespace bitter {
     // bitwise operators //
     ///////////////////////
 
-    VariableUnsignedInteger operator<<(VariableUnsignedInteger lhs, VariableUnsignedInteger rhs) {
+    inline VariableUnsignedInteger operator<<(VariableUnsignedInteger lhs, VariableUnsignedInteger rhs) {
         // TODO:
         // if the user was using an uint8_t (for example), and shift by > 7, it's UB
         // it might be nice to have an exception thrown in those circumstances
@@ -1791,13 +1787,13 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator<<(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline VariableUnsignedInteger operator<<(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs << variableRhs;
     }
 
-    VariableUnsignedInteger operator>>(VariableUnsignedInteger lhs, VariableUnsignedInteger rhs) {
+    inline VariableUnsignedInteger operator>>(VariableUnsignedInteger lhs, VariableUnsignedInteger rhs) {
         // TODO:
         // if the user was using an uint8_t (for example), and shift by > 7, it's UB
         // it might be nice to have an exception thrown in those circumstances
@@ -1823,14 +1819,14 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    VariableUnsignedInteger operator>>(const VariableUnsignedInteger& lhs, const T& rhs) {
+    inline VariableUnsignedInteger operator>>(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs >> variableRhs;
     }
 
     template <template<typename> typename Operation>
-    VariableUnsignedInteger applyBinaryOperationBetweenChunks(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger applyBinaryOperationBetweenChunks(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         constexpr Operation<VariableUnsignedInteger::chunk_t> operation;
 
         VariableUnsignedInteger result(std::max(lhs.m_data.size(), rhs.m_data.size()));
@@ -1846,19 +1842,19 @@ namespace bitter {
         return result;
     }
 
-    VariableUnsignedInteger operator&(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator&(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return applyBinaryOperationBetweenChunks<std::bit_and>(lhs, rhs);
     }
 
-    VariableUnsignedInteger operator^(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator^(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return applyBinaryOperationBetweenChunks<std::bit_xor>(lhs, rhs);
     }
 
-    VariableUnsignedInteger operator|(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
+    inline VariableUnsignedInteger operator|(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
         return applyBinaryOperationBetweenChunks<std::bit_or>(lhs, rhs);
     }
 
-    VariableUnsignedInteger operator~(VariableUnsignedInteger value) {
+    inline VariableUnsignedInteger operator~(VariableUnsignedInteger value) {
         for(size_t i = 0; i < value.m_data.size(); ++i) {
             value.m_data[i] = ~value.m_data[i];
         }
@@ -1870,7 +1866,7 @@ namespace bitter {
     // stream operators //
     //////////////////////
 
-    std::ostream& operator<<(std::ostream& stream, VariableUnsignedInteger value) {
+    inline std::ostream& operator<<(std::ostream& stream, VariableUnsignedInteger value) {
         VariableUnsignedInteger divisor(1);
         divisor = 10;
 
@@ -1891,7 +1887,7 @@ namespace bitter {
         return stream;
     }
 
-    std::istream& operator>>(std::istream& stream, VariableUnsignedInteger& value) {
+    inline std::istream& operator>>(std::istream& stream, VariableUnsignedInteger& value) {
         value = 0;
 
         for(char character = stream.get(); ! (stream.eof() || std::isspace(character)); character = stream.get()) {

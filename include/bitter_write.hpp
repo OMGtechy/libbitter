@@ -50,7 +50,7 @@ namespace bitter {
     //! \see  #Bit
     //!
     template <typename T>
-    constexpr void setBit(T* target, size_t bitNumber, Bit bitValue);
+    inline constexpr void setBit(T* target, size_t bitNumber, Bit bitValue);
 }
 
 ///
@@ -58,7 +58,7 @@ namespace bitter {
 ///
 
 template <typename T>
-constexpr void bitter::setBit(T* const target, size_t bitNumber, const bitter::Bit bitValue) {
+inline constexpr void bitter::setBit(T* const target, size_t bitNumber, const bitter::Bit bitValue) {
     char* const castTarget = reinterpret_cast<char* const>(target);
 
     const size_t byteNumber = bitNumber / 8;
