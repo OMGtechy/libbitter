@@ -1139,6 +1139,12 @@ namespace bitter {
                   typename = std::enable_if<std::is_unsigned<T>::value>>
         VariableUnsignedInteger& operator<<=(const T& rhs);
 
+        VariableUnsignedInteger& operator>>=(const VariableUnsignedInteger& rhs);
+
+        template <typename T,
+                  typename = std::enable_if<std::is_unsigned<T>::value>>
+        VariableUnsignedInteger& operator>>=(const T& rhs);
+
         explicit operator bool() const;
         bool operator!() const;
 
@@ -1287,6 +1293,21 @@ namespace bitter {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return *this <<= variableRhs;
+    }
+
+    inline VariableUnsignedInteger& VariableUnsignedInteger::operator>>=(const VariableUnsignedInteger& rhs) {
+        return (*this = *this >> rhs);
+    }
+
+    template <typename T,
+              typename>
+    inline VariableUnsignedInteger& VariableUnsignedInteger::operator>>=(const T& rhs) {
+        // TODO:
+        // add test for this
+
+        VariableUnsignedInteger variableRhs(sizeof(rhs));
+        variableRhs = rhs;
+        return *this >>= variableRhs;
     }
 
     ///////////////////////
