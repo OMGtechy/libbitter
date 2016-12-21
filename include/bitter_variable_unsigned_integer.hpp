@@ -1146,7 +1146,7 @@ namespace bitter {
 
         template <typename T,
                   typename = std::enable_if<std::is_unsigned<T>::value>>
-        T toPrimitive();
+        T toPrimitive() const;
 
         friend bool operator==(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
         friend bool operator!=(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs);
@@ -1314,7 +1314,7 @@ namespace bitter {
 
     template <typename T,
               typename = std::enable_if<std::is_unsigned<T>::value>>
-    inline T VariableUnsignedInteger::toPrimitive() {
+    inline T VariableUnsignedInteger::toPrimitive() const {
         // TODO:
         // this won't work for anything other than uint8_t
         // implement test for other types then add support for them
