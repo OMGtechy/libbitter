@@ -1101,23 +1101,54 @@ namespace bitter {
                                 decltype(
                                     static_cast<VariableUnsignedInteger*>(nullptr)->toPrimitive<uint8_t>()),
                                 uint8_t>::value,
-                            "toPrimitive doesn't return the type it's given!"
+                            "toPrimitive<uint8_t> doesn't return a uint8_t!"
                         );
 
-                        VariableUnsignedInteger instanceSize1(1);
-                        instanceSize1 = 0;
-                        REQUIRE(instanceSize1.toPrimitive<uint8_t>() == 0);
+                        static_assert(
+                            std::is_same<
+                                decltype(
+                                    static_cast<VariableUnsignedInteger*>(nullptr)->toPrimitive<uint32_t>()),
+                                uint32_t>::value,
+                            "toPrimitive<uint32_t> doesn't return a uint32_t!"
+                        );
 
-                        // TODO:
-                        // add tests for more primitive types
-                        // TODO:
-                        // add tests for more primitive sizes
+                        {
+                            VariableUnsignedInteger instanceSize1(1);
 
-                        instanceSize1 = 1;
-                        REQUIRE(instanceSize1.toPrimitive<uint8_t>() == 1);
+                            instanceSize1 = 0;
+                            REQUIRE(instanceSize1.toPrimitive<uint8_t>()  == 0);
+                            REQUIRE(instanceSize1.toPrimitive<uint32_t>() == 0);
 
-                        instanceSize1 = 42;
-                        REQUIRE(instanceSize1.toPrimitive<uint8_t>() == 42);
+                            instanceSize1 = 1;
+                            REQUIRE(instanceSize1.toPrimitive<uint8_t>()  == 1);
+                            REQUIRE(instanceSize1.toPrimitive<uint32_t>() == 1);
+
+                            instanceSize1 = 42;
+                            REQUIRE(instanceSize1.toPrimitive<uint8_t>()  == 42);
+                            REQUIRE(instanceSize1.toPrimitive<uint32_t>() == 42);
+                        }
+
+                        {
+                            VariableUnsignedInteger instanceSize2(2);
+
+                            instanceSize2 = 0;
+                            REQUIRE(instanceSize2.toPrimitive<uint8_t>()  == 0);
+                            REQUIRE(instanceSize2.toPrimitive<uint32_t>() == 0);
+
+                            instanceSize2 = 2;
+                            REQUIRE(instanceSize2.toPrimitive<uint8_t>()  == 2);
+                            REQUIRE(instanceSize2.toPrimitive<uint32_t>() == 2);
+
+                            instanceSize2 = 42;
+                            REQUIRE(instanceSize2.toPrimitive<uint8_t>()  == 42);
+                            REQUIRE(instanceSize2.toPrimitive<uint32_t>() == 42);
+
+                            instanceSize2 = 258;
+                            REQUIRE(instanceSize2.toPrimitive<uint32_t>() == 258);
+
+                            instanceSize2 = 65530;
+                            REQUIRE(instanceSize2.toPrimitive<uint32_t>() == 65530);
+                        }
                     }
                 }
             }

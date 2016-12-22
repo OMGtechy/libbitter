@@ -1336,13 +1336,13 @@ namespace bitter {
     template <typename T,
               typename>
     inline T VariableUnsignedInteger::toPrimitive() const {
-        // TODO:
-        // this won't work for anything other than uint8_t
-        // implement test for other types then add support for them
-        // could use a reinterpret_cast on m_data.data(), but would
-        // also need to account for sizeof(T) > m_data.size()
-        static_assert(std::is_same<T, uint8_t>::value, "toPrimitive called with unsupported type");
-        return m_data[0];
+        if(m_data.size() < sizeof(T)) {
+            VariableUnsignedInteger largerCopy(sizeof(T));
+            largerCopy = *this;
+            return largerCopy.toPrimitive<T>();
+        }
+
+        return *reinterpret_cast<const T*>(m_data.data());
     }
 
     //////////////////////////
