@@ -1169,7 +1169,7 @@ namespace bitter {
         friend VariableUnsignedInteger operator>>(VariableUnsignedInteger, VariableUnsignedInteger);
         friend VariableUnsignedInteger operator~(VariableUnsignedInteger);
 
-        template <template<typename> typename Operation>
+        template <template<typename> class Operation>
         friend VariableUnsignedInteger applyBinaryOperationBetweenChunks(const VariableUnsignedInteger&, const VariableUnsignedInteger&);
 
         friend std::ostream& operator<<(std::ostream&, VariableUnsignedInteger);
@@ -1385,7 +1385,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator+(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1393,7 +1393,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator+(const T& lhs, const VariableUnsignedInteger& rhs) {
         return rhs + lhs;
     }
@@ -1449,7 +1449,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator-(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1457,7 +1457,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator-(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
@@ -1504,7 +1504,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator*(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1512,7 +1512,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator*(const T& lhs, const VariableUnsignedInteger& rhs) {
         return rhs * lhs;
     }
@@ -1569,7 +1569,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator/(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1577,7 +1577,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator/(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
@@ -1589,7 +1589,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator%(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1597,7 +1597,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator%(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
@@ -1662,7 +1662,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator==(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1670,7 +1670,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator==(const T& lhs, const VariableUnsignedInteger& rhs) {
         return rhs == lhs;
     }
@@ -1680,7 +1680,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator!=(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1688,7 +1688,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator!=(const T& lhs, const VariableUnsignedInteger& rhs) {
         return rhs != lhs;
     }
@@ -1718,7 +1718,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator<(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1726,7 +1726,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator<(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
@@ -1738,7 +1738,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator>(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1746,7 +1746,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator>(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
@@ -1758,7 +1758,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator<=(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1766,7 +1766,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator<=(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
@@ -1778,7 +1778,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator>=(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1786,7 +1786,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline bool operator>=(const T& lhs, const VariableUnsignedInteger& rhs) {
         VariableUnsignedInteger variableLhs(sizeof(lhs));
         variableLhs = lhs;
@@ -1823,7 +1823,7 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator<<(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
@@ -1855,16 +1855,16 @@ namespace bitter {
     }
 
     template <typename T,
-              typename = std::enable_if<std::is_unsigned<T>::value>>
+              typename>
     inline VariableUnsignedInteger operator>>(const VariableUnsignedInteger& lhs, const T& rhs) {
         VariableUnsignedInteger variableRhs(sizeof(rhs));
         variableRhs = rhs;
         return lhs >> variableRhs;
     }
 
-    template <template<typename> typename Operation>
+    template <template<typename> class Operation>
     inline VariableUnsignedInteger applyBinaryOperationBetweenChunks(const VariableUnsignedInteger& lhs, const VariableUnsignedInteger& rhs) {
-        constexpr Operation<VariableUnsignedInteger::chunk_t> operation;
+        constexpr Operation<VariableUnsignedInteger::chunk_t> operation { };
 
         VariableUnsignedInteger result(std::max(lhs.m_data.size(), rhs.m_data.size()));
         result = 0;
