@@ -23,19 +23,22 @@ IF(NOT WIN32)
     )
 ENDIF()
 
-TARGET_COMPILE_FEATURES(
-    test_bitter
-    PRIVATE
-    cxx_relaxed_constexpr
-)
+IF(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    TARGET_COMPILE_FEATURES(
+        test_bitter
+        PRIVATE
+        cxx_relaxed_constexpr
+    )
 
-SET_PROPERTY(
-    TARGET test_bitter 
-    APPEND_STRING PROPERTY COMPILE_FLAGS
-    "-Wall -Werror"
-)
+    SET_PROPERTY(
+        TARGET test_bitter 
+        APPEND_STRING PROPERTY COMPILE_FLAGS
+        "-Wall -Werror"
+    )
+ENDIF()
 
 IF(NOT WIN32)
+
     SET_PROPERTY(
         TARGET test_bitter 
         APPEND_STRING PROPERTY COMPILE_FLAGS

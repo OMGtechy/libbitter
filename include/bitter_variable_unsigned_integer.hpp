@@ -23,6 +23,8 @@
 #include <ostream>
 #include <type_traits>
 #include <vector>
+#include <functional>
+#include <cctype>
 
 #include <bitter_read.hpp>
 #include <bitter_write.hpp>
