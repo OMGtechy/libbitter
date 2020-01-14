@@ -1530,7 +1530,7 @@ namespace bitter {
         }
 
         for(size_t i = 0; i < lhsResults.size(); ++i) {
-            if(lhsResults[i] % 2 != 0) {
+            if(lhsResults[i].m_data[0] % 2 != 0) {
                 result += rhsResults[i];
             }
         }
