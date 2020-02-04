@@ -25,6 +25,7 @@
 #include <vector>
 #include <functional>
 #include <cctype>
+#include <string>
 
 #include <bitter_read.hpp>
 #include <bitter_write.hpp>
