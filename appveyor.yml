@@ -17,5 +17,8 @@ before_build:
     - cd build
     - cmake ../
 
+test_script:
+    - $(APPVEYOR_BUILD_FOLDER)\test\build\$(CONFIGURATION)\test_bitter.exe
+
 build:
   project: $(APPVEYOR_BUILD_FOLDER)\test\build\test_bitter.sln
